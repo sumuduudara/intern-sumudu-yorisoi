@@ -331,3 +331,32 @@ Firebase AI Logicの設定エラーの原因を引き続き調査する。
 - https://pub.dev/packages/speech_to_text
 - https://pub.dev/packages/just_audio
 - https://firebase.google.com/docs/firestore/security/get-started
+
+## Gemini API 動作確認結果（2026年10月12日）
+
+### テスト環境
+
+- OS：macOS
+- API：Google Gemini API（REST API）
+- 使用モデル：gemini-3.8-flash
+- テスト方法：curlによるAPIリクエスト
+
+### 感情分析テスト
+
+- 入力文：最近、一人で寂しいです。
+- 期待結果：Lonely（寂しい）
+- 実際の結果：Lonely
+- HTTPステータス：200
+- 判定：成功（PASS）
+
+### 補足
+
+gemini-2.5-flashは新規ユーザー向けに利用できず、
+HTTP 404エラーが返されたため、
+gemini-3.8-flashに変更して動作確認を行った。
+
+今回のテストでは、日本語テキストから
+8種類の感情カテゴリのうち1つを返すことを確認した。
+
+※ FlutterアプリおよびFirebase AI Logicとの
+連携動作は別途検証が必要。
