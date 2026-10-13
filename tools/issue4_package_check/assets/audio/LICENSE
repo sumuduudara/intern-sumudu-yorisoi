@@ -1,0 +1,12 @@
+SPDX-License-Identifier: CC0-1.0
+
+The test-tone waveform and generated test.mp3 are original mathematical test
+fixtures created locally for Yorisoi Issue #4 on 2026-10-13. No recordings,
+third-party audio, speech, or music were used.
+
+To the extent copyright or related rights exist in this generated fixture,
+those rights are dedicated to the public domain under CC0 1.0 Universal:
+https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+This dedication covers the generated audio fixture only. The independently
+installed MP3 encoder has its own license and is not distributed in this repo.
