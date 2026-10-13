@@ -1,0 +1,23 @@
+name: yorisoi_flutter_setup_check
+description: Issue 3 Flutter environment and selected SDK compilation sample.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: ^3.13.4
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: 4.15.0
+  firebase_auth: 6.7.0
+  firebase_ai: 4.0.0
+  firebase_app_check: 0.4.8
+  speech_to_text: 7.5.0
+  cloud_firestore: 6.10.0
+  firebase_storage: 13.6.0
+  just_audio: 0.10.6
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 6.0.0
+flutter:
+  uses-material-design: true

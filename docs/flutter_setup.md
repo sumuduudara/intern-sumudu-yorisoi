@@ -643,3 +643,26 @@ Firebase projectへの実際の接続は未実施。
 Yorisoiアプリ全体の動作を保証するものではない。
 
 今後の実装Issueで段階的に検証する。
+
+
+## 15. レビュー可能なFlutterコード（Issue #3・2026年10月13日追加）
+
+ドキュメントに加えて、[`examples/flutter_setup_check`](../examples/flutter_setup_check/README.md)
+に最小の実行可能なFlutterサンプルを追加した。
+`lib/main.dart`で日本語テキスト入力と画面更新を確認し、`lib/packages.dart`で
+選定した8種類のSDKの型を参照してcompile対象にする。Firebase/API/マイク/音声再生の
+実通信は行わず、個人設定やcredentials、Billingは不要。
+
+pubspecとlockfileで検証用dependency versionsを固定し、fresh runner生成scriptを提供する。
+新しいMacでも作者の`/tmp/yorisoi_package_check`に依存せず実行できる。
+実行コマンド、platform条件、レビュー対象と検証範囲はサンプルREADMEに記載した。
+Issue #4のサービス検証コード・API採用方針ファイルはこのbranchに含めない。
+
+
+今回の追加sampleの検証結果（2026年10月13日）：
+
+- dependency解決成功、`flutter analyze`でNo issues found。
+- offline tests 3件PASS（8 SDK型参照、日本語入力保持、空入力案内）。
+- fresh runner生成成功、Web build成功（Cupertino icon font warningあり、sampleでは未使用）。
+- 今回はAndroid/iOS Simulatorを起動せず、新sampleのnative build/API動作は未検証。
+  第14節の過去のnative build記録とは区別する。
