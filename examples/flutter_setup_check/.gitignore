@@ -1,0 +1,11 @@
+.dart_tool/
+build/
+.flutter-plugins-dependencies
+__pycache__/
+.env
+.env.*
+*local*.json
+firebase_options.dart
+google-services.json
+GoogleService-Info.plist
+firebase-debug.log
