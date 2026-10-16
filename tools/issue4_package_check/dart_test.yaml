@@ -1,0 +1,2 @@
+# The known-failing browser asset harness is opt-in, never a default PASS.
+exclude_tags: experimental
