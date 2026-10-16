@@ -80,8 +80,8 @@ Web runnerは開発確認用で、MVPの正式対応platform追加を決定す�
 ## Existing verification projects (not the main app)
 
 PR #22/#23は2026年10月15日にdevelopへマージ済みです。
-このfoundation branchはマージ前のdevelopをベースにしているため、
-検証用projectの取り込みはまだ行っていません。
+2026年10月16日の準備で最新origin/developをこのfoundation branchへ通常mergeしました。
+検証用projectはexamples/とtools/にそのまま保持し、製品appはrootに置いています。
 
 | Purpose | Code / instructions | PR |
 | --- | --- | --- |
@@ -90,7 +90,7 @@ PR #22/#23は2026年10月15日にdevelopへマージ済みです。
 
 これらは検証専用projectです。main appとは異なるentrypoint/pubspecを持ち、
 各READMEの手順で実行します。PR #22/#23はdevelopにマージ済みです。
-このfoundationの作業では検証用projectの移動や統合は行っていません。
+検証用projectは移動・改変せず、製品appへのservice統合は行っていません。
 
 Issue #3のJapanese Material UI検証とSDK/platform条件、Issue #4のconfig分離方針は
 参照しました。固定promptを使う検証画面、test tone、native未検証のservice codeを
@@ -119,4 +119,33 @@ Issue #3のJapanese Material UI検証とSDK/platform条件、Issue #4のconfig�
 Android/iOSの今回のnative build・実機/Simulator動作は未検証。Emulatorは起動していません。
 以前のtest projectsのPASSをこのroot appのnative/service動作確認として流用しません。
 root analyzerは独立verification packagesの`examples/**` / `tools/**`を除外します。
-将来merge後も、それらは各packageのREADMEに従って別途解析・テストしてください。
+それらは各packageのREADMEに従って別途解析・テストしてください。
+
+
+## Registration implementation handoff (2026-10-16)
+
+Issue #5の作業branchは`feature/registration-screen-spec`、main appはrepository rootです。
+VS Codeはrepository rootを1つのfolderとして開いてください。`.vscode/launch.json`は
+rootの`lib/main.dart`を実行します。workspace設定はnested examples/toolsの自動project検出を
+抑えます。検証用projectを編集するときは、そのfolderを別windowで開いて各READMEに従ってください。
+別worktreeのmain.dartを同じwindowで開くとcontextの混乱につながるため、windowを分けてください。
+
+rootで`flutter pub get`を実行すると`.dart_tool/package_config.json`に`yorisoi`が解決されます。
+赤いimport表示が残る場合は、ファイルを保存してよいか確認した上でworkspace rootを確認し、
+Dart: Restart Analysis Serverを実行してください。今回の準備ではunsaved editor buffersを保存しません。
+
+将来の実装先（今回は作成・実装していません）：
+- Registration UI: `lib/presentation/screens/registration_screen.dart`
+- Firebase auth wrapper: `lib/services/auth/firebase_auth_service.dart`
+- UI tests: `test/presentation/registration_screen_test.dart`
+- Service tests: `test/services/auth/firebase_auth_service_test.dart`
+- Navigation/app wiring: `lib/app/yorisoi_app.dart`、Firebase起動設定は必要になった時の`lib/main.dart`
+
+現時点のshellにFirebase dependencies/configはありません。Authentication実装時に必要な
+依存関係とlocal configを別途準備し、credentialsをcommitしないでください。
+登録specは`docs/registration_screen_spec.md`のまま、本人が判断するまでuntrackedで保持します。
+
+FoundationのPRは`feature/yorisoi-app-foundation` → `develop`。
+Foundationが未mergeの間にIssue #5 PRを作るなら一時的にfoundation branchをbaseにすると、
+登録の差分だけレビューできます。Foundationがdevelopにmergeされた後にbaseをdevelopへ変更します。
+今回はpush、PR作成、developへのmergeは行いません。
