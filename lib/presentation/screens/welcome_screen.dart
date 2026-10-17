@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'registration_screen.dart';
+
 /// A static startup shell; product flows are developed in their own issues.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -32,6 +34,18 @@ class WelcomeScreen extends StatelessWidget {
                     'あなたのペースで、ひと息。',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegistrationScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('新規登録'),
                   ),
                 ],
               ),
