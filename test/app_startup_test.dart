@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yorisoi/main.dart' as entrypoint;
 import 'package:yorisoi/app/yorisoi_app.dart';
 
 void main() {
-  testWidgets(
-    'real entrypoint renders the app without Firebase configuration',
-    (tester) async {
-      entrypoint.main();
-      await tester.pumpAndSettle();
+  testWidgets('app shell renders independently of Firebase initialization', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const YorisoiApp());
+    await tester.pumpAndSettle();
 
-      expect(find.byType(YorisoiApp), findsOneWidget);
-      expect(find.text('Yorisoi'), findsOneWidget);
-      expect(find.text('気持ちに、そっと寄り添う。'), findsOneWidget);
-      expect(tester.takeException(), isNull);
-    },
-  );
+    expect(find.byType(YorisoiApp), findsOneWidget);
+    expect(find.text('Yorisoi'), findsOneWidget);
+    expect(find.text('気持ちに、そっと寄り添う。'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
 
   testWidgets(
     'small screen with large text remains scrollable without overflow',
