@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../services/auth/firebase_auth_service.dart';
 import 'home_screen.dart';
+import 'login_screen.dart';
 
 typedef RegistrationAction = Future<void> Function({
   required String email,
@@ -196,10 +197,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    // Login Link (Issue #6)
-                    const TextButton(
-                      onPressed: null,
-                      child: Text('すでにアカウントをお持ちの方はこちら'),
+                    // Replace this route to avoid stacking login/register loops.
+                    TextButton(
+                      onPressed: _isSubmitting
+                          ? null
+                          : () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                      child: const Text('すでにアカウントをお持ちの方はこちら'),
                     ),
                   ],
                 ),
