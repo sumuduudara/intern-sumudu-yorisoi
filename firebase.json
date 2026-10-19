@@ -1,0 +1,14 @@
+{
+    "flutter": {
+        "platforms": {
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "yorisoi-emotion-test",
+                    "configurations": {
+                        "web": "1:924716690745:web:3bd0d560ef68cc94f08ce8"
+                    }
+                }
+            }
+        }
+    }
+}
