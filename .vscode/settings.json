@@ -1,0 +1,4 @@
+{
+  "dart.projectSearchDepth": 1,
+  "dart.analysisExcludedFolders": ["examples", "tools"]
+}
