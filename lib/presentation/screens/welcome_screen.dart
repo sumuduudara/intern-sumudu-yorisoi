@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// A static startup shell; product flows are developed in their own issues.
+import 'registration_screen.dart';
+import 'login_screen.dart';
+
+/// Entry screen for users who do not have a restored session.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
@@ -32,6 +35,28 @@ class WelcomeScreen extends StatelessWidget {
                     'あなたのペースで、ひと息。',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegistrationScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('新規登録'),
+                  ),
+                  const SizedBox(height: 12),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                      );
+                    },
+                    child: const Text('ログイン'),
                   ),
                 ],
               ),
