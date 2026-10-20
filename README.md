@@ -149,3 +149,18 @@ FoundationのPRは`feature/yorisoi-app-foundation` → `develop`。
 Foundationが未mergeの間にIssue #5 PRを作るなら一時的にfoundation branchをbaseにすると、
 登録の差分だけレビューできます。Foundationがdevelopにmergeされた後にbaseをdevelopへ変更します。
 今回はpush、PR作成、developへのmergeは行いません。
+
+## Firebase setup (local development)
+
+1. Run `flutter pub get`.
+2. Sign in using the Firebase CLI.
+3. Select a Firebase project you have access to.
+4. Enable Authentication > Sign-in method > Email/Password.
+5. Generate the local Firebase configuration:
+
+   flutterfire configure --project=YOUR_PROJECT_ID --platforms=web
+
+6. Run `flutter run -d chrome`.
+
+`lib/firebase_options.dart` is generated locally and is not committed.
+The current development Firebase project is not the production project.
