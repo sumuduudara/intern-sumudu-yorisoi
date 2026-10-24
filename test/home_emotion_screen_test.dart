@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/presentation/screens/home_screen.dart';
 import 'package:yorisoi/presentation/widgets/home/analysis_loading_view.dart';
 
+import 'support/fake_voice_recognition.dart';
+
 const input = Key('feeling-input');
 const submit = Key('share-feeling');
 
@@ -96,7 +98,7 @@ void main() {
       expect(calls, ['今日は寂しいです。\n友達に会いたいです。']);
       expect(find.byType(AnalysisLoadingView), findsOneWidget);
       expect(find.byKey(submit), findsNothing);
-      expect(find.text('UIプレビュー：AI分析・音声入力は未接続です。'), findsOneWidget);
+      expect(find.text('UIプレビュー：AI分析・おすすめ画面は未接続です。'), findsOneWidget);
       expect(
         tester
             .widget<IconButton>(find.byKey(const Key('home-settings')))
@@ -206,12 +208,18 @@ void main() {
   }
 
   testWidgets(
-    'microphone and settings explain preview limits without SDK calls',
+    'unavailable microphone falls back; settings retains preview limits',
     (tester) async {
-      await openHome(tester, screen: const HomeScreen(previewOnly: true));
+      await openHome(
+        tester,
+        screen: HomeScreen(
+          previewOnly: true,
+          voiceRecognition: FakeVoiceRecognition()..ready = false,
+        ),
+      );
       await tester.tap(find.byKey(const Key('home-microphone')));
       await tester.pumpAndSettle();
-      expect(find.text('音声入力は準備中です。テキストで入力してください。'), findsOneWidget);
+      expect(find.text('音声入力を利用できません。文字で入力してください。'), findsOneWidget);
       await tester.tap(find.byKey(const Key('home-settings')));
       await tester.pumpAndSettle();
       expect(find.text('設定プレビュー'), findsOneWidget);

@@ -16,17 +16,23 @@ class FeelingInputView extends StatelessWidget {
     required this.onChanged,
     this.error,
     this.canRetry = false,
+    this.voiceHint = '声でも話せるよ · Or use your voice',
+    this.voiceListening = false,
+    this.voiceBusy = false,
   });
 
   final TextEditingController controller;
   final FocusNode focusNode;
   final String? displayName;
   final VoidCallback? onSubmit;
-  final VoidCallback onMicrophone;
+  final VoidCallback? onMicrophone;
   final VoidCallback? onSettings;
   final ValueChanged<String> onChanged;
   final String? error;
   final bool canRetry;
+  final String voiceHint;
+  final bool voiceListening;
+  final bool voiceBusy;
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +147,8 @@ class FeelingInputView extends StatelessWidget {
                     controller: controller,
                     focusNode: focusNode,
                     onChanged: onChanged,
-                    enabled: onSubmit != null,
+                    enabled: voiceBusy || onSubmit != null,
+                    readOnly: voiceBusy,
                     expands: true,
                     minLines: null,
                     maxLines: null,
@@ -172,12 +179,15 @@ class FeelingInputView extends StatelessWidget {
                     children: [
                       const SizedBox(width: 4),
                       Expanded(
-                        child: Text(
-                          '声でも話せるよ · Or use your voice',
-                          style: homeTextStyle(
-                            12,
-                            const Color(0xFF7A635C),
-                            height: 17 / 12,
+                        child: Semantics(
+                          liveRegion: true,
+                          child: Text(
+                            voiceHint,
+                            style: homeTextStyle(
+                              12,
+                              const Color(0xFF7A635C),
+                              height: 17 / 12,
+                            ),
                           ),
                         ),
                       ),
@@ -202,7 +212,7 @@ class FeelingInputView extends StatelessWidget {
                             Positioned.fill(
                               child: IconButton(
                                 key: const Key('home-microphone'),
-                                tooltip: '音声入力（準備中）',
+                                tooltip: voiceListening ? '音声入力を停止' : '音声入力を開始',
                                 onPressed: onMicrophone,
                                 icon: const SizedBox.shrink(),
                               ),

@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../../services/auth/firebase_auth_service.dart';
+import '../../services/voice/speech_to_text_service.dart';
+import '../controllers/voice_input_controller.dart';
 import 'welcome_screen.dart';
 import '../widgets/home/analysis_loading_view.dart';
 import '../widgets/home/feeling_input_view.dart';
@@ -14,11 +18,13 @@ class HomeScreen extends StatefulWidget {
     this.displayName,
     this.previewOnly = false,
     this.analysisPreviewAction,
+    this.voiceRecognition,
   });
 
   final Future<void> Function()? logoutAction;
   final String? displayName;
   final bool previewOnly;
+  final VoiceRecognition? voiceRecognition;
 
   /// A controllable local UI preview for widget tests; never an AI result.
   final Future<void> Function(String text)? analysisPreviewAction;
@@ -27,7 +33,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool _isSigningOut = false;
   final _feelingController = TextEditingController();
   final _feelingFocus = FocusNode();
@@ -35,6 +41,31 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _canRetry = false;
   String? _inputError;
   int _previewRequest = 0;
+  late final VoiceInputController _voice;
+
+  @override
+  void initState() {
+    super.initState();
+    _voice = VoiceInputController(
+      textController: _feelingController,
+      recognition: widget.voiceRecognition ?? SpeechToTextService.instance,
+    )..addListener(_voiceChanged);
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  void _voiceChanged() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // "inactive" can be the OS permission dialog, not a background recording.
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached) {
+      unawaited(_voice.cancel());
+    }
+  }
 
   String? get _displayName {
     if (widget.displayName != null) return widget.displayName;
@@ -45,6 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _previewRequest++;
+    WidgetsBinding.instance.removeObserver(this);
+    _voice.removeListener(_voiceChanged);
+    _voice.dispose();
     _feelingController.dispose();
     _feelingFocus.dispose();
     super.dispose();
@@ -56,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _submitFeeling() async {
-    if (_isPreviewLoading || _isSigningOut) return;
+    if (_isPreviewLoading || _isSigningOut || _voice.busy) return;
     final text = _feelingController.text.trim();
     if (text.isEmpty) {
       setState(() {
@@ -74,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _canRetry = false;
     });
     try {
-      // Local delay only. No Gemini, STT, Firestore, or recommendation request.
+      // Local analysis preview only. Never sends input to Gemini or Firestore.
       final action = widget.analysisPreviewAction;
       if (action == null) {
         await Future<void>.delayed(const Duration(seconds: 3));
@@ -109,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void _showSettings() {
+  Future<void> _showSettings() async {
+    await _voice.cancel();
+    if (!mounted) return;
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
@@ -168,44 +204,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          if (_isPreviewLoading)
-            AnalysisLoadingView(
-              message: _feelingController.text.trim(),
-              displayName: _displayName,
-              onCancel: _cancelPreview,
-            )
-          else
-            FeelingInputView(
-              controller: _feelingController,
-              focusNode: _feelingFocus,
-              displayName: _displayName,
-              onSubmit: _isSigningOut ? null : _submitFeeling,
-              onMicrophone: () => ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('音声入力は準備中です。テキストで入力してください。')),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) unawaited(_voice.cancel());
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            if (_isPreviewLoading)
+              AnalysisLoadingView(
+                message: _feelingController.text.trim(),
+                displayName: _displayName,
+                onCancel: _cancelPreview,
+              )
+            else
+              FeelingInputView(
+                controller: _feelingController,
+                focusNode: _feelingFocus,
+                displayName: _displayName,
+                onSubmit: _isSigningOut || _voice.busy ? null : _submitFeeling,
+                onMicrophone: _isSigningOut || !_voice.canTap
+                    ? null
+                    : () {
+                        _feelingFocus.unfocus();
+                        setState(() {
+                          _inputError = null;
+                          _canRetry = false;
+                        });
+                        unawaited(_voice.toggle());
+                      },
+                voiceHint: _voice.hint,
+                voiceListening: _voice.phase == VoiceInputPhase.listening,
+                voiceBusy: _voice.busy,
+                onSettings: _isSigningOut ? null : _showSettings,
+                onChanged: (_) {
+                  _voice.clearError();
+                  if (_inputError != null) {
+                    setState(() {
+                      _inputError = null;
+                      _canRetry = false;
+                    });
+                  }
+                },
+                error: _voice.error ?? _inputError,
+                canRetry: _canRetry,
               ),
-              onSettings: _isSigningOut ? null : _showSettings,
-              onChanged: (_) {
-                if (_inputError != null) {
-                  setState(() {
-                    _inputError = null;
-                    _canRetry = false;
-                  });
-                }
-              },
-              error: _inputError,
-              canRetry: _canRetry,
-            ),
-          if (_isSigningOut)
-            const Positioned.fill(
-              child: ColoredBox(
-                color: Color(0xCCFBF5EF),
-                child: Center(child: Text('ログアウト中...')),
+            if (_isSigningOut)
+              const Positioned.fill(
+                child: ColoredBox(
+                  color: Color(0xCCFBF5EF),
+                  child: Center(child: Text('ログアウト中...')),
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
