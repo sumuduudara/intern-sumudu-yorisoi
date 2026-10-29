@@ -5,6 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/presentation/screens/home_screen.dart';
 import 'package:yorisoi/presentation/screens/welcome_screen.dart';
 
+Future<void> tapLogout(WidgetTester tester) async {
+  await tester.tap(find.byKey(const Key('home-settings')));
+  await tester.pumpAndSettle();
+  await tester.tap(find.text('ログアウト'));
+}
+
 void main() {
   testWidgets('logout waits, prevents duplicate taps and clears old routes', (
     tester,
@@ -23,11 +29,13 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('ログアウト'));
+    await tapLogout(tester);
     await tester.pump();
     expect(find.text('ログアウト中...'), findsOneWidget);
     expect(
-      tester.widget<TextButton>(find.byType(TextButton)).onPressed,
+      tester
+          .widget<TextButton>(find.byKey(const Key('share-feeling')))
+          .onPressed,
       isNull,
     );
     expect(find.byType(HomeScreen), findsOneWidget);
@@ -57,11 +65,11 @@ void main() {
           ),
         ),
       );
-      await tester.tap(find.text('ログアウト'));
+      await tapLogout(tester);
       await tester.pumpAndSettle();
       expect(find.text('ログアウトできませんでした。もう一度お試しください。'), findsOneWidget);
       expect(find.byType(HomeScreen), findsOneWidget);
-      await tester.tap(find.text('ログアウト'));
+      await tapLogout(tester);
       await tester.pumpAndSettle();
       expect(find.byType(WelcomeScreen), findsOneWidget);
       expect(calls, 2);
@@ -76,7 +84,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(home: HomeScreen(logoutAction: () => pending.future)),
       );
-      await tester.tap(find.text('ログアウト'));
+      await tapLogout(tester);
       await tester.pump();
       await tester.pumpWidget(const MaterialApp(home: SizedBox()));
       if (failure) {
