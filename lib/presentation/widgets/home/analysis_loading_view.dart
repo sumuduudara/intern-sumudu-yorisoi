@@ -24,7 +24,7 @@ class AnalysisLoadingView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'UIプレビュー：AI分析・音声入力は未接続です。',
+            'UIプレビュー：AI分析・おすすめ画面は未接続です。',
             textAlign: TextAlign.center,
             style: homeTextStyle(12, const Color(0xFF6B5550)),
           ),

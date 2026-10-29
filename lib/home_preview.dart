@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'app/theme/app_theme.dart';
 import 'presentation/screens/home_screen.dart';
 
-/// Explicit visual preview entrypoint. Production still starts in main.dart
-/// and checks Firebase authentication. This preview does not initialize Firebase.
+/// Home preview and real microphone test without Firebase authentication.
+/// Analysis and recommendations remain previews. Production uses main.dart.
 void main() {
   runApp(
     MaterialApp(
