@@ -15,7 +15,9 @@ Future<void> openHome(WidgetTester tester, {HomeScreen? screen}) async {
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
-  await tester.pumpWidget(MaterialApp(home: screen ?? const HomeScreen()));
+  await tester.pumpWidget(
+    MaterialApp(home: screen ?? const HomeScreen(previewOnly: true)),
+  );
   await tester.pumpAndSettle();
 }
 
@@ -65,6 +67,7 @@ void main() {
       await openHome(
         tester,
         screen: HomeScreen(
+          previewOnly: true,
           analysisPreviewAction: (_) async {
             calls++;
           },
@@ -88,6 +91,7 @@ void main() {
       await openHome(
         tester,
         screen: HomeScreen(
+          previewOnly: true,
           analysisPreviewAction: (text) {
             calls.add(text);
             return pending.future;
@@ -136,6 +140,7 @@ void main() {
     await openHome(
       tester,
       screen: HomeScreen(
+        previewOnly: true,
         analysisPreviewAction: (_) async {
           calls++;
           if (calls == 1) throw StateError('private internal detail');
@@ -163,6 +168,7 @@ void main() {
       await openHome(
         tester,
         screen: HomeScreen(
+          previewOnly: true,
           analysisPreviewAction: (_) {
             final pending = Completer<void>();
             requests.add(pending);
@@ -192,7 +198,10 @@ void main() {
       final pending = Completer<void>();
       await openHome(
         tester,
-        screen: HomeScreen(analysisPreviewAction: (_) => pending.future),
+        screen: HomeScreen(
+          previewOnly: true,
+          analysisPreviewAction: (_) => pending.future,
+        ),
       );
       await share(tester, '寂しいです');
       await tester.pumpWidget(const MaterialApp(home: SizedBox()));
@@ -233,7 +242,10 @@ void main() {
   ) async {
     await openHome(
       tester,
-      screen: HomeScreen(analysisPreviewAction: (_) async {}),
+      screen: HomeScreen(
+        previewOnly: true,
+        analysisPreviewAction: (_) async {},
+      ),
     );
     tester.view.physicalSize = const Size(320, 480);
     await tester.pumpAndSettle();

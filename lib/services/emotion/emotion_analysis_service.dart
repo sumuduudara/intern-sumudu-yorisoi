@@ -6,6 +6,11 @@ abstract interface class EmotionTextModel {
   Future<String?> classify(String text);
 }
 
+/// The UI depends on this boundary so widget tests never need live AI calls.
+abstract interface class EmotionAnalyzer {
+  Future<EmotionAnalysisResult> analyze(String input);
+}
+
 enum EmotionAnalysisError {
   emptyInput,
   invalidResponse,
@@ -38,7 +43,7 @@ class EmotionAnalysisException implements Exception {
   String toString() => 'EmotionAnalysisException(${code.name})';
 }
 
-class EmotionAnalysisService {
+class EmotionAnalysisService implements EmotionAnalyzer {
   EmotionAnalysisService({
     required this.model,
     this.timeout = const Duration(seconds: 30),
@@ -51,6 +56,7 @@ class EmotionAnalysisService {
   final EmotionTextModel model;
   final Duration timeout;
 
+  @override
   Future<EmotionAnalysisResult> analyze(String input) async {
     final text = input.trim();
     if (text.isEmpty) {

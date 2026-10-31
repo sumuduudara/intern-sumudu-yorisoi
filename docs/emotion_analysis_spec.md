@@ -1,5 +1,7 @@
 # Issue #9 感情カテゴリ・感情分析AIの仕様
 
+> **2026-10-27 追記：** 通常のHomeは実Firebase AI分析と結果画面へ接続した。以下の過去の「Home未接続」「UIプレビュー」は当時の記録であり、現在も未接続なのは明示したvisual preview入口とPet Room推薦である。現在の実装・取消しの制限・検証結果は[Home実AI接続](home_emotion_analysis_integration.md)を参照。
+
 ## 1. 目的・根拠・今回の範囲
 
 入力された文章から、Yorisoiのコンテンツ選択に使う主感情と任意の副感情を取得する。
