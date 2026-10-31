@@ -34,6 +34,44 @@ class FeelingInputView extends StatelessWidget {
   final bool voiceListening;
   final bool voiceBusy;
 
+  Widget _buildMicrophoneArtwork() {
+    final artwork = Image.asset(
+      '${homeAssetPath}mic_button.png',
+      key: const Key('home-microphone-artwork'),
+      excludeFromSemantics: true,
+    );
+    if (!voiceListening) return artwork;
+
+    return ColorFiltered(
+      key: const Key('home-microphone-listening-tint'),
+      // Rotate the original blue palette to pink (RGB -> BRG). Unlike a
+      // solid BlendMode.color source, this keeps alpha and white unchanged.
+      colorFilter: const ColorFilter.matrix(<double>[
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+      ]),
+      child: artwork,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return HomeDesignFrame(
@@ -185,7 +223,12 @@ class FeelingInputView extends StatelessWidget {
                             voiceHint,
                             style: homeTextStyle(
                               12,
-                              const Color(0xFF7A635C),
+                              voiceListening
+                                  ? const Color(0xFFB13852)
+                                  : const Color(0xFF7A635C),
+                              weight: voiceListening
+                                  ? FontWeight.w700
+                                  : FontWeight.w400,
                               height: 17 / 12,
                             ),
                           ),
@@ -197,24 +240,42 @@ class FeelingInputView extends StatelessWidget {
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            // Original export includes the clipped left shadow
-                            // from Figma's 54px Voice row (18px visual outset).
-                            Positioned(
-                              left: -18,
-                              top: 0,
-                              width: 72,
-                              height: 54,
-                              child: Image.asset(
-                                '${homeAssetPath}mic_button.png',
-                                excludeFromSemantics: true,
+                            // The 72x54 export includes 18px of left shadow.
+                            // Its shadow is cut off at the bottom/right PNG
+                            // edges. Keep the original 54px circular artwork,
+                            // clipping the baked shadow in both color states.
+                            Positioned.fill(
+                              child: ClipOval(
+                                key: const Key('home-microphone-circle'),
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      left: -18,
+                                      top: 0,
+                                      width: 72,
+                                      height: 54,
+                                      child: _buildMicrophoneArtwork(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Positioned.fill(
-                              child: IconButton(
-                                key: const Key('home-microphone'),
-                                tooltip: voiceListening ? '音声入力を停止' : '音声入力を開始',
-                                onPressed: onMicrophone,
-                                icon: const SizedBox.shrink(),
+                              child: MergeSemantics(
+                                key: const Key('home-microphone-state'),
+                                child: Semantics(
+                                  toggled: voiceListening,
+                                  child: IconButton(
+                                    key: const Key('home-microphone'),
+                                    tooltip: voiceListening
+                                        ? '音声入力を停止'
+                                        : voiceBusy
+                                        ? '音声入力の処理中'
+                                        : '音声入力を開始',
+                                    onPressed: onMicrophone,
+                                    icon: const SizedBox.shrink(),
+                                  ),
+                                ),
                               ),
                             ),
                           ],

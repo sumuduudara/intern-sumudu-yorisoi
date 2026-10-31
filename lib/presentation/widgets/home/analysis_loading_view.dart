@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'home_design_frame.dart';
 
 /// Positions and assets were inspected separately in Figma frame 2:128 (03-A).
-/// This is a UI preview, not evidence that any AI request is running.
+/// Shared by the live request flow and the explicit visual preview entrypoint.
 class AnalysisLoadingView extends StatelessWidget {
   const AnalysisLoadingView({
     super.key,
     required this.message,
     required this.displayName,
     required this.onCancel,
+    this.previewOnly = false,
   });
 
   final String message;
   final String? displayName;
   final VoidCallback onCancel;
+  final bool previewOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class AnalysisLoadingView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'UIプレビュー：AI分析・おすすめ画面は未接続です。',
+            previewOnly ? 'UIプレビュー：AI分析・おすすめ画面は未接続です。' : 'AIで気持ちを確認しています。',
             textAlign: TextAlign.center,
             style: homeTextStyle(12, const Color(0xFF6B5550)),
           ),
@@ -101,7 +103,7 @@ class AnalysisLoadingView extends StatelessWidget {
         Positioned(
           left: 77,
           top: 512,
-          width: 236,
+          width: 300,
           child: Semantics(
             liveRegion: true,
             child: Column(

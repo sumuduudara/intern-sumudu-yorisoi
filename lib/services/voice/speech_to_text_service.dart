@@ -52,6 +52,12 @@ String voiceErrorMessage(String code) {
     'error_recognizer_busy' ||
     'error_speech_recognizer_already_active' ||
     'error_busy' => '今は音声入力を開始できません。少し待つか、文字で入力してください。',
+    'network' ||
+    'error_network' ||
+    'error_network_timeout' ||
+    'error_server' ||
+    'error_server_disconnected' =>
+      '音声認識サービスに接続できません。通信を確認して再試行するか、文字で入力してください。',
     _ => '音声入力に失敗しました。もう一度お試しください。文字でも入力できます。',
   };
 }
@@ -104,9 +110,13 @@ class SpeechToTextService implements VoiceRecognition {
         partialResults: true,
         cancelOnError: true,
         listenFor: const Duration(seconds: 20),
-        // Native recognizers can end earlier. On web allow time for the
-        // browser permission prompt rather than imposing a 3-second pause.
-        pauseFor: kIsWeb ? null : const Duration(seconds: 3),
+        // Android may deliver no partial words while the user is speaking.
+        // The plugin's Dart pause timer measures time since a TEXT result,
+        // not microphone silence, so 3 seconds could cut off active speech.
+        // Let Android detect silence; keep the 20-second upper bound.
+        pauseFor: kIsWeb || defaultTargetPlatform == TargetPlatform.android
+            ? null
+            : const Duration(seconds: 3),
       ),
     );
   }
