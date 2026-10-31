@@ -1,0 +1,57 @@
+{
+  "schema_version": "yorisoi-story-record-v1",
+  "story_id": "lonely_cat_v001",
+  "revision": 1,
+  "emotion": {"label": "寂しい", "key": "lonely"},
+  "pet": {"label": "猫", "key": "cat"},
+  "language": "ja-JP",
+  "title": "",
+  "story_text": "",
+  "content_sha256": null,
+  "character_count": null,
+  "target_duration_seconds": {"min": 120, "max": 180},
+  "status": "draft",
+  "generation": {
+    "origin": null,
+    "provider": null,
+    "model_id": null,
+    "model_revision_or_digest": null,
+    "runtime_version": null,
+    "quantization": null,
+    "prompt_version": "yorisoi-story-v3",
+    "resolved_prompt_file": null,
+    "resolved_prompt_sha256": null,
+    "parameters": {},
+    "generated_at": null,
+    "finish_reason": null,
+    "raw_output_file": null,
+    "editor_notes": []
+  },
+  "review": {
+    "reviewer_id": null,
+    "reviewed_at": null,
+    "mapping_checked": false,
+    "animal_viewpoint_checked": false,
+    "safety_checked": false,
+    "japanese_and_length_checked": false,
+    "privacy_and_rights_checked": false,
+    "read_aloud_checked": false,
+    "provenance_and_hash_checked": false,
+    "rights_basis": null,
+    "revision_notes": []
+  },
+  "approval": {
+    "approver_id": null,
+    "approved_at": null,
+    "approved_content_sha256": null
+  },
+  "audio_handoff": {
+    "status": "not_generated",
+    "source_story_id": "lonely_cat_v001",
+    "source_content_sha256": null,
+    "pronunciation_notes": [],
+    "asset_path": "assets/audio/lonely_cat.mp3",
+    "actual_duration_seconds": null,
+    "audio_sha256": null
+  }
+}
