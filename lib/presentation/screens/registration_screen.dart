@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../services/auth/firebase_auth_service.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
+import '../widgets/auth/auth_design.dart';
 
 typedef RegistrationAction = Future<void> Function({
   required String email,
@@ -25,12 +26,14 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  final _nicknameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isSubmitting = false;
 
   @override
   void dispose() {
+    _nicknameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -41,6 +44,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     final email = _emailController.text.trim();
     final password = _passwordController.text;
+    final nickname = _nicknameController.text.trim();
+    var openedHome = false;
     setState(() => _isSubmitting = true);
     try {
       final action = widget.registrationAction;
@@ -49,13 +54,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       } else {
         await FirebaseAuthService().register(email: email, password: password);
       }
-      _showMessage('登録が完了しました。');
+      var profileSaved = true;
+      if (action == null && nickname.isNotEmpty) {
+        try {
+          await FirebaseAuthService().updateNickname(nickname);
+        } catch (_) {
+          profileSaved = false;
+        }
+      }
+      _showMessage(
+        profileSaved ? '登録が完了しました。' : '登録は完了しましたが、ニックネームを保存できませんでした。',
+      );
 
-      if (action == null && mounted) {
+      if (mounted) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const HomeScreen()),
           (route) => false,
         );
+        openedHome = true;
       }
     } on FirebaseAuthException catch (error) {
       _showMessage(switch (error.code) {
@@ -70,7 +86,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     } catch (_) {
       _showMessage('登録に失敗しました。しばらく待ってからもう一度お試しください。');
     } finally {
-      if (mounted) setState(() => _isSubmitting = false);
+      if (mounted && !openedHome) setState(() => _isSubmitting = false);
     }
   }
 
@@ -82,142 +98,132 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('新規登録')),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Yorisoi',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    const SizedBox(height: 16),
-
-                    const Text('アカウントを作成', textAlign: TextAlign.center),
-                    const SizedBox(height: 32),
-
-                    // Email
-                    TextFormField(
-                      enabled: !_isSubmitting,
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'メールアドレス',
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        final email = value?.trim() ?? '';
-
-                        if (email.isEmpty) {
-                          return 'メールアドレスを入力してください';
-                        }
-
-                        if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
-                            .hasMatch(email)) {
-                          return '正しいメールアドレスを入力してください';
-                        }
-
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Password
-                    TextFormField(
-                      enabled: !_isSubmitting,
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        labelText: 'パスワード',
-                        border: OutlineInputBorder(),
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'パスワードを入力してください';
-                        }
-                        if (value.length < 6) {
-                          return 'パスワードは6文字以上で入力してください';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Confirm Password
-                    TextFormField(
-                      enabled: !_isSubmitting,
-                      decoration: const InputDecoration(
-                        labelText: 'パスワード確認',
-                        border: OutlineInputBorder(),
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'パスワード確認を入力してください';
-                        }
-
-                        if (value != _passwordController.text) {
-                          return 'パスワードが一致しません';
-                        }
-
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Register Button
-                    ElevatedButton(
-                      onPressed: _isSubmitting ? null : _register,
-                      child: _isSubmitting
-                          ? const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  width: 18,
-                                  height: 18,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Text('登録中...'),
-                              ],
-                            )
-                          : const Text('登録する'),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Replace this route to avoid stacking login/register loops.
-                    TextButton(
-                      onPressed: _isSubmitting
-                          ? null
-                          : () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const LoginScreen(),
-                                ),
-                              );
-                            },
-                      child: const Text('すでにアカウントをお持ちの方はこちら'),
-                    ),
-                  ],
+  Widget build(BuildContext context) => AuthDesignPage(
+    background: 'bg_registration.png',
+    cardTop: 286,
+    cardPaddingTop: 24,
+    header: [
+      const Positioned(
+        left: 101,
+        top: 58,
+        width: 188,
+        child: AuthLogo(registration: true),
+      ),
+      Positioned(
+        left: 57,
+        top: 172,
+        width: 276,
+        height: 162,
+        child: authImage('pets_group.png', label: '猫、犬、うさぎ、イルカ'),
+      ),
+    ],
+    child: Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Expanded(
+                child: AuthTitle('はじめまして', 'Create your account', size: 23),
+              ),
+              Transform.rotate(
+                angle: -.0872665,
+                child: Text(
+                  'よろしくね ♡',
+                  style: authText(
+                    14,
+                    color: const Color(0xFFC27A7F),
+                    font: 'Yomogi',
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ),
+          const SizedBox(height: 14),
+          AuthField(
+            fieldKey: const Key('registration-nickname'),
+            label: 'ニックネーム（任意）',
+            english: 'Nickname (optional)',
+            hint: 'Sumudu',
+            icon: 'nickname.svg',
+            controller: _nicknameController,
+            enabled: !_isSubmitting,
+          ),
+          const SizedBox(height: 10),
+          AuthField(
+            fieldKey: const Key('registration-email'),
+            label: 'メールアドレス',
+            english: 'Email',
+            hint: 'you@example.com',
+            icon: 'email.svg',
+            controller: _emailController,
+            enabled: !_isSubmitting,
+            keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              final email = value?.trim() ?? '';
+              if (email.isEmpty) return 'メールアドレスを入力してください';
+              if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
+                return '正しいメールアドレスを入力してください';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          AuthField(
+            fieldKey: const Key('registration-password'),
+            label: 'パスワード',
+            english: 'Password',
+            hint: '6文字以上 · 6+ characters',
+            controller: _passwordController,
+            enabled: !_isSubmitting,
+            obscure: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) return 'パスワードを入力してください';
+              if (value.length < 6) return 'パスワードは6文字以上で入力してください';
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          AuthField(
+            fieldKey: const Key('registration-confirmation'),
+            label: 'パスワード（確認）',
+            english: 'Confirm password',
+            hint: 'もう一度入力 · Re-enter',
+            enabled: !_isSubmitting,
+            obscure: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) return 'パスワード確認を入力してください';
+              if (value != _passwordController.text) return 'パスワードが一致しません';
+              return null;
+            },
+          ),
+          const SizedBox(height: 14),
+          const Spacer(),
+          AuthPrimaryButton(
+            key: const Key('auth-register-submit'),
+            japanese: 'アカウントを作成',
+            english: 'Create Account',
+            onPressed: _isSubmitting ? null : _register,
+            busy: _isSubmitting,
+            busyLabel: '登録中...',
+          ),
+          const SizedBox(height: 14),
+          AuthLink(
+            'ログイン',
+            prefix: 'アカウントをお持ちの方 · Have an account? ',
+            key: const Key('auth-switch-login'),
+            onPressed: _isSubmitting
+                ? null
+                : () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }

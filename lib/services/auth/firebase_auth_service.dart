@@ -14,6 +14,20 @@ class FirebaseAuthService {
     return _auth.sendPasswordResetEmail(email: email.trim());
   }
 
+  Future<String> verifyPasswordResetCode(String code) =>
+      _auth.verifyPasswordResetCode(code);
+
+  Future<void> confirmPasswordReset({
+    required String code,
+    required String password,
+  }) => _auth.confirmPasswordReset(code: code, newPassword: password);
+
+  Future<void> updateNickname(String nickname) async {
+    final user = _auth.currentUser;
+    if (user == null) throw StateError('No signed-in user');
+    await user.updateDisplayName(nickname.trim());
+  }
+
   /// Web remembers this session across reloads on the same browser origin.
   /// Android/iOS persistence is managed by the Firebase SDK itself.
   Future<void> _configurePersistence() async {

@@ -19,7 +19,7 @@ Firebase Authenticationの `signInWithEmailAndPassword()` の順に呼ぶ。
 
 成功後は既存の `HomeScreen` へ移動する。
 `pushAndRemoveUntil` でそれまでの画面履歴をすべて削除し、戻る操作でログイン画面へ戻らない。
-HomeScreenは基本表示のみで、ホーム機能全体の完成を意味しない。
+現在のHomeはIssue #7/#8/#9の入力・音声・実Firebase AI分析・結果表示に接続している。Pet Roomは範囲外。
 
 失敗時はログイン画面に留まり、SnackBarに日本語で理由を表示して再試行できる。
 
@@ -39,8 +39,8 @@ HomeScreenは基本表示のみで、ホーム機能全体の完成を意味し�
 ## 3. 画面の移動
 
 - WelcomeScreenの「ログイン」→ LoginScreen。既存の「新規登録」は維持する。
-- RegistrationScreenの「すでにアカウントをお持ちの方はこちら」→ LoginScreen。
-- LoginScreenの「アカウントをお持ちでない方はこちら」→ RegistrationScreen。
+- RegistrationScreenの「アカウントをお持ちの方 · Have an account? ログイン」→ LoginScreen。
+- LoginScreenの「はじめての方 · New here? 新規登録 · Sign up」→ RegistrationScreen。
 - 登録とログインの切り替えは `pushReplacement` とし、交互に履歴を積み重ねない。
 - Issue #5の登録処理・入力条件・既存テストは維持する。
 
@@ -115,20 +115,21 @@ Android/iOSはFirebase SDKの標準の永続化に任せる。ただし現在の
 - 失敗時はHomeに留まり、日本語で「ログアウトできませんでした。もう一度お試しください。」を表示する。
 - await後はmountedを確認する。失敗時だけボタンを再び使える状態に戻す。
 
-### 忘れたパスワード
+### 忘れたパスワード（2026-10-29更新）
 
-- LoginScreenの「パスワードをお忘れですか？」を押す。
-- 同じ画面のメール欄だけをvalidateする。空欄・不正形式は送信しない。パスワードは不要。
-- `FirebaseAuthService.sendPasswordResetEmail()` からtrimしたメールをFirebaseへ渡す。
-- 送信中は「送信中...」と表示し、メール・パスワード欄、ログイン・登録リンク・再設定ボタンを無効にする。
-  ログイン中も再設定メールは送れない。
-- 完了時は「該当するアカウントがある場合は、パスワード再設定メールを送信しました。
-  受信トレイと迷惑メールをご確認ください。」を表示する。
-  `user-not-found`も同じ案内にし、アカウントの有無を表示で区別しない。
-- `invalid-email`、通信失敗、回数制限、利用不可には日本語で理由を表示する。
-  その他の例外は「再設定メールを送信できませんでした。しばらく待ってからもう一度お試しください。」とする。
-- LoginScreenに留まり、現在のセッションは変更しない。controllerの解放とmounted確認を維持する。
-- 新しいパスワードの設定はメール内のFirebase側リンクで行う。メール本文やその画面の言語設定は変更していない。
+- Loginの「パスワードをお忘れですか？」から原本Figmaの02-Aへ進む。入力済みemailを引き継ぐ。
+- 02-Aでemailを確認し、既存の`sendPasswordResetEmail()`を呼ぶ。password入力は不要。
+- 成功と`user-not-found`は同じ02-Bへ進み、アカウントの有無を公開しない。
+- 02-Bはemail app起動（利用できなければ手動案内）、60秒の再送待機、ログインへ戻る操作を備える。
+- 02-Cは`mode=resetPassword` / `oobCode`を受け、`verifyPasswordResetCode()`で検証してから入力可能にする。
+- 新しいpasswordは8文字以上・英字と数字・確認一致を確認し、`confirmPasswordReset()`で更新する。
+- 実SDKの成功後だけ02-Dを表示し、ログインへ戻る。自動ログインは行わない。
+- 認証・入力の重複防止、mounted確認、controller解放、安全な日本語エラーを維持する。
+- **既存のemail template/action handler URLは変更していない。** 現在のemail linkがFirebase標準画面を開く場合、
+  custom 02-Cを自動で開くには、承認済みのhosted app URLを別途設定する必要がある。
+- SDK fakeを使う自動testsの成功は、実email配信や実password変更の成功と区別する。
+
+詳細と原本frame IDs：[auth_ui_integration.md](auth_ui_integration.md)。
 
 ### 追加の手動確認（未実施）
 

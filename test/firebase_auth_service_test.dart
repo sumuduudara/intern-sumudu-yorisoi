@@ -7,6 +7,12 @@ import 'package:yorisoi/services/auth/firebase_auth_service.dart';
 class _Credential extends Fake implements UserCredential {}
 
 class _User extends Fake implements User {
+  String? nickname;
+  @override
+  Future<void> updateDisplayName(String? displayName) async {
+    nickname = displayName;
+  }
+
   Object? reloadError;
   Object? tokenError;
   String? token = 'fake-test-token';
@@ -30,6 +36,27 @@ class _User extends Fake implements User {
 }
 
 class _Auth extends Fake implements FirebaseAuth {
+  String? verifiedCode;
+  String? confirmedCode;
+  String? newPassword;
+
+  @override
+  Future<String> verifyPasswordResetCode(String code) async {
+    verifiedCode = code;
+    if (resetError != null) throw resetError!;
+    return 'student@example.com';
+  }
+
+  @override
+  Future<void> confirmPasswordReset({
+    required String code,
+    required String newPassword,
+  }) async {
+    confirmedCode = code;
+    this.newPassword = newPassword;
+    if (resetError != null) throw resetError!;
+  }
+
   User? user;
   Stream<User?>? initialState;
   final credential = _Credential();
@@ -76,6 +103,56 @@ class _Auth extends Fake implements FirebaseAuth {
 }
 
 void main() {
+  test(
+    'reset code verification and confirmation use SDK without signing in',
+    () async {
+      final auth = _Auth();
+      final service = FirebaseAuthService(auth: auth);
+      expect(
+        await service.verifyPasswordResetCode('fake-test-code'),
+        'student@example.com',
+      );
+      await service.confirmPasswordReset(
+        code: 'fake-test-code',
+        password: 'new-pass123',
+      );
+      expect(auth.verifiedCode, 'fake-test-code');
+      expect(auth.confirmedCode, 'fake-test-code');
+      expect(auth.newPassword, 'new-pass123');
+      expect(auth.currentUser, isNull);
+    },
+  );
+
+  test(
+    'reset completion SDK errors propagate without reporting success',
+    () async {
+      final error = FirebaseAuthException(code: 'expired-action-code');
+      final service = FirebaseAuthService(auth: _Auth()..resetError = error);
+      await expectLater(
+        service.verifyPasswordResetCode('fake-test-code'),
+        throwsA(same(error)),
+      );
+      await expectLater(
+        service.confirmPasswordReset(
+          code: 'fake-test-code',
+          password: 'new-pass123',
+        ),
+        throwsA(same(error)),
+      );
+    },
+  );
+
+  test('optional nickname updates only the signed-in Auth profile', () async {
+    final user = _User();
+    await FirebaseAuthService(auth: _Auth()..user = user)
+        .updateNickname('  花  ');
+    expect(user.nickname, '花');
+    await expectLater(
+      FirebaseAuthService(auth: _Auth()).updateNickname('花'),
+      throwsStateError,
+    );
+  });
+
   test('logout calls SDK and next startup has no session to restore', () async {
     final auth = _Auth()..user = _User();
     final service = FirebaseAuthService(auth: auth);

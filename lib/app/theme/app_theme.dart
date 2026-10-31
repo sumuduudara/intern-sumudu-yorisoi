@@ -5,6 +5,7 @@ abstract final class AppTheme {
     final colors = ColorScheme.fromSeed(seedColor: const Color(0xFF487568));
     return ThemeData(
       useMaterial3: true,
+      fontFamily: 'Zen Maru Gothic',
       colorScheme: colors,
       scaffoldBackgroundColor: colors.surface,
     );

@@ -11,5 +11,16 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final authService = FirebaseAuthService();
-  runApp(YorisoiApp(restoreSession: authService.restoreSession));
+  // Only a reset-password action URL opens the code-verified reset form.
+  // Never log the action code or forward it to another Firebase project.
+  final query = Uri.base.queryParameters;
+  final resetCode = query['mode'] == 'resetPassword'
+      ? query['oobCode'] ?? ''
+      : null;
+  runApp(
+    YorisoiApp(
+      restoreSession: authService.restoreSession,
+      passwordResetCode: resetCode,
+    ),
+  );
 }

@@ -11,7 +11,7 @@ void main() {
 
     expect(find.byType(YorisoiApp), findsOneWidget);
     expect(find.text('Yorisoi'), findsOneWidget);
-    expect(find.text('気持ちに、そっと寄り添う。'), findsOneWidget);
+    expect(find.text('はじめまして'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 
@@ -35,7 +35,7 @@ void main() {
         32,
       );
       expect(find.byType(SingleChildScrollView), findsOneWidget);
-      expect(find.text('あなたのペースで、ひと息。'), findsOneWidget);
+      expect(find.text('こころに、そっとよりそう'), findsOneWidget);
       expect(tester.takeException(), isNull);
     },
   );

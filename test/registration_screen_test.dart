@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/presentation/screens/registration_screen.dart';
+import 'package:yorisoi/presentation/screens/home_screen.dart';
 
 void main() {
   Future<void> open(WidgetTester tester, RegistrationAction action) async {
@@ -22,10 +23,15 @@ void main() {
     String password = 'secret123',
     String confirmation = 'secret123',
   }) async {
-    final fields = find.byType(TextFormField);
-    await tester.enterText(fields.at(0), email);
-    await tester.enterText(fields.at(1), password);
-    await tester.enterText(fields.at(2), confirmation);
+    await tester.enterText(find.byKey(const Key('registration-email')), email);
+    await tester.enterText(
+      find.byKey(const Key('registration-password')),
+      password,
+    );
+    await tester.enterText(
+      find.byKey(const Key('registration-confirmation')),
+      confirmation,
+    );
   }
 
   testWidgets('invalid input never submits', (tester) async {
@@ -33,7 +39,7 @@ void main() {
     await open(tester, ({required email, required password}) async {
       calls++;
     });
-    await tester.tap(find.text('登録する'));
+    await tester.tap(find.byKey(const Key('auth-register-submit')));
     await tester.pump();
     expect(find.text('メールアドレスを入力してください'), findsOneWidget);
     expect(find.text('パスワードを入力してください'), findsOneWidget);
@@ -44,7 +50,7 @@ void main() {
       password: '12345',
       confirmation: 'other',
     );
-    await tester.tap(find.text('登録する'));
+    await tester.tap(find.byKey(const Key('auth-register-submit')));
     await tester.pump();
     expect(find.text('正しいメールアドレスを入力してください'), findsOneWidget);
     expect(find.text('パスワードは6文字以上で入力してください'), findsOneWidget);
@@ -64,7 +70,7 @@ void main() {
       return pending.future;
     });
     await fill(tester, email: ' test@example.com ');
-    await tester.tap(find.text('登録する'));
+    await tester.tap(find.byKey(const Key('auth-register-submit')));
     await tester.pump();
     expect(find.text('登録中...'), findsOneWidget);
     expect(
@@ -76,9 +82,10 @@ void main() {
     pending.complete();
     await tester.pumpAndSettle();
     expect(find.text('登録が完了しました。'), findsOneWidget);
+    expect(find.byType(HomeScreen), findsOneWidget);
     expect(
-      tester.widget<ElevatedButton>(find.byType(ElevatedButton)).onPressed,
-      isNotNull,
+      Navigator.of(tester.element(find.byType(HomeScreen))).canPop(),
+      isFalse,
     );
   });
 
@@ -99,7 +106,7 @@ void main() {
         throw FirebaseAuthException(code: error.key);
       });
       await fill(tester);
-      await tester.tap(find.text('登録する'));
+      await tester.tap(find.byKey(const Key('auth-register-submit')));
       await tester.pumpAndSettle();
       expect(find.text(error.value), findsOneWidget);
       expect(
@@ -118,7 +125,7 @@ void main() {
         ({required email, required password}) => pending.future,
       );
       await fill(tester);
-      await tester.tap(find.text('登録する'));
+      await tester.tap(find.byKey(const Key('auth-register-submit')));
       await tester.pump();
       await tester.pumpWidget(const MaterialApp(home: SizedBox()));
       pending.complete();
