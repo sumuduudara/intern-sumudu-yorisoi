@@ -1,7 +1,8 @@
 {
-  "schema_version": "yorisoi-story-record-v1",
-  "story_id": "lonely_cat_v001",
+  "schema_version": "yorisoi-story-record-v2",
+  "story_id": "lonely_cat_001",
   "revision": 1,
+  "display_order": 1,
   "emotion": {"label": "寂しい", "key": "lonely"},
   "pet": {"label": "猫", "key": "cat"},
   "language": "ja-JP",
@@ -11,6 +12,7 @@
   "character_count": null,
   "target_duration_seconds": {"min": 120, "max": 180},
   "status": "draft",
+  "human_approved": false,
   "generation": {
     "origin": null,
     "provider": null,
@@ -47,10 +49,11 @@
   },
   "audio_handoff": {
     "status": "not_generated",
-    "source_story_id": "lonely_cat_v001",
+    "source_story_id": "lonely_cat_001",
+    "source_revision": 1,
     "source_content_sha256": null,
     "pronunciation_notes": [],
-    "asset_path": "assets/audio/lonely_cat.mp3",
+    "asset_path": "assets/audio/lonely_cat_001_r001.mp3",
     "actual_duration_seconds": null,
     "audio_sha256": null
   }

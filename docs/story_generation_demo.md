@@ -2,7 +2,7 @@
 
 このデモは**制作担当者がTerminalで一話を生成するもの**です。アプリ利用者向けのruntime生成ではありません。
 既存の[仕様](emotion_pet_story_spec.md)の対応表・安全方針を守り、[共通Prompt](story_generation_prompt.md)を制作上の原本として使います。
-長さ改善ではPromptをv3へ改訂し、コードとrecord templateのPrompt版だけを同期しました。全体仕様と例文は変更していません。
+長さ改善ではPromptをv3へ改訂し、コードとrecord templateのPrompt版を同期しました。2026-11-01のStory Library仕様更新は原稿ID/metadataを整理したもので、生成demo・Prompt v3・一回限定retryの挙動は変えません。
 main.dart、認証、Home、音声入力、感情分析、Figma assetsには接続・変更しません。追加packageはありません。
 
 ## 1. 実行前提と起動
@@ -135,3 +135,14 @@ v3のタイトルは「午後の窓辺と静かな足音」、生成日時は`20
 利用者の追加試験で547文字だったとの報告を受け、第4節の最大一回の長さ調整を追加しました。Prompt v3・Gemini adapter・対応表は変更していません。
 この変更の検証はfake-based testsのみで行い、実Gemini APIは再実行していません。過去の667文字の成功を、新しいretry機能のlive成功として扱わないでください。
 最新の`flutter analyze --no-pub`はNo issues found、focused testsは**104 passed**でした。追加17件で初回の600/750/900文字、547/966文字からの修正成功、二回目も範囲外、追加生成の各種失敗と初回draft保持、最大2回を確認しています。
+
+## 7. MVP Story Libraryの制作に使う場合（2026-11-01）
+
+- 各感情2〜3本、合計16〜24本を**コンテンツ準備中に**作ります。今回まとめて生成する処理や、アプリsession中の生成は追加しません。
+- demoの結果は毎回draftです。[record template](story_record_template.json)へ移すときに、編集者が`story_id`（例：`lonely_cat_001` / `002`）、独立した`revision`、`display_order`を付けます。異なるIDでも同じ話の言い換えだけなら別の一本と数えません。
+- 人の全文確認・承認後にだけStory Libraryへ保存します。元のdraftや例文を自動で`human_approved: true`にしません。
+- [library template](story_library_template.json)は空のdraftです。公開catalog・Story List・音声参照の実読込は未実装です。
+- 後続実装では、主感情に合う人の承認済み・音声readyの2〜3本を表示し、利用者が選んだ事前生成音声を再生します。詳細は[生成仕様・第8節](emotion_pet_story_spec.md#8-story-libraryと将来のstory-list契約)を参照してください。
+
+本更新の確認：record/library templateのJSON、8組の対応、16本/24本を識別するIDと音声予定pathの一意性、相対リンクを検証しました。
+`flutter analyze --no-pub`はNo issues found、既存のStory focused testsは104 passedです。アプリのlibrary読込・一覧filter動作を実行したという意味ではありません。実Gemini呼出し・本番story作成・human approval・音声生成は行っていません。
