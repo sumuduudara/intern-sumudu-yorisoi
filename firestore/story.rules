@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function released() {
+      let library = get(/databases/$(database)/documents/storyLibraries/current).data;
+      return library.publicationStatus == 'approved'
+        && library.language == 'ja-JP'
+        && library.schemaVersion == 'yorisoi-story-data-v1';
+    }
+    function published() {
+      return resource.data.isActive == true
+        && resource.data.humanApproved == true
+        && resource.data.approvalStatus == 'approved_text'
+        && resource.data.audioStatus == 'ready'
+        && resource.data.language == 'ja-JP';
+    }
+    match /storyLibraries/current {
+      allow get: if signedIn();
+      allow list, write: if false;
+    }
+    match /stories/{storyId} {
+      allow get: if signedIn() && released() && published();
+      allow list: if signedIn() && released() && published()
+        && request.query.limit != null && request.query.limit <= 10;
+      allow write: if false;
+    }
+    // Authoring history, all other collections, and client writes are denied.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
