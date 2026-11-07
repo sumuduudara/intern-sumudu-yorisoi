@@ -25,6 +25,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - docs/story_generation_prompt.md
     - assets/images/home/
   fonts:
     - family: Zen Maru Gothic

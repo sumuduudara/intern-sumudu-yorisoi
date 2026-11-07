@@ -25,8 +25,9 @@ Yorisoiは、ユーザーの現在の感情をAIで分析し、その感情に�
 3. 音声入力の場合はSpeech-to-Textでテキストに変換
 4. AIで感情を分析し、8種類の感情に分類
 5. 分析結果に対応する動物キャラクターを決定
-6. 対応する音声ストーリーをFlutter assetsから取得（Storageは課金未承認のため保留）
-7. Flutterアプリのラジオ・ポッドキャスト形式の画面で音声を再生
+6. Story Libraryから主感情・ペットに一致する人の承認済み・音声準備済みstoryを2〜3本表示（目標仕様、一覧UIは未実装）
+7. 利用者が一話を選び、対応する事前生成音声をFlutter assetsから取得（Storageは課金未承認のため保留）
+8. Flutterアプリのラジオ・ポッドキャスト形式の画面で音声を再生（player実装は後続）
 
 ### 2.2 感情と動物キャラクターの対応
 
@@ -42,6 +43,7 @@ Yorisoiは、ユーザーの現在の感情をAIで分析し、その感情に�
 - リアルタイムのライブ配信は実装しない。
 - 動物キャラクターとのリアルタイムAIチャットはMVPの対象外とする。
 - 音声ストーリーは事前に生成・準備する。
+- 2026-11-01確定：各感情に異なるstoryを2〜3本、全8感情で16〜24本準備し、人のreview・承認後にStory Libraryへ保存する。生成demoは制作時だけ使う。
 - ストーリーテキストはText-to-SpeechでMP3形式に変換する。
 - 初期MVPのMP3ファイルはFlutter assetsに同梱する。Firebase StorageはBlaze移行が必要なため保留する。
 - アプリ利用時に毎回ストーリーをAIで生成する方式は採用しない。
@@ -111,7 +113,7 @@ AIは感情分類に使用する。ストーリーの生成と音声ファイル
 3. 8種類の感情コードのうち1つを返す。
 4. アプリ側で出力値を検証する。
 5. 感情に対応する動物を決定する。
-6. 事前作成した音声ストーリーを再生する。
+6. Story Libraryから主感情の承認済み候補2〜3本を表示し、利用者が選んだ事前作成音声を再生する（今後の一覧・player実装）。
 
 無効な応答や通信エラーが発生した場合は、再試行または安全なフォールバック処理を実行する。
 
@@ -240,6 +242,7 @@ Issue #4で追加確認済み（2026年10月13日）：
 - 感情×ペットごとにストーリーを事前に準備する。
 - ストーリーのテキストを事前に音声化し、MP3を保存して再生する。
 - 初期の感情カテゴリは8種類、ペットは4種類とする。
+- 既存mappingの8組に各2〜3本、計16〜24本の別storyを作る。32組への拡張や実行時生成は行わない。原稿・音声の承認を分け、draftは利用者向け一覧に出さない。
 
 ### 6.2 サービス比較
 
@@ -276,14 +279,15 @@ Issue #4で追加確認済み（2026年10月13日）：
 - Firebase Storageの無料利用量があっても、現在はBlazeプランへの移行が必要。
 - 個人の検証用FirebaseプロジェクトでBillingを有効にしない。
 
-### 7.3 命名規則案
+### 7.3 Story Library用命名規則（2026-11-01更新）
 
-- `assets/audio/{emotion}_{pet}.mp3`
-- 例：`assets/audio/lonely_cat.mp3`
+- 旧`assets/audio/{emotion}_{pet}.mp3`は1組1話の案。複数話で衝突するため、以後は`assets/audio/{story_id}_rNNN.mp3`とする。既存ファイルの改名・削除はしない。
+- 例：`story_id=lonely_cat_002`、`revision=1` → `assets/audio/lonely_cat_002_r001.mp3`。story IDとrevisionを分離し、同じ話の改稿を別の一本として数えない。
 - 感情コードは `sad / lonely / anxious / stressed / angry / happy / calm / other` とする。
 - 感情→ペット対応は `sad, lonely=cat`、`anxious, stressed=rabbit`、
   `angry, happy=dog`、`calm, other=dolphin` とする。
-- 存在しないファイルは安全なデフォルト音声またはエラー表示に切り替える。
+- asset欠損や不正metadataは明示エラー・準備中とし、別感情の音声やdraftへ黙って置換しない。実行時のAI/TTS生成へもfallbackしない。
+- Story Libraryのapproval、display_order、実測duration、公開gateの詳細：[Issue #10・Story Library契約](emotion_pet_story_spec.md#8-story-libraryと将来のstory-list契約)。
 
 ## 8. Firebaseとセキュリティ方針
 
