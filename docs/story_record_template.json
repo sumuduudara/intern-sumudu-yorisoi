@@ -20,7 +20,7 @@
     "model_revision_or_digest": null,
     "runtime_version": null,
     "quantization": null,
-    "prompt_version": "yorisoi-story-v3",
+    "prompt_version": "yorisoi-story-v4",
     "resolved_prompt_file": null,
     "resolved_prompt_sha256": null,
     "parameters": {},
