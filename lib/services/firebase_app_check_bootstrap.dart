@@ -25,8 +25,14 @@ Future<void> initializeLocalAppCheck() async {
     isDebug: kDebugMode,
     origin: Uri.base,
   )) {
+    if (kDebugMode && const bool.fromEnvironment('YORISOI_AI_DIAGNOSTICS')) {
+      debugPrint('YORISOI_APP_CHECK debug_provider_not_activated');
+    }
     return;
   }
 
   await FirebaseAppCheck.instance.activate(providerWeb: WebDebugProvider());
+  if (kDebugMode && const bool.fromEnvironment('YORISOI_AI_DIAGNOSTICS')) {
+    debugPrint('YORISOI_APP_CHECK debug_provider_activated');
+  }
 }
