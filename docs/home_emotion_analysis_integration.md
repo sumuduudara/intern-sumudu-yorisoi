@@ -1,5 +1,48 @@
 # Home → Firebase Gemini → 感情結果の実接続
 
+## 2026-11-06：App Checkによる実リクエスト失敗とローカル再確認
+
+過去のChrome成功記録は履歴として保持する。今回、既存Firebase options、実SDK、同じmodel/prompt/schemaによる
+単発の実リクエストは `ServerException: Firebase App Check token is invalid.` で失敗した。
+これはブラウザーの再成功確認ではない。SDK例外は既存adapterで`permissionDenied`となり、UIでは
+「感情分析を利用できません。アプリの設定確認が必要です。」と表示される。
+利用者はApp Check未設定と確認した。モデル名やFigma UIが原因という証拠はない。
+
+[Firebase公式説明](https://firebase.google.com/docs/ai-logic/app-check)では、2026-11-02から
+Firebase AI LogicのApp Check自動enforcementを開始するとされる。実プロジェクトのConsole設定は本作業で変更していない。
+
+`main.dart`と`home_live.dart`はFirebase初期化後、明示的に有効化したlocalhost Web debug実行に限り
+`WebDebugProvider()`を初期化する。`firebase_ai` 5.1.0は登録済みApp Checkを自動利用する。
+debug tokenはソース、dart-define、チャットへコピーしない。release/native/公開hostではこのdebug初期化は動作しない。
+本番用attestation provider設定は別途必要であり、この修正だけで本番対応完了とは扱わない。
+
+### 利用者が行うConsole操作と再試験
+
+1. 既存の8879番Flutter runをそのTerminalで終了する。同じportで別の古いdemoを動かさない。
+2. 通常の認証を含むアプリを起動する：
+
+   ```sh
+   cd /Users/sumuduudara/intern-sumudu-yorisoi
+   flutter run -d chrome --target lib/main.dart --web-hostname localhost --web-port 8879 --dart-define=YORISOI_APP_CHECK_DEBUG=true
+   ```
+
+   認証を省いた既存開発入口だけを確認する場合は、上の`lib/main.dart`を`lib/home_live.dart`に置き換える。
+3. Chrome DevToolsのConsoleを開く。必要ならShareを1回押してApp Checkのdebug token出力を確認する。
+   未登録tokenの最初のrequestは失敗しても正常。tokenは秘密として扱う。
+4. Firebase Consoleの`yorisoi-emotion-test` → App Check → Appsから、同じWeb appの
+   メニュー → Manage debug tokensに、そのtokenを直接登録する。
+   debug-only開発では本番reCAPTCHA登録は必須ではない。API enforcementを解除したり、billingを変更したりしない。
+5. 同じブラウザー・originを維持して再起動/再読込し、必要ならtokenキャッシュの更新を待つ。
+   ログイン後「今日はひとりで寂しいです」をShareし、実結果の主感情を確認する。
+   Consoleへ出たtokenを登録できない場合は、その権限だけを管理者へ依頼する。
+
+Consoleでのtoken登録と修正後の実Chrome Gemini成功は未確認。mock testsの成功をその代わりにしない。
+既存のモデル、JSON contract、文章保持、音声、Figma UI、Firebase credentialsは変更していない。
+
+今回の実行結果：`flutter pub get --offline`成功、`flutter analyze --no-pub`はNo issues。
+App Checkのlocalhost/debug制限、既存Gemini adapter/service、Home分析、起動/sessionの6 test filesは75 tests成功。
+これは自動回帰結果であり、App Check token発行や修正後の実AI成功の証拠ではない。
+
 更新日：2026-10-27。Issue #7の入力UI、Issue #8の音声入力、Issue #9の分析サービスを接続する。
 過去の仕様・検証記録にある「Home未接続」は当時の状態である。
 
