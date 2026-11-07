@@ -90,7 +90,7 @@ Issue本文の「ライブ配信/Podcast」は既存MVPの「事前作成MP3・�
 
 既存Issue #9の`FirebaseAI.googleAI()` / `gemini-3.5-flash-lite`を、事前の文章制作にも使う候補とする。
 [Firebase公式モデル一覧](https://firebase.google.com/docs/ai-logic/models)で作成日に同IDを確認した。
-既存の感情分類service・system prompt・1024 token上限は変更せず、制作demoの別serviceで**物語Prompt v3**を使用する。既存の長さ検証・最大一回の調整retryも維持する。
+既存の感情分類service・system prompt・1024 token上限は変更せず、制作demoの別serviceで**物語Prompt v4**を使用する（2026-11-07長さ改善。v3の記録は履歴）。既存の長さ検証・最大一回の調整retryも維持する。
 実行前にその時点のモデル提供、利用枠、プロジェクト権限、出力条件を確認する。課金を有効にせず、枠不足なら停止する。今回は生成APIを呼ばない。
 
 ### Ollama / Qwen（任意のローカル代替）
