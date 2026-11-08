@@ -28,6 +28,7 @@ flutter:
   assets:
     - docs/story_generation_prompt.md
     - assets/images/home/
+    - assets/images/pets/
   fonts:
     - family: Zen Maru Gothic
       fonts:
