@@ -22,18 +22,20 @@ void main() {
     String password = 'secret123',
     String confirmation = 'secret123',
   }) async {
-    final fields = find.byType(TextFormField);
-    await tester.enterText(fields.at(0), email);
-    await tester.enterText(fields.at(1), password);
-    await tester.enterText(fields.at(2), confirmation);
+    await tester.enterText(find.byKey(const Key('auth-email')), email);
+    await tester.enterText(find.byKey(const Key('auth-password')), password);
+    await tester.enterText(
+      find.byKey(const Key('auth-confirmation')),
+      confirmation,
+    );
   }
 
   testWidgets('invalid input never submits', (tester) async {
     var calls = 0;
-    await open(tester, ({required email, required password}) async {
+    await open(tester, ({required email, required password, nickname}) async {
       calls++;
     });
-    await tester.tap(find.text('登録する'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pump();
     expect(find.text('メールアドレスを入力してください'), findsOneWidget);
     expect(find.text('パスワードを入力してください'), findsOneWidget);
@@ -44,7 +46,7 @@ void main() {
       password: '12345',
       confirmation: 'other',
     );
-    await tester.tap(find.text('登録する'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pump();
     expect(find.text('正しいメールアドレスを入力してください'), findsOneWidget);
     expect(find.text('パスワードは6文字以上で入力してください'), findsOneWidget);
@@ -57,14 +59,14 @@ void main() {
   ) async {
     final pending = Completer<void>();
     var calls = 0;
-    await open(tester, ({required email, required password}) {
+    await open(tester, ({required email, required password, nickname}) {
       calls++;
       expect(email, 'test@example.com');
       expect(password, 'secret123');
       return pending.future;
     });
     await fill(tester, email: ' test@example.com ');
-    await tester.tap(find.text('登録する'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pump();
     expect(find.text('登録中...'), findsOneWidget);
     expect(
@@ -78,7 +80,7 @@ void main() {
     expect(find.text('登録が完了しました。'), findsOneWidget);
     expect(
       tester.widget<ElevatedButton>(find.byType(ElevatedButton)).onPressed,
-      isNotNull,
+      isNull,
     );
   });
 
@@ -95,11 +97,11 @@ void main() {
     testWidgets('${error.key} shows Japanese error and allows retry', (
       tester,
     ) async {
-      await open(tester, ({required email, required password}) async {
+      await open(tester, ({required email, required password, nickname}) async {
         throw FirebaseAuthException(code: error.key);
       });
       await fill(tester);
-      await tester.tap(find.text('登録する'));
+      await tester.tap(find.byKey(const Key('auth-submit')));
       await tester.pumpAndSettle();
       expect(find.text(error.value), findsOneWidget);
       expect(
@@ -115,10 +117,10 @@ void main() {
       final pending = Completer<void>();
       await open(
         tester,
-        ({required email, required password}) => pending.future,
+        ({required email, required password, nickname}) => pending.future,
       );
       await fill(tester);
-      await tester.tap(find.text('登録する'));
+      await tester.tap(find.byKey(const Key('auth-submit')));
       await tester.pump();
       await tester.pumpWidget(const MaterialApp(home: SizedBox()));
       pending.complete();

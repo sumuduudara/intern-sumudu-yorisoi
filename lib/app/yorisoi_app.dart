@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../presentation/screens/welcome_screen.dart';
+import '../presentation/screens/login_screen.dart';
 import '../presentation/screens/session_startup_screen.dart';
 import 'theme/app_theme.dart';
 
@@ -17,7 +17,7 @@ class YorisoiApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       home: restoreSession == null
-          ? const WelcomeScreen()
+          ? const LoginScreen()
           : SessionStartupScreen(restoreSession: restoreSession!),
     );
   }

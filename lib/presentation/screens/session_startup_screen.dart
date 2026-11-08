@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_screen.dart';
-import 'welcome_screen.dart';
+import 'login_screen.dart';
 
 /// Checks the saved session once at startup, before displaying either screen.
 class SessionStartupScreen extends StatefulWidget {
@@ -73,9 +73,7 @@ class _SessionStartupScreenState extends State<SessionStartupScreen> {
             ),
           );
         }
-        return snapshot.data == true
-            ? const HomeScreen()
-            : const WelcomeScreen();
+        return snapshot.data == true ? const HomeScreen() : const LoginScreen();
       },
     );
   }
