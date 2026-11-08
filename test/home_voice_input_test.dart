@@ -7,12 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/presentation/screens/home_screen.dart';
 import 'package:yorisoi/domain/emotions/emotion_analysis_result.dart';
-import 'package:yorisoi/presentation/screens/emotion_analysis_result_screen.dart';
+import 'package:yorisoi/presentation/screens/story_list_screen.dart';
 import 'package:yorisoi/presentation/screens/welcome_screen.dart';
 import 'package:yorisoi/presentation/widgets/home/analysis_loading_view.dart';
 
 import 'support/fake_voice_recognition.dart';
 import 'support/fake_emotion_analyzer.dart';
+import 'support/fake_story_repository.dart';
 
 const input = Key('feeling-input');
 const mic = Key('home-microphone');
@@ -32,6 +33,7 @@ Future<void> openHome(
     MaterialApp(
       home: HomeScreen(
         voiceRecognition: fake,
+        storyRepository: FakeStoryRepository(),
         emotionAnalyzer: FakeEmotionAnalyzer((text) async {
           if (analysis != null) await analysis(text);
           return const EmotionAnalysisResult(main: EmotionCategory.lonely);
@@ -288,7 +290,7 @@ void main() {
       await tester.tap(find.byKey(submit));
       await tester.pumpAndSettle();
       expect(submissions, ['今日は学校に行きました。\nとても寂しいです。']);
-      expect(find.byType(EmotionAnalysisResultScreen), findsOneWidget);
+      expect(find.byType(StoryListScreen), findsOneWidget);
       expect(find.text('寂しい'), findsOneWidget);
     },
   );

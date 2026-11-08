@@ -27,6 +27,23 @@ sizes and exported file sizes are distinguished in the Flutter preview code.
 Visual comparison is **unfinished**; export work and visual refinement were paused
 at the user's request. See [Issue #7 specification](../docs/home_emotion_screen_spec.md).
 
+## Issue #12 temporary Story List pet layers
+
+`images/pets/` contains unmodified original layer exports retrieved from the same
+Figma file on 2026-11-08 via the Figma asset export tool (node export settings).
+These are character layers only, not screenshots of playback screens.
+
+| File | Original node | Logical size |
+| --- | --- | --- |
+| cat.png | 2:268 — Pet / Cat | 221 × 290 |
+| rabbit.png | 2:299 — Pet / Rabbit | 172 × 300 |
+| dog.png | 2:330 — Pet / Dog | 247 × 285 |
+| dolphin.png | 2:361 — Pet / Dolphin | 174 × 300 |
+
+The **new temporary** Story List card arrangement is not an approved Figma frame.
+Character proportions are preserved with `BoxFit.contain`. No artwork redesign,
+AI substitute, or additional redistribution license is inferred.
+
 ## Fonts
 
 Bundled, unmodified fonts from the official [Google Fonts repository](https://github.com/google/fonts):
