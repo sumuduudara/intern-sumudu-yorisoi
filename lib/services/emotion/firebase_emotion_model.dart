@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import '../../domain/emotions/emotion_analysis_result.dart';
 import 'emotion_analysis_prompt.dart';
 import 'emotion_analysis_service.dart';
+import 'emotion_runtime_diagnostics.dart';
 
 GenerationConfig emotionGenerationConfig() => GenerationConfig(
   maxOutputTokens: 1024,
@@ -83,6 +84,7 @@ class FirebaseEmotionModel implements EmotionTextModel {
     } on ServiceApiNotEnabled {
       throw const EmotionAnalysisException(EmotionAnalysisError.configuration);
     } on FirebaseAIException catch (error) {
+      reportEmotionFailure(error);
       final message = error.message.toLowerCase();
       if (message.contains('genai config not found')) {
         throw const EmotionAnalysisException(
@@ -99,12 +101,14 @@ class FirebaseEmotionModel implements EmotionTextModel {
       }
       throw const EmotionAnalysisException(EmotionAnalysisError.apiFailure);
     } on FirebaseException catch (error) {
+      reportEmotionFailure(error);
       throw EmotionAnalysisException(
         error.code == 'no-app'
             ? EmotionAnalysisError.configuration
             : EmotionAnalysisError.apiFailure,
       );
-    } catch (_) {
+    } catch (error) {
+      reportEmotionFailure(error);
       throw const EmotionAnalysisException(EmotionAnalysisError.apiFailure);
     }
   }
