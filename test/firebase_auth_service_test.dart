@@ -4,9 +4,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/services/auth/firebase_auth_service.dart';
 
-class _Credential extends Fake implements UserCredential {}
+class _Credential extends Fake implements UserCredential {
+  User? createdUser;
+  @override
+  User? get user => createdUser;
+}
 
 class _User extends Fake implements User {
+  @override
+  String get uid => 'test-created-user';
+  String? savedName;
+  Object? profileError;
+  int profileWrites = 0;
+  @override
+  Future<void> updateDisplayName(String? displayName) async {
+    profileWrites++;
+    if (profileError != null) throw profileError!;
+    savedName = displayName;
+  }
+
   Object? reloadError;
   Object? tokenError;
   String? token = 'fake-test-token';
@@ -30,6 +46,21 @@ class _User extends Fake implements User {
 }
 
 class _Auth extends Fake implements FirebaseAuth {
+  int creates = 0;
+  Object? createError;
+  @override
+  Future<UserCredential> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    creates++;
+    this.email = email;
+    this.password = password;
+    if (createError != null) throw createError!;
+    user = credential.createdUser;
+    return credential;
+  }
+
   User? user;
   Stream<User?>? initialState;
   final credential = _Credential();
@@ -76,6 +107,97 @@ class _Auth extends Fake implements FirebaseAuth {
 }
 
 void main() {
+  test(
+    'register creates once then persists trimmed optional displayName',
+    () async {
+      final user = _User();
+      final auth = _Auth()..credential.createdUser = user;
+      final result = await FirebaseAuthService(auth: auth).register(
+        email: ' test@example.invalid ',
+        password: '123456',
+        nickname: '  さくら  ',
+      );
+      expect(result, same(auth.credential));
+      expect(auth.creates, 1);
+      expect(auth.email, 'test@example.invalid');
+      expect(auth.password, '123456');
+      expect(user.savedName, 'さくら');
+    },
+  );
+  test('blank nickname never writes profile', () async {
+    final user = _User();
+    final auth = _Auth()..credential.createdUser = user;
+    await FirebaseAuthService(auth: auth).register(
+      email: 'test@example.invalid',
+      password: '123456',
+      nickname: '  ',
+    );
+    expect(user.profileWrites, 0);
+  });
+  test('creation failure does not update a previous user profile', () async {
+    final user = _User();
+    final error = FirebaseAuthException(code: 'email-already-in-use');
+    final auth = _Auth()
+      ..user = user
+      ..createError = error;
+    await expectLater(
+      FirebaseAuthService(auth: auth).register(
+        email: 'test@example.invalid',
+        password: '123456',
+        nickname: 'さくら',
+      ),
+      throwsA(same(error)),
+    );
+    expect(user.profileWrites, 0);
+  });
+  test(
+    'profile failure preserves created account; retry never recreates account',
+    () async {
+      final user = _User()..profileError = StateError('private error');
+      final auth = _Auth()..credential.createdUser = user;
+      final service = FirebaseAuthService(auth: auth);
+      try {
+        await service.register(
+          email: 'test@example.invalid',
+          password: '123456',
+          nickname: 'さくら',
+        );
+        fail('Expected partial profile failure');
+      } on RegistrationProfileException catch (error) {
+        expect(error.userId, user.uid);
+        expect(error.toString(), isNot(contains('private')));
+        expect(auth.currentUser, same(user));
+        user.profileError = null;
+        await service.retryRegistrationNickname(
+          expectedUserId: error.userId,
+          nickname: '  さくら  ',
+        );
+      }
+      expect(auth.creates, 1);
+      expect(user.savedName, 'さくら');
+      expect(auth.signOutCalls, 0);
+    },
+  );
+  test('profile retry rejects changed session and blank nickname', () async {
+    final user = _User();
+    final auth = _Auth()..user = user;
+    final service = FirebaseAuthService(auth: auth);
+    for (final id in [null, 'different-user']) {
+      await expectLater(
+        service.retryRegistrationNickname(expectedUserId: id, nickname: 'さくら'),
+        throwsA(isA<RegistrationProfileException>()),
+      );
+    }
+    await expectLater(
+      service.retryRegistrationNickname(
+        expectedUserId: user.uid,
+        nickname: ' ',
+      ),
+      throwsA(isA<RegistrationProfileException>()),
+    );
+    expect(user.profileWrites, 0);
+    expect(auth.creates, 0);
+  });
   test('logout calls SDK and next startup has no session to restore', () async {
     final auth = _Auth()..user = _User();
     final service = FirebaseAuthService(auth: auth);

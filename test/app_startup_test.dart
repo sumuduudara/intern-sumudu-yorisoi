@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/app/yorisoi_app.dart';
+import 'package:yorisoi/presentation/screens/login_screen.dart';
 
 void main() {
   testWidgets('app shell renders independently of Firebase initialization', (
@@ -10,8 +11,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(YorisoiApp), findsOneWidget);
-    expect(find.text('Yorisoi'), findsOneWidget);
-    expect(find.text('気持ちに、そっと寄り添う。'), findsOneWidget);
+    expect(find.byType(LoginScreen), findsOneWidget);
+    expect(find.text('おかえりなさい'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 
@@ -31,11 +32,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        MediaQuery.textScalerOf(tester.element(find.text('Yorisoi'))).scale(16),
+        MediaQuery.textScalerOf(tester.element(find.byType(LoginScreen)))
+            .scale(16),
         32,
       );
       expect(find.byType(SingleChildScrollView), findsOneWidget);
-      expect(find.text('あなたのペースで、ひと息。'), findsOneWidget);
+      await tester.ensureVisible(find.byKey(const Key('auth-submit')));
+      expect(find.byKey(const Key('auth-submit')), findsOneWidget);
       expect(tester.takeException(), isNull);
     },
   );

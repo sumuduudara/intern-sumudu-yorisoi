@@ -33,12 +33,12 @@ void main() {
     await open(tester, ({required email, required password}) async {
       calls++;
     });
-    await tester.tap(find.text('ログインする'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pump();
     expect(find.text('メールアドレスを入力してください'), findsOneWidget);
     expect(find.text('パスワードを入力してください'), findsOneWidget);
     await fill(tester, email: 'invalid');
-    await tester.tap(find.text('ログインする'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pump();
     expect(find.text('正しいメールアドレスを入力してください'), findsOneWidget);
     expect(calls, 0);
@@ -60,7 +60,7 @@ void main() {
         return pending.future;
       });
       await fill(tester, email: ' student@example.com ', password: ' x ');
-      await tester.tap(find.text('ログインする'));
+      await tester.tap(find.byKey(const Key('auth-submit')));
       await tester.pump();
       expect(find.text('ログイン中...'), findsOneWidget);
       expect(
@@ -69,9 +69,7 @@ void main() {
       );
       expect(
         tester
-            .widget<TextButton>(
-              find.widgetWithText(TextButton, 'アカウントをお持ちでない方はこちら'),
-            )
+            .widget<TextButton>(find.byKey(const Key('auth-switch')))
             .onPressed,
         isNull,
       );
@@ -103,8 +101,8 @@ void main() {
     );
     await tester.pumpAndSettle();
     await fill(tester);
-    await tester.ensureVisible(find.text('ログインする'));
-    await tester.tap(find.text('ログインする'));
+    await tester.ensureVisible(find.byKey(const Key('auth-submit')));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pumpAndSettle();
     expect(find.byType(HomeScreen), findsOneWidget);
     expect(
@@ -135,7 +133,7 @@ void main() {
         if (calls == 1) throw FirebaseAuthException(code: entry.key);
       });
       await fill(tester);
-      await tester.tap(find.text('ログインする'));
+      await tester.tap(find.byKey(const Key('auth-submit')));
       await tester.pumpAndSettle();
       expect(find.text(entry.value), findsOneWidget);
       expect(find.byType(HomeScreen), findsNothing);
@@ -143,7 +141,7 @@ void main() {
         tester.widget<ElevatedButton>(find.byType(ElevatedButton)).onPressed,
         isNotNull,
       );
-      await tester.tap(find.text('ログインする'));
+      await tester.tap(find.byKey(const Key('auth-submit')));
       await tester.pumpAndSettle();
       expect(find.byType(HomeScreen), findsOneWidget);
       expect(calls, 2);
@@ -157,7 +155,7 @@ void main() {
       throw StateError('test error');
     });
     await fill(tester);
-    await tester.tap(find.text('ログインする'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pumpAndSettle();
     expect(find.text('ログインに失敗しました。しばらく待ってからもう一度お試しください。'), findsOneWidget);
     expect(
@@ -176,7 +174,7 @@ void main() {
         ({required email, required password}) => pending.future,
       );
       await fill(tester);
-      await tester.tap(find.text('ログインする'));
+      await tester.tap(find.byKey(const Key('auth-submit')));
       await tester.pump();
       await tester.pumpWidget(const MaterialApp(home: SizedBox()));
       if (failure) {
@@ -192,29 +190,25 @@ void main() {
     });
   }
 
-  testWidgets(
-    'welcome opens login and registration/login links replace routes',
-    (tester) async {
-      await tester.pumpWidget(const MaterialApp(home: WelcomeScreen()));
-      await tester.tap(find.text('ログイン'));
-      await tester.pumpAndSettle();
-      expect(find.byType(LoginScreen), findsOneWidget);
-      await tester.ensureVisible(find.text('アカウントをお持ちでない方はこちら'));
-      await tester.tap(find.text('アカウントをお持ちでない方はこちら'));
-      await tester.pumpAndSettle();
-      expect(find.byType(RegistrationScreen), findsOneWidget);
-      expect(find.byType(LoginScreen), findsNothing);
-      await tester.ensureVisible(find.text('すでにアカウントをお持ちの方はこちら'));
-      await tester.tap(find.text('すでにアカウントをお持ちの方はこちら'));
-      await tester.pumpAndSettle();
-      expect(find.byType(LoginScreen), findsOneWidget);
-      expect(find.byType(RegistrationScreen), findsNothing);
-      Navigator.of(tester.element(find.byType(LoginScreen))).pop();
-      await tester.pumpAndSettle();
-      expect(find.byType(WelcomeScreen), findsOneWidget);
-      expect(find.byType(LoginScreen), findsNothing);
-    },
-  );
+  testWidgets('login and signup links replace routes without loops', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
+    await tester.ensureVisible(find.byKey(const Key('auth-switch')));
+    await tester.tap(find.byKey(const Key('auth-switch')));
+    await tester.pumpAndSettle();
+    expect(find.byType(RegistrationScreen), findsOneWidget);
+    expect(find.byType(LoginScreen), findsNothing);
+    await tester.ensureVisible(find.byKey(const Key('auth-switch')));
+    await tester.tap(find.byKey(const Key('auth-switch')));
+    await tester.pumpAndSettle();
+    expect(find.byType(LoginScreen), findsOneWidget);
+    expect(find.byType(RegistrationScreen), findsNothing);
+    expect(
+      Navigator.of(tester.element(find.byType(LoginScreen))).canPop(),
+      isFalse,
+    );
+  });
 
   testWidgets('small viewport and larger text can scroll to login', (
     tester,
@@ -233,9 +227,9 @@ void main() {
         home: const LoginScreen(),
       ),
     );
-    await tester.ensureVisible(find.text('ログインする'));
+    await tester.ensureVisible(find.byKey(const Key('auth-submit')));
     await tester.pumpAndSettle();
-    expect(find.text('ログインする'), findsOneWidget);
+    expect(find.byKey(const Key('auth-submit')), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

@@ -32,12 +32,12 @@ void main() {
       calls++;
       expect(email, 'student@example.com');
     });
-    await tester.tap(find.text('パスワードをお忘れですか？'));
+    await tester.tap(find.byKey(const Key('auth-password-reset')));
     await tester.pump();
     expect(find.text('メールアドレスを入力してください'), findsOneWidget);
     expect(find.text('パスワードを入力してください'), findsNothing);
     await tester.enterText(find.byType(TextFormField).first, 'invalid');
-    await tester.tap(find.text('パスワードをお忘れですか？'));
+    await tester.tap(find.byKey(const Key('auth-password-reset')));
     await tester.pump();
     expect(find.text('正しいメールアドレスを入力してください'), findsOneWidget);
     expect(calls, 0);
@@ -45,7 +45,7 @@ void main() {
       find.byType(TextFormField).first,
       ' student@example.com ',
     );
-    await tester.tap(find.text('パスワードをお忘れですか？'));
+    await tester.tap(find.byKey(const Key('auth-password-reset')));
     await tester.pumpAndSettle();
     expect(calls, 1);
     expect(find.text(_feedback), findsOneWidget);
@@ -73,7 +73,7 @@ void main() {
       find.byType(TextFormField).first,
       'student@example.com',
     );
-    await tester.tap(find.text('パスワードをお忘れですか？'));
+    await tester.tap(find.byKey(const Key('auth-password-reset')));
     await tester.pump();
     expect(find.text('送信中...'), findsOneWidget);
     for (final button in tester.widgetList<TextButton>(
@@ -91,7 +91,7 @@ void main() {
       expect(field.enabled, isFalse);
     }
     await tester.tap(find.text('送信中...'));
-    await tester.tap(find.text('ログインする'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     expect(resets, 1);
     expect(logins, 0);
     pending.complete();
@@ -114,15 +114,15 @@ void main() {
       'student@example.com',
     );
     await tester.enterText(find.byType(TextFormField).at(1), 'test input');
-    await tester.tap(find.text('ログインする'));
+    await tester.tap(find.byKey(const Key('auth-submit')));
     await tester.pump();
     expect(
       tester
-          .widget<TextButton>(find.widgetWithText(TextButton, 'パスワードをお忘れですか？'))
+          .widget<TextButton>(find.byKey(const Key('auth-password-reset')))
           .onPressed,
       isNull,
     );
-    await tester.tap(find.text('パスワードをお忘れですか？'));
+    await tester.tap(find.byKey(const Key('auth-password-reset')));
     expect(resets, 0);
     pending.complete();
     await tester.pumpAndSettle();
@@ -149,18 +149,16 @@ void main() {
         find.byType(TextFormField).first,
         'student@example.com',
       );
-      await tester.tap(find.text('パスワードをお忘れですか？'));
+      await tester.tap(find.byKey(const Key('auth-password-reset')));
       await tester.pumpAndSettle();
       expect(find.text(entry.value), findsOneWidget);
       expect(
         tester
-            .widget<TextButton>(
-              find.widgetWithText(TextButton, 'パスワードをお忘れですか？'),
-            )
+            .widget<TextButton>(find.byKey(const Key('auth-password-reset')))
             .onPressed,
         isNotNull,
       );
-      await tester.tap(find.text('パスワードをお忘れですか？'));
+      await tester.tap(find.byKey(const Key('auth-password-reset')));
       await tester.pumpAndSettle();
       expect(calls, 2);
       expect(find.text(_feedback), findsOneWidget);
@@ -177,7 +175,7 @@ void main() {
       find.byType(TextFormField).first,
       'student@example.com',
     );
-    await tester.tap(find.text('パスワードをお忘れですか？'));
+    await tester.tap(find.byKey(const Key('auth-password-reset')));
     await tester.pumpAndSettle();
     expect(
       find.text('再設定メールを送信できませんでした。しばらく待ってからもう一度お試しください。'),
@@ -195,7 +193,7 @@ void main() {
         find.byType(TextFormField).first,
         'student@example.com',
       );
-      await tester.tap(find.text('パスワードをお忘れですか？'));
+      await tester.tap(find.byKey(const Key('auth-password-reset')));
       await tester.pump();
       await tester.pumpWidget(const MaterialApp(home: SizedBox()));
       if (failure) {
