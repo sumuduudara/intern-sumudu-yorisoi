@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -36,6 +37,60 @@ void main() {
     });
   });
   tearDown(() => messenger.setMockMethodCallHandler(channel, null));
+
+  testWidgets(
+    'Android does not stop after 3 seconds without a partial result',
+    (tester) async {
+      final previous = debugDefaultTargetPlatformOverride;
+      debugDefaultTargetPlatformOverride = TargetPlatform.android;
+      try {
+        await service.initialize(onStatus: (_) {}, onError: (_) {});
+        await service.listen(localeId: 'ja_JP', onResult: (_, _) {});
+        final options = calls.singleWhere((call) => call.method == 'listen');
+        expect(options.arguments['localeId'], 'ja_JP');
+        expect(options.arguments['pauseFor'], isNull);
+        expect(options.arguments['listenFor'], 20000);
+        await event('notifyStatus', 'listening');
+        await tester.pump(const Duration(seconds: 4));
+        expect(calls.where((call) => call.method == 'stop'), isEmpty);
+        await tester.pump(const Duration(seconds: 16));
+        expect(calls.where((call) => call.method == 'stop'), hasLength(1));
+        await service.cancel();
+      } finally {
+        debugDefaultTargetPlatformOverride = previous;
+      }
+    },
+  );
+
+  testWidgets('native end does not hide a delayed language service error', (
+    tester,
+  ) async {
+    final text = TextEditingController(text: '元の文');
+    final voice = VoiceInputController(
+      textController: text,
+      recognition: service,
+      isWeb: false,
+    );
+    addTearDown(() {
+      voice.dispose();
+      text.dispose();
+    });
+    await voice.toggle();
+    await event('notifyStatus', 'listening');
+    await event('notifyStatus', 'notListening');
+    await event('notifyStatus', 'doneNoResult');
+    await tester.pump();
+    expect(voice.phase, VoiceInputPhase.stopping);
+    expect(calls.where((call) => call.method == 'stop'), isEmpty);
+    await event(
+      'notifyError',
+      jsonEncode({'errorMsg': 'error_language_unavailable', 'permanent': true}),
+    );
+    await tester.pump();
+    expect(voice.busy, isFalse);
+    expect(voice.error, contains('日本語'));
+    expect(text.text, '元の文');
+  });
 
   test('successful initialization happens once and routes callbacks to current Home', () async {
     final first = <String>[];

@@ -6,7 +6,7 @@
 
 - 要件：[Issue #8「音声入力機能の仕様作成」](https://github.com/sumuduudara/intern-sumudu-yorisoi/issues/8)。2026-10-22にGitHub APIから本文と達成目標を確認した。
 - 関連仕様：[`app_spec.md`](app_spec.md)、[`home_emotion_screen_spec.md`](home_emotion_screen_spec.md)、サービス選定・実験履歴：[`api_service_policy.md`](api_service_policy.md)。
-- **元のIssue #8の成果物は仕様書。追加依頼により、2026-10-22に本体Homeへ音声認識コードとnative権限設定を追加した。** コード・偽サービスによる自動テストと、実際の端末での認識成功は区別する。本体のライブ音声テストはまだ未確認。
+- **元のIssue #8の成果物は仕様書。追加依頼により、2026-10-22に本体Homeへ音声認識コードとnative権限設定を追加した。** コード・偽サービスによる自動テストと、実際の端末での認識成功は区別する。本体のAndroid調査結果は末尾「2026-10-31 Android早期終了の修正」を参照。実際の日本語認識成功とサービス起動は区別する。
 - Flutterの **`speech_to_text` を第一候補** とし、iOS / Androidの端末音声認識を使う。独自の録音・音声アップロードサービスは追加しない。
 - 音声入力は任意。音声が使えなくても、既存のテキスト入力と手動送信を継続できる。
 
@@ -18,7 +18,7 @@
 | [`feeling_input_view.dart`](../lib/presentation/widgets/home/feeling_input_view.dart) | 元の`home-microphone`画像・位置を保持。同じ欄に結果を表示し、聞き取り中だけ編集と送信を抑止 |
 | [`analysis_loading_view.dart`](../lib/presentation/widgets/home/analysis_loading_view.dart) | 分析中のUI。音声の聞き取り中画面として流用しない |
 | [`pubspec.yaml`](../pubspec.yaml) | 本体へ`speech_to_text: 7.5.0`を固定で追加 |
-| [`AndroidManifest.xml`](../android/app/src/main/AndroidManifest.xml) | `RECORD_AUDIO`、`INTERNET`、認識サービスqueryを追加。nativeビルド・実機未確認 |
+| [`AndroidManifest.xml`](../android/app/src/main/AndroidManifest.xml) | `RECORD_AUDIO`、`INTERNET`、認識サービスqueryを追加。API 37 Emulatorでビルド・起動済み。実機未確認 |
 | [`Info.plist`](../ios/Runner/Info.plist) | マイク・音声認識の日本語利用目的を追加。nativeビルド・実機未確認 |
 | [`voice_test.dart`](../tools/issue4_package_check/lib/voice_test.dart) | Issue #4の独立実験。Homeには接続されていない。20秒の短い認識、日本語locale選択を試している |
 | [`voice_locale_test.dart`](../tools/issue4_package_check/test/voice_locale_test.dart) | locale選択の純粋なテスト。マイクや認識精度を検証するテストではない |
@@ -57,7 +57,7 @@ Homeは既存の入力controllerを渡す。Firebase認証サービスは変更�
 3. nativeでは`locales()`から取得したIDの`_`と`-`・大文字小文字を正規化し、`ja-JP`相当を選ぶ。
    APIへは返された実際のID（例：`ja_JP`）を渡す。日本語がなければ英語・端末既定言語へ無断で切り替えない。
 4. `SpeechListenOptions`で短い文章向けの`ListenMode.dictation`、`partialResults: true`、`cancelOnError: true`を指定する方針。
-   `listenFor: 20秒`を上限とし、nativeでは`pauseFor: 3秒`を希望値とする。20秒は既存実験の設定、3秒は本仕様の初期案で、実機検証済みの値ではない。
+   `listenFor: 20秒`を上限とする。Androidでは`pauseFor`を指定せず、OSに無音判定を任せる。7.5.0のDart側pause timerは最後の文字結果からの時間を測るため、発話中でも途中結果が3秒来ないと停止する問題を避ける。iOSの`pauseFor: 3秒`は維持する（実機未検証）。
    Chromeでは初回許可待ちを3秒の無音扱いにしないため`pauseFor`を指定しない。ブラウザの一覧に頼らず`ja-JP`を直接指定する。
 5. OSが無音などで先に終了することがある。指定秒数の継続を保証しない。録音開始後の上限監視でも停止を要求し、再起動を自動ループさせない。
    権限ダイアログを待っている時間を「20秒の録音」とは数えない。継続録音、バックグラウンド録音は対象外。
@@ -122,8 +122,8 @@ Androidの認識API要件・端末依存性は[公式SpeechRecognizer資料](htt
 5. `notListening`だけで全結果到着と判断しない。最終結果と`done`を扱い、`done`や複数callbackで二重追加しない。
    パッケージは最終結果が来ない場合に最後の途中結果を最終扱いする場合があるため、「確定」は認識内容の正しさの保証ではない。
 6. `stop()`後も無期限に待たない。SDKの`finalTimeout`（既定2秒）を考慮し、停止後3秒を初期の画面側監視値として扱う。
-   これは未検証の設計値。監視時間内に完了しなければ取消・エラー復帰し、実機で値を調整する。
-7. 無音・失敗・取消では元のテキストへ戻す。未確定の仮表示を成功として残さない。確定済みの過去の入力は消さない。
+   nativeの`notListening`/`done`でも最大3秒だけ実際の最終結果・エラーを待つ。すでに終了したnative認識へ追加の`stop()`を送らない。停止色に戻し、最終結果待ちを聞き取り中として表示しない。
+7. 途中の文字がない無音・失敗、権限/通信エラー、明示取消では元のテキストへ戻す。途中結果がある通常終了・最終結果待ちタイムアウト・no match/speech timeout・空の最終結果では、その文字を確認用に残し「聞き取れた途中の文字を残しました。確認・修正してください。」と表示する。最終結果や認識成功とは主張しない。確定済みの過去の入力は消さない。
 8. 終了後は編集可能にし、必要に応じて入力末尾へカーソルを移す。ユーザーが誤認識を修正できる。
 9. 入力を認識しただけで分析・送信・画面遷移をしない。「気持ちを伝える」の明示操作で、Issue #7と同じ空白のみの検証と重複送信防止を行う。
 10. 認識セッションIDと画面の生存確認を使い、取消済み・破棄後・前回セッションの遅延callbackが入力や画面を変更しないようにする。
@@ -140,10 +140,11 @@ Androidの認識API要件・端末依存性は[公式SpeechRecognizer資料](htt
 | 音声認識の許可拒否・制限を確認できた | 「音声認識が許可されていません。文字で入力してください。許可する場合は端末の設定を確認してください。」 | 同上。自動で許可要求を繰り返さない |
 | 日本語サービスなし・日本語localeなし | 「この環境では日本語の音声入力を利用できません。文字で入力してください。」 | 英語に切り替えず文字入力へ |
 | 初期化失敗・原因を特定できない | 「音声入力を利用できません。文字で入力してください。」 | 文字入力、利用者による再試行 |
-| 無音・no match・speech timeout | 「音声を認識できませんでした。もう一度話すか、文字で入力してください。」 | 元の入力を保持。短い文で再試行可能 |
-| 通信失敗・認識サービスの障害 | 「音声入力に失敗しました。もう一度お試しください。文字でも入力できます。」 | 入力へ戻す。自動再送・自動録音しない |
+| 無音・no match・speech timeout | 「音声を認識できませんでした。もう一度話すか、文字で入力してください。」 | 元の入力を保持。途中結果があれば確認用に保持。短い文で再試行可能 |
+| 通信失敗・認識サービスの障害 | 「音声認識サービスに接続できません。通信を確認して再試行するか、文字で入力してください。」 | 入力へ戻す。自動再送・自動録音しない |
 | サービス使用中・二重開始 | 「今は音声入力を開始できません。少し待つか、文字で入力してください。」 | 現セッションを整理してから明示再試行 |
-| 停止後に完了しない・想定外の例外 | 「音声入力を終了できませんでした。文字で入力してください。」 | 認識を取消し、元の入力と操作可能状態へ戻す |
+| 停止後に最終結果が来ない | 途中結果があれば確認・修正を案内。なければ無音の案内 | 最大3秒で復帰し、途中結果または元の入力を保持 |
+| 想定外の例外 | 「音声入力に失敗しました。もう一度お試しください。文字でも入力できます。」 | 認識を取消し、元の入力と操作可能状態へ戻す |
 | 画面離脱・アプリが背景へ移動 | エラーダイアログは出さない | `cancel()`、仮表示を破棄、再録音は利用者操作から |
 
 エラーコードはOS・認識サービスで異なるため、判別できるものだけ上記へ対応づけ、残りは一般エラーにする。
@@ -167,10 +168,10 @@ SDKの生の例外や入力文をそのまま表示・ログ出力しない。
 | Issue #8本文・達成目標／依頼項目 | 仕様の定義 | 実装・端末検証の状態 |
 | --- | --- | --- |
 | `speech_to_text`を第一候補にする | 第1・2・4節 | 本体へ7.5.0を追加 |
-| iOS / Androidで日本語`ja-JP` | 第4・5節 | locale選択を実装。native実行は未確認 |
+| iOS / Androidで日本語`ja-JP` | 第4・5節 | locale選択を実装。Android API 37で初期化/開始/エラーを確認。日本語認識成功・実機は未確認 |
 | 初回のマイク・音声認識権限 | 第5・7節 | 本体のnative宣言とSDK初期化を接続。許可ダイアログ実機未確認 |
 | マイクの開始・停止、短い回答限定 | 第3・4節 | 20秒上限・停止・取消の実機確認は今後 |
-| 音声→テキスト→確認・修正→感情分析 | 第6・8節 | Home音声コードを接続。AIは未接続のプレビューのまま |
+| 音声→テキスト→確認・修正→感情分析 | 第6・8節 | Home音声コードを接続。現在の本体はIssue #9の実AI分析へ明示送信する。音声からの実機成功は未確認 |
 | 認識結果を既存欄に表示し編集可能 | 第6節 | 元文保持・途中結果置換・最終結果の一度だけの反映を実装 |
 | 権限拒否・認識失敗・利用不可の代替動作 | 第5・7節 | 日本語案内と文字入力への復帰を実装。実機確認は今後 |
 | Figmaと既存認証を維持 | 第2・3・7節 | 原本画像・位置・寸法を維持。認証サービスと設定を変更しない |
@@ -285,3 +286,61 @@ nativeビルド、署名、各端末の認識サービスが必要。Chromeの�
 
 生成されたregistrantは手で編集していない。`build/`・`.dart_tool/`等の生成物を配布用ソースへ加えない。
 登録・ログイン・セッション・パスワード再設定の実装、Firebase設定、Issue #4実験の元ファイルは変更していない。
+
+
+## 2026-10-31 Android早期終了の修正
+
+### 確認したアプリ側の問題と対応
+
+- `speech_to_text` 7.5.0の実ソースで、`pauseFor: 3秒`はマイク音量ではなく最後の文字結果を基準にDart側からも停止することを確認。Androidでだけこの指定を外した。Chromeの指定なし、iOSの3秒、全体の20秒上限は維持。
+- nativeの`notListening`で再び`stop()`を呼ぶとSDKが利用者による終了と判断し、その後のエラーを無視する場合がある。nativeは停止状態へ移して実際の最終結果/エラーを最大3秒待つ。Chromeで必要な`stop()`による最終結果補完は維持。
+- 終了時に途中結果を失わない経路を追加。ただし途中結果であることを案内し、明示取消・背景移動では従来どおり仮表示を破棄する。自動再録音や、実際には停止しているマイクを聞き取り中に見せる処理は追加しない。
+- 画像、円形clip、青/ピンク、白いマイク、Home/Firebase/Auth/Geminiの実装は変更しない。AndroidManifestには必要な権限/queryがあり、今回変更なし。
+
+### Emulatorで実際に確認したこと
+
+- 対象：`emulator-5554`、Android API 37。`RECORD_AUDIO`許可あり、認識サービス2個あり。既定サービスはGoogleの`GoogleTTSRecognitionService`。
+- サービス初期化成功、locale一覧に`ja_JP`あり。これは日本語モデルの実際の利用成功・インストール済みを保証しない。
+- Emulatorのhost microphone入力を有効化。AVD設定は`hw.audioInput=yes`。元から有効だったかどうかは未確認。
+- 一時診断はリポジトリ外の`/tmp/yorisoi_voice_probe.dart`から実際のHome/service/controllerを呼ぶ。Firebaseや音声内容をログに出さず、status、エラー、経過時間、音量数値だけを観察。
+- 修正後の無音時に約3〜4秒でnativeから`notListening`→`done`→`error_speech_timeout`。この間アプリから`stop()`は送っていない。別の試行では約6.1秒の認識、音量callback 14回、最大約9.64、`error_no_match`を確認。入力レベル通知は届いたが、日本語の文章を認識した証拠ではない。
+- **日本語音声→正しい文字の成功は未確認。** 実際の発話、ホストマイク経路、Google認識サービスの利用状況は追加確認が必要。固定の録音時間はOSが保証せず、サービスをアプリ側で強制的に継続させない。
+
+### 自動確認
+
+- `flutter analyze --no-pub`：No issues found。
+- `flutter test --no-pub --reporter expanded`：276 PASS、3 skip（ライブAIテスト）。
+- SDKの実Dartコード＋模擬channelで、Androidに3秒pause指定がなく、途中文字が4秒来なくても停止せず、20秒上限では停止することを確認。
+- native終了後の遅延エラー、遅延最終結果、途中文字保持、編集、再試行、状態色の解除を追加検証。既存のChrome補完・認証・Gemini・円形画像回帰テストも実行。マイクを使わない自動テストであり、native認識精度の成功ではない。
+
+### 手動再確認
+
+```sh
+cd /Users/sumuduudara/intern-sumudu-yorisoi
+flutter run -d emulator-5554
+```
+
+1. ログインしてHomeを開く。元の文章を入力し、マイクを押して聞き取り中になったらすぐ「今日はとても寂しいです」と短く話す。
+2. もう一度押して停止できること、円形マイクが青へ戻ること、文字が残り編集できることを確認する。
+3. 自然終了、無音、再試行も確認。結果を確認してから手動でShareする。音声だけでGeminiへ自動送信しない。
+4. nativeのtimeout/no matchが続く場合、エラー文と発話の有無を記録する。Googleの日本語音声サービスとホストマイクを確認し、実機Androidでも比較する。実機未検証のままAndroid対応PASSとしない。
+
+根拠：[speech_to_text公式資料](https://pub.dev/documentation/speech_to_text/latest/)のAndroid短時間認識の制約、[Android RecognizerIntent](https://developer.android.com/reference/android/speech/RecognizerIntent)の認識実装による無音設定の制約も参照。
+
+
+### 2026-10-31 利用者の再確認：Android音声はFAIL・未解決
+
+- 最新修正後も、利用者が`emulator-5554`（Android 17 / API 37）で日本語認識を再試行し、引き続き失敗したと報告した。**Android日本語音声認識はPASSではない。**
+- 確認済みなのは認識サービスの初期化、`ja_JP`の一覧表示、マイク権限、開始/status/音量callbackまで。日本語の安定した文字変換は成功していない。
+- 直前の診断ではnativeから`error_speech_timeout` / `error_no_match`が返り、その前にアプリ側の`stop()`は呼ばれていなかった。利用者の今回の再試行について、新しいログやエラーコードは取得していないため、同じコードだったとは断定しない。
+- 残る原因は未確定。Emulatorの音声経路、実際の発話、Google認識サービス/日本語モデルなどを切り分ける証拠が不足している。Emulatorだけの制限、または全Android端末の不具合と断定しない。
+- 既存の修正（Androidの3秒pause timer解除、native終了後の遅延イベント待ち、途中文字の保持、実statusによる色解除）を保持する。推測に基づく追加変更、自動再録音、停止中の聞き取り表示は行わない。文字入力を代替手段とする。
+- Chromeの`ja-JP`指定、pause指定なし、`stop()`による最終結果補完の経路を保持。直前の276 PASS / 3 skipには既存Chrome相当の回帰テストも含まれる。**今回Chromeのライブ音声再試験や自動テストの再実行はしていない。** 既存のChrome成功記録をAndroid成功へ転用しない。
+- 実Geminiサービス、HomeのShare接続、結果画面、Firebase設定、画像/UI、`docs/testing_commands.md`は前回音声修正開始時の内容と一致。今回もコードは変更しない。
+- この制限はIssue #8のAndroid音声入力として管理する。Issue #9の実AI接続の確認事項は[Home実AI接続の最新確認](home_emotion_analysis_integration.md#2026-10-31-android音声の残存問題とissue-9の確認事項)へ分離する。
+
+
+### 2026-10-31 詳細調査の追記
+
+[Android詳細診断](android_voice_diagnostics.md)を追加。日本語model未インストールをnative APIで確認し、Google公式の51.53 MBモデルを実際に導入した。reboot後も`installedLanguages=[ja-JP, en-US]`を確認。
+ただし利用者の再発話でも`NO_SPEECH_DETECTED`/空結果となり、**Android voiceは引き続きFAIL**。Emulatorの音声注入でnative crash、別のnative PCM診断更新でsystem service failureも発生。確実な日本語波形到達とvoice→実Geminiは未確認。実機を用意できないことが次の比較試験のblockerである。既存コード修正を保持し、追加の推測修正はしない。

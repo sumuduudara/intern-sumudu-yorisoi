@@ -22,6 +22,7 @@ class VoiceInputController extends ChangeNotifier {
   String? error;
   String? feedback;
   String _originalText = '';
+  bool _hasPartial = false;
   int _session = 0;
   bool _disposed = false;
   bool _initialized = false;
@@ -56,6 +57,7 @@ class VoiceInputController extends ChangeNotifier {
     if (busy) return;
     final session = ++_session;
     _originalText = textController.text;
+    _hasPartial = false;
     error = null;
     feedback = null;
     phase = VoiceInputPhase.preparing;
@@ -72,7 +74,15 @@ class VoiceInputController extends ChangeNotifier {
         onStatus: (status) => _status(session, status),
         onError: (code) {
           if (_current(session)) {
-            unawaited(_finish(message: voiceErrorMessage(code)));
+            final noSpeech = {
+              'no_speech',
+              'error_speech_timeout',
+              'error_no_match',
+              'no_match',
+            }.contains(code.toLowerCase().replaceAll('-', '_'));
+            unawaited(
+              _finish(message: voiceErrorMessage(code), keepPartial: noSpeech),
+            );
           }
         },
       );
@@ -114,18 +124,28 @@ class VoiceInputController extends ChangeNotifier {
   }
 
   void _status(int session, String status) {
-    if (!_current(session)) return;
+    if (!_current(session) || !busy) return;
     if (status == 'listening' && phase == VoiceInputPhase.preparing) {
       _startWait?.cancel();
       phase = VoiceInputPhase.listening;
       _limit = Timer(const Duration(seconds: 20), () => unawaited(stop()));
       notifyListeners();
     } else if (status == 'notListening' && phase != VoiceInputPhase.stopping) {
-      // On web the last result can still be partial at onend. stop() asks
-      // the plugin for its final-result fallback; do not discard it yet.
-      unawaited(stop());
+      if (isWeb) {
+        // Web needs stop() to enable the plugin's partial-to-final fallback.
+        unawaited(stop());
+      } else {
+        // Android already stopped recording. A second stop() marks the
+        // plugin as user-ended and can suppress the pending native error.
+        // Drop the listening color now, but allow the real final/error event.
+        _waitForFinalResult(session);
+      }
     } else if (status == 'done') {
-      unawaited(_finish(message: voiceErrorMessage('no-speech')));
+      if (isWeb) {
+        unawaited(_finish(message: voiceErrorMessage('no-speech')));
+      } else {
+        _waitForFinalResult(session);
+      }
     }
   }
 
@@ -133,7 +153,12 @@ class VoiceInputController extends ChangeNotifier {
     if (!_current(session) || !busy) return;
     if (words.trim().isEmpty) {
       if (isFinal) {
-        unawaited(_finish(message: voiceErrorMessage('no-speech')));
+        unawaited(
+          _finish(
+            keepPartial: true,
+            message: _hasPartial ? null : voiceErrorMessage('no-speech'),
+          ),
+        );
       }
       return;
     }
@@ -145,21 +170,14 @@ class VoiceInputController extends ChangeNotifier {
       text: combined,
       selection: TextSelection.collapsed(offset: combined.length),
     );
+    _hasPartial = !isFinal;
     if (isFinal) unawaited(_finish(keepResult: true));
   }
 
   Future<void> stop() async {
     if (_disposed || !busy || phase == VoiceInputPhase.stopping) return;
     final session = _session;
-    phase = VoiceInputPhase.stopping;
-    _limit?.cancel();
-    _startWait?.cancel();
-    notifyListeners();
-    _finalWait = Timer(const Duration(seconds: 3), () {
-      if (_current(session)) {
-        unawaited(_finish(message: '音声入力を終了できませんでした。文字で入力してください。'));
-      }
-    });
+    _waitForFinalResult(session);
     try {
       await recognition.stop();
     } catch (_) {
@@ -169,9 +187,31 @@ class VoiceInputController extends ChangeNotifier {
     }
   }
 
+  void _waitForFinalResult(int session) {
+    if (!_current(session) || phase == VoiceInputPhase.stopping) return;
+    phase = VoiceInputPhase.stopping;
+    _limit?.cancel();
+    _startWait?.cancel();
+    notifyListeners();
+    _finalWait = Timer(const Duration(seconds: 3), () {
+      if (_current(session)) {
+        unawaited(
+          _finish(
+            keepPartial: true,
+            message: _hasPartial ? null : voiceErrorMessage('no-speech'),
+          ),
+        );
+      }
+    });
+  }
+
   Future<void> cancel() => _finish();
 
-  Future<void> _finish({bool keepResult = false, String? message}) async {
+  Future<void> _finish({
+    bool keepResult = false,
+    bool keepPartial = false,
+    String? message,
+  }) async {
     if (_ending) {
       await _finished?.future;
       return;
@@ -182,9 +222,16 @@ class VoiceInputController extends ChangeNotifier {
     final session =
         ++_session; // Ignore final/error events from the old listen.
     _cancelTimers();
-    if (!keepResult) textController.text = _originalText;
+    final retainedPartial = keepPartial && _hasPartial;
+    if (!keepResult && !retainedPartial) {
+      textController.text = _originalText;
+    }
     error = message;
-    feedback = keepResult ? '音声を入力しました。確認・修正できます。' : null;
+    feedback = keepResult
+        ? '音声を入力しました。確認・修正できます。'
+        : retainedPartial
+        ? '聞き取れた途中の文字を残しました。確認・修正してください。'
+        : null;
     phase = VoiceInputPhase.stopping;
     notifyListeners();
     // If permissions resolve after cancellation, _start sees the old session

@@ -137,12 +137,17 @@ void main() {
     'error_busy',
     'private exception details',
   ]) {
-    test('$code restores prior input and allows manual retry', () async {
+    test('$code preserves text and allows manual retry', () async {
       await voice.toggle();
       fake.result!('未確定', false);
       fake.error!(code);
       await flush();
-      expect(text.text, '  元の文章。\n');
+      expect(
+        text.text,
+        ['error_speech_timeout', 'error_no_match'].contains(code)
+            ? '  元の文章。\n未確定'
+            : '  元の文章。\n',
+      );
       expect(voice.error, contains('文字'));
       expect(voice.error, isNot(contains('private exception details')));
       expect(voice.busy, isFalse);
@@ -159,7 +164,7 @@ void main() {
       fake.status!('notListening');
       await flush();
       expect(voice.phase, VoiceInputPhase.stopping);
-      expect(fake.stops, 1);
+      expect(fake.stops, 0);
       await voice.toggle();
       expect(fake.starts, 1);
       fake.result!('寂しいです', true);
@@ -169,15 +174,17 @@ void main() {
     },
   );
 
-  test('done without speech and empty final return unchanged input', () async {
+  testWidgets('done without speech and empty final return unchanged input', (
+    tester,
+  ) async {
     await voice.toggle();
     fake.status!('done');
-    await flush();
+    await tester.pump(const Duration(seconds: 3));
     expect(text.text, '  元の文章。\n');
     expect(voice.error, contains('認識できません'));
     await voice.toggle();
     fake.result!('  ', true);
-    await flush();
+    await tester.pump();
     expect(text.text, '  元の文章。\n');
     expect(voice.busy, isFalse);
   });
@@ -199,6 +206,48 @@ void main() {
     expect(voice.error, isNull);
   });
 
+  testWidgets('native early done accepts late final without a second stop', (
+    tester,
+  ) async {
+    await voice.toggle();
+    fake.result!('とても', false);
+    fake.status!('notListening');
+    fake.status!('done');
+    expect(voice.phase, VoiceInputPhase.stopping);
+    expect(fake.stops, 0);
+    await tester.pump(const Duration(seconds: 1));
+    await voice.toggle();
+    expect(fake.starts, 1);
+    fake.result!('とても寂しいです', true);
+    await tester.pump();
+    expect(voice.busy, isFalse);
+    expect(text.text, '  元の文章。\nとても寂しいです');
+    expect(voice.error, isNull);
+    await tester.pump(const Duration(seconds: 3));
+    expect(fake.cancels, 1);
+  });
+
+  testWidgets('native early stop retains partial when no final arrives', (
+    tester,
+  ) async {
+    await voice.toggle();
+    fake.result!('とても寂しいです', false);
+    fake.status!('notListening');
+    fake.status!('done');
+    await tester.pump(const Duration(seconds: 3));
+    expect(voice.busy, isFalse);
+    expect(fake.stops, 0);
+    expect(text.text, '  元の文章。\nとても寂しいです');
+    expect(voice.feedback, contains('途中の文字'));
+    text.text += '。';
+    expect(text.text, endsWith('寂しいです。'));
+    await voice.toggle();
+    expect(fake.starts, 2);
+    fake.result!('大丈夫です', true);
+    await tester.pump();
+    expect(text.text, endsWith('寂しいです。\n大丈夫です'));
+  });
+
   test(
     'listen and stop exceptions unlock input without exposing details',
     () async {
@@ -217,7 +266,7 @@ void main() {
   );
 
   testWidgets(
-    '20-second limit requests stop; 3-second final timeout restores text',
+    '20-second limit stops; missing final retains partial for review',
     (tester) async {
       await voice.toggle();
       fake.result!('未確定', false);
@@ -226,8 +275,9 @@ void main() {
       expect(voice.phase, VoiceInputPhase.stopping);
       await tester.pump(const Duration(seconds: 3));
       expect(voice.busy, isFalse);
-      expect(text.text, '  元の文章。\n');
-      expect(voice.error, contains('終了できません'));
+      expect(text.text, '  元の文章。\n未確定');
+      expect(voice.error, isNull);
+      expect(voice.feedback, contains('途中の文字'));
     },
   );
 
