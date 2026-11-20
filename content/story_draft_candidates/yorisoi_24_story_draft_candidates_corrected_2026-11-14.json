@@ -1,0 +1,2467 @@
+{
+  "schema_version": "yorisoi-local-drafts-v1",
+  "drafts": [
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "sad_cat_001",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "悲しい",
+        "key": "sad"
+      },
+      "pet": {
+        "label": "猫",
+        "key": "cat"
+      },
+      "language": "ja-JP",
+      "title": "窓辺の雨音とぬくもり",
+      "story_text": "ぼくはいつものように、冷たいガラス戸の前に座っています。外では朝からずっと、細い雨が降り続いています。曇り空の色が庭の草木をすっぽりと包み込んでいます。遠くで聞こえる電車の音も、今日はなんだかかすんでいます。窓ガラスに触れる鼻先には、しっとりとした冷たさが伝わります。\n\nぼくの胸の奥には、ぽっかりと穴が開いたような感覚があります。いつもなら聞こえるはずの足音が、今日はどこからも聞こえてきません。部屋の中は静まり返っていて、時計の針の音だけが小さく響いています。ぼくは少しだけ丸くなって、前足をきれいに揃えて重ねました。\n\nフローリングの床から伝わる冷たさが、体全体にゆっくりと広がります。なんとなく胸のあたりが重たくて、大きなため息がこぼれそうです。ぼくはまだ立ち上がる気になれず、しばらく窓の前にいることにしました。雨粒がガラスをつたって、ゆっくりと下へ流れていくのが見えます。ふと、椅子の下に落ちている一枚の枯れ葉に気がつきました。\n\n昨日まで緑色だった葉が、いつの間にか乾いて茶色くなっています。ぼくはそっと立ち上がり、ゆっくりとその葉に近づいてみました。鼻先でくんくんと匂いを嗅いでみると、土の香りがかすかにしました。季節が少しずつ変わっていくのだと、ぼくの小さな体でなんとなく理解します。\n\n冷たい空気の中で、その枯れ葉はひっそりと静かに横たわっていました。ぼくはそのまま座り込み、もう一度外の雨粒を見上げることにしました。遠くの空がわずかに明るくなったような気もしますが、気のせいかもしれません。胸の奥の重たさは消えませんが、雨音を聞いているとなぜか少しだけ落ち着きます。ぼくは目を細めて、静かな部屋の中でゆっくりとまばたきをしました。",
+      "content_sha256": "45883f15d7282aaf161e2521791365071524ddb4aebde70ae7289eedb66a1a80",
+      "character_count": 718,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-10T12:29:43.387Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "sad_cat_001",
+        "source_revision": 2,
+        "source_content_sha256": "45883f15d7282aaf161e2521791365071524ddb4aebde70ae7289eedb66a1a80",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "sad_cat_001",
+        "source_revision": 1,
+        "source_content_sha256": "13b01b00094ff425062dd3e22f73ae385470392ff5a87b0215d705678d3012bf",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "generated_at": "2026-11-10T12:29:43.387Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "sad_cat_002",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "悲しい",
+        "key": "sad"
+      },
+      "pet": {
+        "label": "猫",
+        "key": "cat"
+      },
+      "language": "ja-JP",
+      "title": "洗いたてのかごと小さな結び目",
+      "story_text": "洗濯かごのそばで、ぼくは足を止めました。昨日まで丸くなっていた布が、今日はきれいに畳まれています。洗いたての匂いがして、いつもの場所なのに少し違って感じられます。ぼくはかごの外から鼻を近づけましたが、すぐには中へ入る気になれませんでした。\n\n布の端には、小さな結び目がひとつあります。前からそこにあったはずなのに、今日はやけにはっきり見えました。ぼくは前足で端を軽く押し、動いたところをじっと眺めます。かごの底が低く鳴り、その音で耳がぴくりと動きました。\n\nぼくはかごの横を半周して、もう一度布を確かめました。よく知っている匂いは薄くなっています。それが少し寂しくて、しっぽの先を床に下ろしました。けれど、布を押すとゆっくり戻る柔らかさは、昨日ぼくが体を預けたときと似ていました。端を押した拍子に、縫い目の裏側が少し見えました。細い糸が何度も重なった場所に鼻を寄せると、布全体とは違う、わずかに古い匂いがしました。\n\nかごの入り口に前足だけを乗せると、布に浅いくぼみができました。ぼくはその縁を見ながら、後ろ足も静かに移します。結び目に体が当たらないところを選ぶと、足の下で布が少しだけ沈みました。まだ落ち着かない気持ちはありましたが、今度はそこで腰を下ろせました。\n\n隣の部屋から、布を畳むかすかな音が聞こえます。ぼくは顔を上げ、それから結び目のそばにあごを置きました。前とまったく同じ場所には戻っていないのかもしれません。それでも、体の形に沿ってできた小さなくぼみには、ぼくのぬくもりがゆっくり残り始めていました。",
+      "content_sha256": "65cd79bddc05094649c5080a6da6f51a3e62524d6728c10a1a5ac2ffb9037ed2",
+      "character_count": 651,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-10T12:35:07.012Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "sad_cat_002",
+        "source_revision": 2,
+        "source_content_sha256": "65cd79bddc05094649c5080a6da6f51a3e62524d6728c10a1a5ac2ffb9037ed2",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "sad_cat_002",
+        "source_revision": 1,
+        "source_content_sha256": "abcc4c4de896b826f6d7eed80a1584847faf4c3e69a8b04af5586dd6d21fb1f1",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "generated_at": "2026-11-10T12:35:07.012Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "sad_cat_003",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "悲しい",
+        "key": "sad"
+      },
+      "pet": {
+        "label": "猫",
+        "key": "cat"
+      },
+      "language": "ja-JP",
+      "title": "花びらの見送る庭の小道",
+      "story_text": "花の庭の小道には、柔らかい土の匂いがふわりと漂っています。ぼくは小さな足音を立てずに、草の間をゆっくりと歩いています。頭の上では黄色い花が静かに揺れて、緑の葉が風にささやいています。あたりはすっかり落ち着いた空気に包まれて、少しだけ胸のあたりが切なくなります。\n\nそんな小道の片隅で、ぼくは地面に落ちた赤い花びらを見つけました。その花びらは風もないのに、くるくると小さな輪を描くように動いています。ぼくは不思議に思いながら、耳をぴくりと動かして立ち止まりました。どうしてそんなふうに動いているのか、じっと目を凝らして観察します。\n\nぼくはそっと前足を一歩だけ前に出して、動く花びらに近づいていきました。鼻先を近づけると、湿った土と混ざった甘い香りがかすかに鼻腔をくすぐります。じっと見つめていると、花びらは小さな風のひと吹きに押されて転がりました。その小さな動きに合わせて、ぼくの心の中にある重たい気持ちも少しだけ揺れます。\n\nもう少し確かめようと、ぼくはさらに低い姿勢で身をかがめました。花びらのすぐそばには、硬くて小さな石が隠れていたのが見えます。風がその石の隙間をすり抜けるとき、小さな通り道ができて花びらを動かしていたのです。あんなに不思議だった動きの理由がわかって、ぼくの胸のつかえが少しほどけました。\n\nぼくは柔らかい草の上に前足を揃えて座り直し、もう一度その小さな景色を見つめます。石のふちには細い草も生えていて、その先が花びらと同じ風に揺れていました。花の香りは相変わらず優しく、ぼくの体を包み込んで少しだけ安心させてくれます。風が再び吹き抜けると、花びらは静かに草の陰へと溶けるように消えていきました。",
+      "content_sha256": "f955ff3d44b3af77a4105006f65272405be1f9665971a0f1428e7407057f717c",
+      "character_count": 702,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T08:57:40.782Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "sad_cat_003",
+        "source_revision": 2,
+        "source_content_sha256": "f955ff3d44b3af77a4105006f65272405be1f9665971a0f1428e7407057f717c",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "sad_cat_003",
+        "source_revision": 1,
+        "source_content_sha256": "9124016e898bb1c5fff84eb934bca5810dc7552b9e3086af9d94b42e83da0761",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "sad_3",
+          "batch_scenario": "cat_garden",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T08:57:40.782Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "lonely_cat_001",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "寂しい",
+        "key": "lonely"
+      },
+      "pet": {
+        "label": "猫",
+        "key": "cat"
+      },
+      "language": "ja-JP",
+      "title": "縁側のひだまりと乾いた葉",
+      "story_text": "あたたかな日差しが縁側の木肌をゆっくりとあたためています。ぼくはそこにそっと座り込み、きらきらと光る庭の端を遠く眺めていました。いつも聞こえる部屋の足音が今日はなくて、ぼくは何度か顔を上げました。乾いた風が通り抜けて庭木から茶色い葉がひとつ転がってきます。\n\nその葉っぱは干からびてカサカサと小さな音を立てながら進んできました。葉っぱは縁側の段差の手前で不意に止まり、そのままピクリとも動きません。ぼくはすっと立ち上がり、しっぽを少し揺らしながらその場所へ近づいてみます。すぐそばまで歩いていき、丸くなった葉っぱの端をくんくんと鼻先で匂いをかいでみました。\n\n冷たい土のにおいがして緑のときとは違う乾いた香りがすっと鼻の奥に入り込んできます。ぼくは前足をそっと伸ばしてその茶色い葉の端っこに小さな爪を軽くあててみました。葉っぱは軽い音を立てて少しだけ向こう側へ滑るようにして静かに転がります。\n\n風がやんで庭の隅が急に静かになり日差しのあたたかさだけが体全体に伝わってきました。ぼくは落ち葉のあった場所から少しだけ体をずらし板の間の上で丸くなります。目を閉じてひげをぴくっと動かしながらそのまま静かに長い時間を過ごしました。日向のぬくもりはゆっくりと移動し、足元の板を少しずつ冷たい影へと変えていきます。\n\nぼくは冷えてきた場所を離れて、まだ光の残る数センチメートル分だけ体をすべり込ませました。静まり返った空気の中で、自分の柔らかい息の音だけがかすかに聞こえています。遠くの空はどこまでも青く澄んでいて、雲のかけらすら見当たりません。ぼくはもう一度目を細め、静かな午後のひとときをただ静かに味わい続けています。",
+      "content_sha256": "79e7effbe3c8c169898f9eaef6cce65ad365808bf5bf5ce71567153f4026f615",
+      "character_count": 698,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T08:57:51.774Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "lonely_cat_001",
+        "source_revision": 2,
+        "source_content_sha256": "79e7effbe3c8c169898f9eaef6cce65ad365808bf5bf5ce71567153f4026f615",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "lonely_cat_001",
+        "source_revision": 1,
+        "source_content_sha256": "e05861daf342ec7e7a72c7eafc5e1afbe3c62c379f5c6d9d348d08399c3ab86d",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "lonely_1",
+          "batch_scenario": "cat_porch",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T08:57:51.774Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "anxious_rabbit_001",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "不安",
+        "key": "anxious"
+      },
+      "pet": {
+        "label": "うさぎ",
+        "key": "rabbit"
+      },
+      "language": "ja-JP",
+      "title": "草かげの細道の奥へ",
+      "story_text": "足元に広がるクローバーの草地は、風が吹くたびに柔らかく緑の波を打っています。ぼくはその小さな葉の間に隠れるようにして、じっと身を低くして座っています。まわりの草がかすかに揺れるだけで、胸の奥がざわついて落ち着きません。\n\n少し離れた場所で、一本の茎が不自然にぐにゃりと曲がっているのに気がつきました。風のせいなのか別の理由なのか確かめたくて、ぼくは耳をぴんと立てました。曲がった茎の先がどこへ向かうのか知りたくて、そっと足を一歩前に踏み出します。クローバーの葉と葉の間には、草の天井が覆う細い通り道が伸びていました。\n\nぼくはその狭い隙間に顔を近づけ、湿った土の匂いを深く吸い込みます。長い葉が頬に触れるたびに、ぴくりと耳が動いて足元への意識が強まりました。道は少し入り組んでいて、どの方向へ進むべきか迷って立ち止まります。\n\nそれでも鼻先で地面の匂いを確かめながら、慎重に次の葉の陰へ進みました。光が届かない影の濃い場所もあり、胸のざわつきはまだ完全に消えていません。ただ草をかき分ける自分の小さな足音だけが、静かな空間に響いています。出口はまだ見えませんが、目の前の草の重なりだけを見つめて体を動かします。\n\nその時、草の隙間の向こう側から、ほんのわずかに光が差し込んできたのが見えました。曲がりくねった道の先にある小さな明るさに気づき、胸のざわめきが少しだけ和らぎます。光のあたっている場所へ顔を向けたまま、ぼくはそこでしばらく足を止めて息を整えました。",
+      "content_sha256": "c70787c7bdac8c91db9997e82e41188e4bf4fcf6c777eed2493e7150a58596e1",
+      "character_count": 622,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T08:58:13.710Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "anxious_rabbit_001",
+        "source_revision": 2,
+        "source_content_sha256": "c70787c7bdac8c91db9997e82e41188e4bf4fcf6c777eed2493e7150a58596e1",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "anxious_rabbit_001",
+        "source_revision": 1,
+        "source_content_sha256": "ed532051a6511a6e36826bfdf6da91b3f7e91790bf9eda337b7fa440aafa34d9",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "anxious_1",
+          "batch_scenario": "rabbit_clover",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T08:58:13.710Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "anxious_rabbit_002",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "不安",
+        "key": "anxious"
+      },
+      "pet": {
+        "label": "うさぎ",
+        "key": "rabbit"
+      },
+      "language": "ja-JP",
+      "title": "木漏れ日の揺れる午後",
+      "story_text": "大きな木の根元に広がる深い木陰は、外の明るさから身を隠すのにちょうどよい場所です。ぼくはその冷たい土の上に小さな体を丸め、ぴたりと耳を背中に沿わせてじっと座っています。視界の隅で光と影の形がかすかに動いたような気がして、ぼくはそっと鼻先を上げました。\n\n頭上の葉の隙間から差し込むまぶしい光が、少しずつ手前の苔むした地面を照らし始めています。いつもと同じ穏やかな午後の時間のはずなのに、足元の明るさが変わるだけで胸のあたりが妙にざわつきます。安全だった場所がいつの間にか狭くなっているような気がして、ぼくは前足をそっと泥の上につきました。\n\nその変化の理由を確かめたくて、ぼくは長い耳を左右に大きく揺らしながら周囲の様子をうかがいます。光の筋はゆっくりと右側のシダの葉へ移動し、黒い影を細く削りながらさらに先へと伸びていきました。じっと見つめているうちに、明るくなった場所の地面から乾いた土と草の香りがかすかに漂ってきます。\n\nぼくは体を小さく縮めたまま、その光の輪から少しだけ離れた暗い場所へと後ろ足で滑り込みました。新しい木陰は先ほどよりも葉が厚く重なっていて、湿った土の匂いがしっかりと鼻腔を満たします。新しく選んだ場所の静けさの中で、ぼくは荒くなった自分の呼吸の音が小さくなるのを待ちました。\n\n光の動きは止まることなく続いていますが、ぼくの足元にはまだ安全な暗がりがしっかりと残されています。急いで遠くへ逃げ出す必要はなく、ただこの木陰の中で葉の影が移っていく様子を見つめていられます。風が通り抜けるたびに頭上の葉が大きく揺れ、地面の模様がゆっくりと形を変えていきました。",
+      "content_sha256": "85e711016a957838a897e23fbd543a2419ff9ada88b7b42f335b234a2864f85a",
+      "character_count": 683,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T08:58:17.380Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "anxious_rabbit_002",
+        "source_revision": 2,
+        "source_content_sha256": "85e711016a957838a897e23fbd543a2419ff9ada88b7b42f335b234a2864f85a",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "anxious_rabbit_002",
+        "source_revision": 1,
+        "source_content_sha256": "29018e0cb96045709ead65fd84d9f04adee49c65693c8a24fabc3fd4cfbcac09",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "anxious_2",
+          "batch_scenario": "rabbit_tree",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T08:58:17.380Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "anxious_rabbit_003",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "不安",
+        "key": "anxious"
+      },
+      "pet": {
+        "label": "うさぎ",
+        "key": "rabbit"
+      },
+      "language": "ja-JP",
+      "title": "巣穴の入り口の小さな音",
+      "story_text": "巣穴の奥の暗がりは、土と乾いた草の匂いがしていつもと同じように静まり返っています。ぼくはその冷たい床に小さな体を伏せて、丸まった前足にそっとあごを乗せていました。外の光が入り口の土を明るく照らしていますが、風の通り道からいつもと違う音が聞こえます。聞き慣れないそのかすかなざわめきに気づいて、ぼくはぴくりと長い耳を立てて身構えました。\n\n入り口のすぐそばまで進むと、風に飛ばされてきた細い小枝が地面に斜めに落ちて引っかかっています。昨日まではそこになかった乾いた枝が一本あるだけで、いつもの通路が狭くなったように感じました。ぼくは濡れた鼻先を近づけて、その木片の匂いを慎重に嗅いでからそっと前足を伸ばします。知らないものが目の前にあるというだけで、胸の奥が少しざわつきました。\n\n小枝にそっと鼻先を触れさせてみると、カサリと乾いた小さな音が狭い空間に響きました。ぼくはその音に驚いて思わず後ろ足で一歩だけ下がり、丸い目を大きく見開いて周囲の様子を窺います。小枝はそのまま地面に止まっていました。ただの木の枝だと分かっても、胸のざわつきはすぐには収まりませんでした。頭の上を吹き抜ける風の音と、足元で小さく響く自分の心臓の音の重なりに意識が向きます。\n\n外の世界はいつもよりも少し広く感じられて、入り口の小枝の向こう側で大きな葉が揺れるのが見えました。ぼくはその光景を見つめたまま、もう一度ゆっくりと前足を伸ばして邪魔な小枝を横へ押し退けます。小枝がコロコロと転がって少し離れた場所へ落ちると、狭かった視界が少しだけ広がりました。冷たい外気が鼻先をかすめ、土の匂いの中に遠くの草の香りが混ざっていることに気がつきます。\n\nすっかり軽くなった入り口の向こうからは、今まで気づかなかった色々な生き物の気配が流れてきます。ぼくはその場に小さく座り直し、次に聞こえる音に耳を傾けながらじっと外の様子を見守りました。胸の奥のざわめきはまだ少し残っていますが、目の前の景色は先ほどよりも少しだけクリアに見えています。小さな変化を受け止めたぼくの長い耳は、まだ時折ぴくりと小さく動き続けていました。",
+      "content_sha256": "19d7a88cd6c6194892672ccaee0565958b669f0bfc5f66b732eb6859336deaa9",
+      "character_count": 883,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T08:58:24.376Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "anxious_rabbit_003",
+        "source_revision": 2,
+        "source_content_sha256": "19d7a88cd6c6194892672ccaee0565958b669f0bfc5f66b732eb6859336deaa9",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "anxious_rabbit_003",
+        "source_revision": 1,
+        "source_content_sha256": "f91e7f47e3b539159b38f74a1143db26adfd4df165e63d171082dca9e6c1f1a7",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "anxious_3",
+          "batch_scenario": "rabbit_nest",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T08:58:24.376Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "stressed_rabbit_002",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "ストレス",
+        "key": "stressed"
+      },
+      "pet": {
+        "label": "うさぎ",
+        "key": "rabbit"
+      },
+      "language": "ja-JP",
+      "title": "巣の奥にできた小さな場所",
+      "story_text": "巣の奥には、乾いた草が少しずつ集まっています。ぼくは鼻先を動かしながら、いつも休む場所へ戻りました。今日はあちこちの匂いを確かめてきたので、足がまだせわしなく動いています。横になろうとしても、はみ出した草が目に入るたび、そちらへ体を向けてしまいました。\n\n長い茎が一本、床のくぼみを横切っています。ぼくはそれを鼻先で押しましたが、周りの草も一緒に動きました。片方を直すと、今度は別の端が起き上がります。ぼくは何度か同じところを行き来してから、丸い前足を土の上に置きました。\n\n少し離れて見直すと、奥の壁ぎわには草の少ない場所が残っていました。ぼくはそこまで歩き、地面の匂いを確かめます。壁に近い土はひんやりしていて、外で聞いた細かな音も遠く感じられました。長い茎はまだ元のところにありますが、こちらでは足に触れません。\n\nぼくは体が収まる分だけ、近くの草を前足で寄せました。草の端が壁に沿って重なり、真ん中に浅いくぼみができます。そこで後ろ足を畳むと、おなかの下に柔らかな層ができました。すべてを動かし終えたわけではないのに、ぼくの足はようやく止まりました。壁の近くへ体を向けると、入り口の光が足元まで届かなくなりました。ぼくは一度だけ草の端を押し、耳の後ろに当たらないよう位置を変えました。\n\n入り口のほうで、風が草をかすかに鳴らしています。ぼくは耳を一度そちらへ向け、それからあごを低くしました。目の前の茎の影は、もう追いかけなくてもその場所にあります。奥の小さなくぼみで体が温まるあいだ、外へ向かっていたぼくの耳も、少しずつ静かな角度に戻っていきました。",
+      "content_sha256": "4ed921aad78bf2048edbae6cab1c0c7f1cccec45aca3fed5553b4279f153721e",
+      "character_count": 672,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:02:31.496Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "stressed_rabbit_002",
+        "source_revision": 2,
+        "source_content_sha256": "4ed921aad78bf2048edbae6cab1c0c7f1cccec45aca3fed5553b4279f153721e",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "stressed_rabbit_002",
+        "source_revision": 1,
+        "source_content_sha256": "b650406555fcd0ef717a510e244e2c8c73ef7a5b67c477d0164cf88033bc7fda",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "stressed_3",
+          "batch_scenario": "rabbit_nest",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:02:31.496Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "angry_dog_001",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "怒り",
+        "key": "angry"
+      },
+      "pet": {
+        "label": "犬",
+        "key": "dog"
+      },
+      "language": "ja-JP",
+      "title": "土の道に残ったぼくの足あと",
+      "story_text": "公園の土の道で、ぼくはいつもより強く足を踏み出していました。好きな場所を確かめている途中で散歩の向きが変わり、胸の中に熱いものが残っています。鼻を鳴らして立ち止まると、となりの足音も止まりました。ぼくはまだ先へ進む気になれず、地面に視線を落とします。\n\n湿った土の端に、丸い跡がいくつか並んでいました。よく見ると、さっきぼくが通った足あとです。深いものも浅いものもあり、同じ形には見えません。ぼくは一番近い跡に鼻先を寄せ、冷たい土の匂いを短く確かめました。\n\n強く踏み込んだ場所の横には、小さな砂の粒が盛り上がっています。前足をそっと置き直すと、その粒が少しだけ崩れました。ぼくは足を上げ、新しくできた輪郭を見つめます。胸の熱さはまだありますが、今は自分の足の下で起きる小さな変化も目に入りました。足を置く角度を変えると、指の跡が少し違って見えました。ぼくは鼻先を上げずに、土が崩れて落ち着くまでの短い動きを、そこで見届けました。\n\nぼくは道の端を二、三歩だけ進みました。今度の跡は、先ほどより浅くついています。歩くたびに土の硬さが違い、足の裏へ返ってくる感触も変わりました。となりの足音が同じ速さで続いているのを聞きながら、ぼくはもう一度、自分の跡を振り返りました。\n\n曲がって並んだ足あとは、途中から乾いた道へ続いています。そこでは輪郭が見えなくなりましたが、足の裏には土の感触が残っています。ぼくは鼻を上げ、少し離れた木の根元へ目を向けました。まだ晴れきらない胸の中に、次の匂いを確かめるための小さな余地ができていました。",
+      "content_sha256": "e2baad92e420663ca8b7d53debe4908b69d13d5d179c7fc4a98c48857fd9841f",
+      "character_count": 656,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:02:38.080Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "angry_dog_001",
+        "source_revision": 2,
+        "source_content_sha256": "e2baad92e420663ca8b7d53debe4908b69d13d5d179c7fc4a98c48857fd9841f",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "angry_dog_001",
+        "source_revision": 1,
+        "source_content_sha256": "f7443bf266a0c7d610fc45c4444f4eb74c6f2888236b124301562d6c7d0dc3be",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "angry_1",
+          "batch_scenario": "dog_park",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:02:38.080Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "angry_dog_002",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "怒り",
+        "key": "angry"
+      },
+      "pet": {
+        "label": "犬",
+        "key": "dog"
+      },
+      "language": "ja-JP",
+      "title": "水面を流れる葉を見つめる午後",
+      "story_text": "安全な川沿いの道を歩く足音が、ざりざりと砂利を踏む音を立てて続いています。冷たい風が頬をかすめていき、草の匂いとともに遠くの土の香りが鼻腔をくすぐりました。ぼくの胸のうちはなぜかざわざわとしていて、足取りは自然と普段よりも速くなっています。\n\n前方に広がる水面を眺めると、緑色の葉が一枚ひらひらと流れていくのが見えました。ぼくはそのまま岸へと近づき、草むらの縁でぴたりと四本の足を止めてみます。流れていく小さな葉を目で追いかけながら、ぼくは耳をピンと立てて周囲の音に集中しました。\n\n水が石を洗う音や、かすかな風のざわめきだけがまわりを満たしています。身をかがめて川面をのぞき込むと、流れる葉はあっという間に遠くへ小さくなって消えていきました。高まっていた胸のざわめきはまだ少し残っていますが、冷たい川風がその熱をそっと撫でてくれます。\n\nぼくはもう一度小さく鼻を鳴らし、足元にある湿った土の感触をしっかりと確かめました。そのままじっと川の流れを見つめているうちに、ざわついていた気持ちが少しずつ静まっていきます。流れる水面をぼんやりと見送るうちに、さきほどまでのせわしない足並みがゆっくりと緩んできました。\n\nもうあの葉は見えませんが、波紋の広がる水面には青い空が穏やかに映り込んでいます。ぼくは再び視線を前へ向け、一定のリズムを刻むように自分の足を踏み出しはじめました。ぼくはさっきの葉が流れた先を見送り、踏みしめた砂利の音をもう一度聞きながら進んでいきます。",
+      "content_sha256": "333ef1c16c0f02701f1b1608d829fa14c8f5fa21306b194a45a208f0c76d0797",
+      "character_count": 624,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:02:46.680Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "angry_dog_002",
+        "source_revision": 2,
+        "source_content_sha256": "333ef1c16c0f02701f1b1608d829fa14c8f5fa21306b194a45a208f0c76d0797",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "angry_dog_002",
+        "source_revision": 1,
+        "source_content_sha256": "749b350be7d2632fdeb365846a965aa3553443c4833ef81404ca60e5e30bfeda",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "angry_2",
+          "batch_scenario": "dog_river",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:02:46.680Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "angry_dog_003",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "怒り",
+        "key": "angry"
+      },
+      "pet": {
+        "label": "犬",
+        "key": "dog"
+      },
+      "language": "ja-JP",
+      "title": "玄関のタイルと小さな足音",
+      "story_text": "散歩から戻った玄関の冷たいタイルに、ぼくは四本の足をぴたりと揃えて座っています。外の風は少し冷たくて、ぼくの胸のあたりはまだ何だかざわざわと落ち着かないままでした。開いたままのドアの隙間から、遠くの車の音が小さく響いてきています。ぼくはその音から視線をそらして、自分の足元にじっと目を落としました。\n\nタイルの上の隅っこに、茶色くて乾いた小さな葉が一枚だけ落ちているのに気づきます。いつの間にくっついてきたのか、さっきまでの散歩道では全く気づきませんでした。ぼくは鼻先をそこへ近づけて、くんくんと慎重に匂いを嗅いでみます。土の香りと乾いた草の匂いが混ざって、かすかに外の空気がよみがえりました。\n\nざわざわしていた胸の奥の熱が、冷たいタイルに触れているおなかから少しずつ逃げていくようです。ぼくはその小さな葉をじっと見つめたまま、ゆっくりと息を大きく吐き出しました。廊下の向こうから家族が歩いてくる足音が、こつこつと近づいてくるのが聞こえます。その音を聞いているうちに、速くなっていたぼくの呼吸もだんだん落ち着いてきました。\n\nぼくは足元の小さな葉にそっと前足を乗せて、その感触をじっくりと確かめてみます。カサリと乾いた音が、静かな玄関の中に響いて消えていきました。もう外を走る必要はなく、ただこの冷たい床の感触だけがしっかりと足の裏に伝わってきます。ざわついていた気持ちは完全に消えたわけではありませんが、今はもう気になりませんでした。\n\n薄暗い玄関の片隅で、ぼくは再びきれいに前足を揃えて床に体をあずけます。窓の外では相変わらず風が木を揺らしていますが、もう振り返ろうとは思いませんでした。ただ自分の呼吸の音と、家の中の静かな気配だけをぼくはぼんやりと味わっています。小さな葉はそのままタイルの端に置かれたまま、静かに次の時間を待ち続けていました。",
+      "content_sha256": "8b840b09a059a52af39e8fda0a480387bf31d3a5b579b864715b31437975c5ba",
+      "character_count": 768,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:02:51.080Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "angry_dog_003",
+        "source_revision": 2,
+        "source_content_sha256": "8b840b09a059a52af39e8fda0a480387bf31d3a5b579b864715b31437975c5ba",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "angry_dog_003",
+        "source_revision": 1,
+        "source_content_sha256": "a1c5ac4c78d0ffd44e771e7264810283b70867831a2221d0a4e3fbe14c4211a2",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "angry_3",
+          "batch_scenario": "dog_door",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:02:51.080Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "happy_dog_001",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "嬉しい",
+        "key": "happy"
+      },
+      "pet": {
+        "label": "犬",
+        "key": "dog"
+      },
+      "language": "ja-JP",
+      "title": "風と草の匂いを追いかけて",
+      "story_text": "朝の光が差しこむ丘の草原で、ぼくは地面に鼻を近づけて大きく息を吸い込みました。朝の冷たい空気の中に、どこか遠くの湿った土の匂いや、草の匂いが混ざっています。その香りは、ふわりと風に乗ってぼくの小さな鼻先をくすぐりました。ぼくは尻尾を軽く揺らしながら、その匂いがどこからやってくるのか確かめたくなりました。\n\n匂いのほうへ一歩ずつ歩き出すと、黄色い小さな花がたくさん咲いている場所を見つけました。花たちの周りでは、冷たい風が柔らかく通り抜けて、葉っぱを小さく揺らしています。ぼくはその場所で立ち止まり、目の前で揺れる緑の葉をじっと見つめました。\n\n葉の擦れ合う乾いた音が、静かな草原の空気に溶けていくのが聞こえます。ぼくは少しだけ体を右に傾けて、その香りが一番強く漂う場所を探しました。一番風が通り抜ける心地よい場所に、そっと丸くなって座ることに決めました。ひんやりとした地面の感触と、草の爽やかな匂いがぼくの体を優しく包み込んでくれます。\n\n鼻をくすぐる香りを胸の奥まで吸い込むと、胸のあたりが温かくなってきました。遠くで小鳥の声が聞こえた気がして、ぼくは耳をぴくりと少しだけ動かしました。特別に大きな出来事は何もありませんが、この場所の風はとても気持ちよく感じられます。\n\nぼくはただそこに座ったまま、風の向きが変わるのを感じていました。柔らかい日差しが背中をぽかぽかと温め、ぼくはのんびりと目を細めました。草の匂いを深く吸い込むたびに、足の先から軽やかな気分がじんわりと広がっていきます。ぼくのしっぽは、いつの間にか地面を規則正しく小さなリズムで叩いていました。",
+      "content_sha256": "2e49b0bf8a0331d30e530704921c3c2f26bc7a1e588003d1bac6f575a3f5541e",
+      "character_count": 675,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:02:55.483Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "happy_dog_001",
+        "source_revision": 2,
+        "source_content_sha256": "2e49b0bf8a0331d30e530704921c3c2f26bc7a1e588003d1bac6f575a3f5541e",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "happy_dog_001",
+        "source_revision": 1,
+        "source_content_sha256": "c4dcea499484a2e5eb9ff27d3e16d9700e764a5d0c0c3f3e71e1f2597068c23b",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "happy_1",
+          "batch_scenario": "dog_park",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:02:55.483Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "happy_dog_002",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "嬉しい",
+        "key": "happy"
+      },
+      "pet": {
+        "label": "犬",
+        "key": "dog"
+      },
+      "language": "ja-JP",
+      "title": "砂浜に残った小さな輪",
+      "story_text": "朝の砂浜には、波の届かない乾いた場所が広がっています。ぼくはとなりの足音と並び、柔らかな砂の上を歩いていました。足を上げるたびに小さなくぼみができるのが面白くて、しっぽが自然と揺れます。遠くから聞こえる波の音も、今日は少し弾んで聞こえました。\n\n道のそばに、白い貝殻が半分だけ見えています。ぼくは鼻を近づけましたが、口にはくわえず、その周りをゆっくり歩きました。一周して戻ると、足あとが小さな輪になっています。ぼくは首をかしげ、自分の通ったところをもう一度見ました。\n\n輪の片側には、細い風の筋がいくつも続いていました。歩いた跡と自然にできた模様が重なって、砂の色が少し違って見えます。ぼくが前足を置くと、さらさらした粒が指の間から落ちました。その感触がくすぐったくて、思わず足を持ち上げました。足を下ろす場所を少し変えると、今度は砂がほとんど動きません。ぼくはその違いが面白くて、貝殻から離れた場所でも、一度だけ同じことを確かめました。\n\nぼくは貝殻から少し離れ、となりの足音のほうへ戻りました。振り返ると、小さな輪の向こうに朝の海が見えます。風が吹くたびに跡の縁が柔らかくなり、さっきとは違う形になっていました。ぼくはうれしくて、砂を蹴り上げないくらいの小さな足取りで進みました。\n\n乾いた道へ上がる手前で、足の裏から最後の砂がこぼれます。あの輪はこのあとどうなるのか、ここからはもう見えません。それでも、一周して戻ったときの面白さは、しっぽの先にまだ残っていました。ぼくはとなりを見上げ、次に続く足音と一緒に、明るい朝の道を歩き始めました。",
+      "content_sha256": "5bafaed0901e7164cb4641ed5597fdce383f6ed02c9b52fc938d06e4d3a1dfd9",
+      "character_count": 665,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:02:59.887Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "happy_dog_002",
+        "source_revision": 2,
+        "source_content_sha256": "5bafaed0901e7164cb4641ed5597fdce383f6ed02c9b52fc938d06e4d3a1dfd9",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "happy_dog_002",
+        "source_revision": 1,
+        "source_content_sha256": "f1c86f32de252fa49b4058adc5215397aea831397ffe704f13ddf5c5bb8bb033",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "happy_2",
+          "batch_scenario": "dog_river",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:02:59.887Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "happy_dog_003",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "嬉しい",
+        "key": "happy"
+      },
+      "pet": {
+        "label": "犬",
+        "key": "dog"
+      },
+      "language": "ja-JP",
+      "title": "パン屋の前を通る朝",
+      "story_text": "朝の道を歩いていると、角のパン屋から温かな匂いが届きました。ぼくは鼻を少し上げ、いつもよりゆっくり足を運びます。となりを歩く人の靴が止まったので、ぼくも道の端で座りました。食べ物には触れませんが、扉の向こうの匂いを確かめるだけで、しっぽが軽く動きます。\n\n店の前には、まだ小さな日なたが残っていました。そこへ前足をそろえると、冷えた石の上に少し温かい場所があります。ぼくは足を動かし、その境目を確かめました。ガラスに映った自分のしっぽが揺れるのを見て、耳がぴくりと動きます。\n\n扉が開くたび、柔らかな匂いが外へ広がりました。誰かの靴音が近づくと、ぼくは邪魔にならないよう少し体を寄せます。その人が通り過ぎたあとには、紙の袋がこすれる小さな音が残りました。ぼくはその音を聞きながら、日なたの端に鼻先を向けました。扉の下で小さな鈴が鳴り、そのあとに靴底の音が二つ続きました。ぼくは耳をそちらへ向け、通り過ぎる気配が遠くなるまで座っていました。\n\nとなりの人が戻ると、よく知っている足音が目の前で止まりました。ぼくは立ち上がり、しっぽを大きく二度揺らします。待っていた時間は短かったのに、店の前には匂いや光がいくつも重なっていました。歩き出す前に一度だけ振り返り、ぼくはまだ温かい石の色を見ました。\n\n角を曲がると、パンの匂いは少しずつ薄くなっていきます。今度は並木の葉の匂いが、朝の風に混ざってきました。ぼくの足取りは軽く、となりの靴音と交互に道へ響きます。特別なものを口にしなくても、あの小さな日なたで過ごした朝は、ぼくには十分うれしい出来事でした。",
+      "content_sha256": "4f262039fed05f47f314e7f08fdf525bcee032b954bd2928dbda1c3ea9a36d58",
+      "character_count": 666,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:03:04.565Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "happy_dog_003",
+        "source_revision": 2,
+        "source_content_sha256": "4f262039fed05f47f314e7f08fdf525bcee032b954bd2928dbda1c3ea9a36d58",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "happy_dog_003",
+        "source_revision": 1,
+        "source_content_sha256": "289e2181daec7debaa9525700c21ef92cd2081b132b6b2a9c6c79e497644205d",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "happy_3",
+          "batch_scenario": "dog_door",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:03:04.565Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "calm_dolphin_001",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "安心",
+        "key": "calm"
+      },
+      "pet": {
+        "label": "イルカ",
+        "key": "dolphin"
+      },
+      "language": "ja-JP",
+      "title": "砂の上の光と潮のゆらぎ",
+      "story_text": "ぼくは静かな入り江の透明な水面をゆるやかに進んでいきます。海面の上から差し込む柔らかい日の光が、水の中をあたたかく包み込んでいます。水が体の横をゆっくり流れ、胸びれの先をかすかに押しています。\n\nぼくは体をひとひねりして、もっと深い青へとゆっくりと潜っていきました。ふと目を下に向けると、浅い海底の白い砂の上にキラキラとした光の帯が揺れていました。きれいに重なるその模様は、まるで水が描いた絵のようで、ぼくは思わずしっぽを少し動かして近づいてみました。\n\n海底の砂地に近づいていくと、潮の流れに合わせて光の筋がゆらゆらと形を変えていきます。ぼくはその面白さに惹かれて、ゆっくりと体を水平に保ちながら、光の動きを静かに目で追いかけてみました。光の模様は砂の起伏に沿って、驚くほどなめらかにすべっていきます。ぼくが少しだけ頭を傾けると、光の反射が白い砂の粒に当たって、小さくきらめいて返ってきました。\n\nその小さな変化をただじっと眺めているだけで、時間の流れがとてもゆっくりに感じられます。ぼくは胸びれを軽く動かして、その模様の端っこをそっと通り過ぎてみました。砂の感触がひんやりと伝わり、小さな貝殻の影が光の中で揺れているのが見えます。\n\nその景色があまりにも自然で美しく、ぼくはただそこにいることがとても嬉しくなりました。一度水面へ上がって空気を吸うと、入り江の向こうに穏やかな空が広がっていました。ぼくはそのままのんびりと潮の流れに身を任せ、きらめく海底を眺めながら過ごしています。",
+      "content_sha256": "6d2437afc4881a06513b5eb0d06e431175333ed544691934cae80d5b9c0d52a0",
+      "character_count": 634,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:03:11.869Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "calm_dolphin_001",
+        "source_revision": 2,
+        "source_content_sha256": "6d2437afc4881a06513b5eb0d06e431175333ed544691934cae80d5b9c0d52a0",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "calm_dolphin_001",
+        "source_revision": 1,
+        "source_content_sha256": "09456b0f0ad959bc8de433500e81622b5fc3e8f2c6c554e10808d7d7d8565c86",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "calm_1",
+          "batch_scenario": "dolphin_bay",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:03:11.869Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "calm_dolphin_002",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "安心",
+        "key": "calm"
+      },
+      "pet": {
+        "label": "イルカ",
+        "key": "dolphin"
+      },
+      "language": "ja-JP",
+      "title": "青い海と岩礁のゆたかな時間",
+      "story_text": "ぼくは静かな岩礁のそばで、冷たい海水をヒレの先でやさしく確かめながらゆっくりと漂っています。海底に沈む黒い岩のすき間から、柔らかな水草の束が潮の流れに合わせてゆらゆらと揺れています。ぼくはその前を通り過ぎるとき、尾ビレを小さく動かして体の向きをまっすぐに整えました。岩の陰から、小さな銀色の魚たちが集まってきているのに気がつきます。\n\n魚たちは小さな群れをつくり、ぼくの目の前で小さな光の粒のようにキラリと光りました。ぼくはそのまま少しずつスピードを落とし、その小魚たちの様子をそっと見つめてみます。魚たちはぼくの姿を恐れることもなく、くるりと方向を変えて岩の奥へと進んでいきました。\n\nぼくは慌てて追いかけることはせず、魚たちが通ったあとのわずかな渦の動きを眺めます。水の中はどこまでも静かで、耳を澄ませば遠くの潮の音が心地よく響いてきました。ぼくは自分で選んだ距離を保ちながら、心地よい重みのある青い海のなかに体をあずけます。波の動きにあわせて少しだけ体をひねり、もっと奥の岩礁の影へと向かって泳ぎ出しました。\n\n岩のまわりには様々な形をした貝殻や、鮮やかな色をした海綿の仲間がしっかりと貼りついています。ぼくはその表面に触れないように気をつけながら、自分の胸ビレをほんの少しだけ動かしました。水流が体にぶつかる感触を全身で受け止めつつ、穏やかな潮流のなかに身をゆだねます。\n\n前方に広がる新しい岩の重なりを見つめながら、自分の意思で少しずつスピードを緩めました。魚たちが再び目の前を横切るとき、ぼくはその小さな命の動きをゆっくりと見送ります。水面のほうから差し込んでくる光のカーテンが、海の底をどこまでも透明に照らし出していました。ぼくは尾びれのゆっくりした動きに合わせて、大きく体をひとひねりして進路をゆるやかに変えます。",
+      "content_sha256": "eabecb999f14f5785d3aa21961390312e6239807779d973b50970018a776a1dd",
+      "character_count": 757,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:03:19.242Z",
+        "generation_attempts": 2,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "calm_dolphin_002",
+        "source_revision": 2,
+        "source_content_sha256": "eabecb999f14f5785d3aa21961390312e6239807779d973b50970018a776a1dd",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "calm_dolphin_002",
+        "source_revision": 1,
+        "source_content_sha256": "fc020c5c057f97b0819dd812be85fcc92d7bc9338df7e8ddd60737bc6b7891b6",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "calm_2",
+          "batch_scenario": "dolphin_reef",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:03:19.242Z",
+          "generation_attempts": 2,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "calm_dolphin_003",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "安心",
+        "key": "calm"
+      },
+      "pet": {
+        "label": "イルカ",
+        "key": "dolphin"
+      },
+      "language": "ja-JP",
+      "title": "ゆるい潮に並ぶ影",
+      "story_text": "沖の穏やかな海流の中で、ぼくは尾びれをゆっくり動かしています。少し先には仲間の背中が見え、その向こうでは海の青が深くなっていました。水が体の横をすべる感触は、強すぎず弱すぎません。ぼくは大きく向きを変えず、その流れの中をしばらく進みました。\n\n仲間の一頭が水面へ向かうと、細い泡があとに残りました。ぼくも少し遅れて浮かび上がり、空気を吸います。海の上では、小さな雲がひとつ、ゆっくり形を変えていました。もう一度水へ戻ると、さっきの泡はすでに見えなくなっています。\n\nぼくは仲間のすぐ後ろではなく、横の少し離れた場所を選びました。そこでは水の流れがわずかに違い、胸びれの先に軽い押し返しを感じます。体を少し傾けると、その押し返しは滑らかになりました。仲間の動きも、横目で無理なく見える距離です。胸びれの角度を少し戻すと、押し返していた水は体の横へ静かに抜けました。ぼくはその違いを感じながら、今いる深さをゆっくり保ちました。\n\n薄い光が二つの体の間を通り抜けました。仲間が尾びれを動かすたび、水に小さな揺れが生まれます。ぼくはその揺れがほどけていくところを、急がずに泳ぎました。同じ場所にぴたりと並ばなくても、少し先の背中は穏やかに見え続けています。\n\nやがて海流が緩み、二つの影がゆっくり離れました。ぼくは胸びれで向きを整え、明るい水面のほうへ上がっていきます。仲間の背中も、もう少し先で小さく光りました。次に潜る場所を眺めながら、ぼくはさっきまで体を包んでいた水の柔らかな動きを、尾びれの先に感じていました。",
+      "content_sha256": "130cc5da1d132a20c7d7ddc73d46fc4273fe9ef4881b26ddb8d0055aa5624343",
+      "character_count": 647,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:03:22.724Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "calm_dolphin_003",
+        "source_revision": 2,
+        "source_content_sha256": "130cc5da1d132a20c7d7ddc73d46fc4273fe9ef4881b26ddb8d0055aa5624343",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "calm_dolphin_003",
+        "source_revision": 1,
+        "source_content_sha256": "18dd75755c4d04057816c2affe4f0d4c1f31c05e41798100e931547ae73462c1",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "calm_3",
+          "batch_scenario": "dolphin_current",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:03:22.724Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "lonely_cat_004",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "寂しい",
+        "key": "lonely"
+      },
+      "pet": {
+        "label": "猫",
+        "key": "cat"
+      },
+      "language": "ja-JP",
+      "title": "本棚の足もとと青い紙片",
+      "story_text": "高い本棚のすぐそばは、いつでもひんやりとした静けさに包まれています。ぼくはその冷たい床の上にそっとおなかをつけ、古い紙のにおいを胸の奥で吸い込みながら丸くなっていました。窓のすきまから入る細い光のなかを、埃の粒がゆっくりと浮遊しています。\n\nぼくは目を細めながら、その小さな白い粒が光の中を落ちていく様子を目で追っていました。すると上の段から、ひらひらと青いものが一枚だけ音もなく足もとへ落ちてきます。細長いしおりの端が床の上で小さく跳ね、そのまま黒い影のなかに止まりました。ぼくは耳をピクリと動かし、すっと立ち上がってその青い紙へ近づきます。\n\n落ちてきたばかりのしおりの表面を確かめようと、鼻先をそっと近づけてみました。インクのかすかな匂いと古い紙の匂いが、ひんやりした空気の中に重なっています。ぼくは前足をゆっくりと伸ばし、青いしおりの端をちょんと軽く押してみました。\n\n紙は軽い音を立てながら、暗い本棚のすきまのほうへ滑り込むように転がっていきます。ぼくはその細いあとを追うように歩幅を小さくして、本棚の横の低いくぼみへ向かいました。そこには外の光が届かない場所があり、横から来る風が少しやわらぐ、小さな空間がありました。床の板はひんやりと冷たく、部屋のざわざわした気配が遠くに聞こえる静かな場所でした。\n\nぼくはその落ち着く場所に前足を折りたたんで、ふたたび静かに小さく丸まります。青いしおりは足もとのすぐそばに止まっていて、古い紙のにおいが鼻先をくすぐりました。寂しさはまだありますが、足元の青い色を見つけるたび、ここで少し休んでいられる気がしました。",
+      "content_sha256": "0e5e5e084d8cf858cdbed4143d191483c34b80f34fae6fe017f4103d290f535a",
+      "character_count": 674,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "gemini",
+        "provider": "FirebaseAI.googleAI()",
+        "model_id": "gemini-3.5-flash-lite",
+        "prompt_version": "yorisoi-story-v4",
+        "generated_at": "2026-11-14T09:11:58.234Z",
+        "generation_attempts": 1,
+        "length_retry_error": null,
+        "length_target_met": true,
+        "warnings": [
+          "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+          "音声未生成。2〜3分の実測はしていません。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "lonely_cat_004",
+        "source_revision": 2,
+        "source_content_sha256": "0e5e5e084d8cf858cdbed4143d191483c34b80f34fae6fe017f4103d290f535a",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "lonely_cat_004",
+        "source_revision": 1,
+        "source_content_sha256": "850ec9abc839c2f188ef02866077d5bc2143bb68ada284a60425e5b7cf8de45e",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "gemini",
+          "provider": "FirebaseAI.googleAI()",
+          "model_id": "gemini-3.5-flash-lite",
+          "prompt_version": "yorisoi-story-v4",
+          "batch_slot": "lonely_2",
+          "batch_scenario": "cat_books",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:11:58.234Z",
+          "generation_attempts": 1,
+          "length_retry_error": null,
+          "length_target_met": true,
+          "warnings": [
+            "人による全文・安全性・権利・読み上げ確認と承認が必要です。",
+            "音声未生成。2〜3分の実測はしていません。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "copy_edit_and_paragraph_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "lonely_cat_006",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "寂しい",
+        "key": "lonely"
+      },
+      "pet": {
+        "label": "猫",
+        "key": "cat"
+      },
+      "language": "ja-JP",
+      "title": "庭の鈴と帰り道",
+      "story_text": "夕暮れの庭で、ぼくは古い木のベンチの下に座っています。昼間まで聞こえていた足音はなく、葉の間を風が通る音だけが残っていました。前足をそろえて耳を澄ませると、軒下の小さな鈴が一度鳴ります。ぼくは顔を上げましたが、庭の入り口にはまだ誰も見えませんでした。\n\nベンチのそばで、短く幅のある布のリボンが揺れています。昨日ここで見たものと同じ色でした。鼻先を近づけると、日なたの布と、よく知っている手の匂いがわずかに残っています。会いたい気持ちが強くなって、ぼくは小さく鳴きました。\n\n返事はありませんでしたが、そのあと鈴がもう一度鳴りました。ぼくはリボンの端を前足でそっと押します。布は石畳の手前まで滑り、途中で小さく折り重なりました。ぼくはそれを追って歩き、ベンチの下とは違う、まだ温かな石の上へ出ました。\n\n石畳には、夕日が細い帯になって残っています。ぼくはその端に座り、折れた布の影を眺めました。遠くで自転車のベルが聞こえるたび、耳は入り口のほうを向きます。それからまた、鼻先に残る布の匂いを確かめていました。石の境目には細い草が生え、その先だけがまだ明るく見えました。ぼくは草に触れないよう前足を置き直し、さっきより少し入り口が見える向きに座りました。\n\nすぐに誰かが帰ってくるかどうかは、まだ分かりません。寂しさも胸の奥に残ったままです。ぼくはリボンに体を絡ませない位置で丸くなり、前足のそばにその色が見えるようにしました。庭が少しずつ暗くなるあいだ、鈴の小さな音と、石から伝わるぬくもりが、ぼくのいる場所に静かに重なっていました。",
+      "content_sha256": "c44114fa2b526b1acf483cb73ab3c9c107f43df3de4cfa106abbb1de38f56236",
+      "character_count": 659,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "chatgpt",
+        "provider": "OpenAI ChatGPT",
+        "model_id": "GPT-6",
+        "prompt_version": "yorisoi-story-v4-guided-original",
+        "generated_at": "2026-11-14T09:29:02.634773Z",
+        "generation_attempts": 1,
+        "length_target_met": true,
+        "length_retry_error": null,
+        "warnings": [
+          "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+          "音声未生成。再生時間は未測定です。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "lonely_cat_006",
+        "source_revision": 2,
+        "source_content_sha256": "c44114fa2b526b1acf483cb73ab3c9c107f43df3de4cfa106abbb1de38f56236",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "lonely_cat_006",
+        "source_revision": 1,
+        "source_content_sha256": "3a1c547e4c886cc0347bc8a0a452aca1bc2158d6f5742665d90b42a6b1fe6f12",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "chatgpt",
+          "provider": "OpenAI ChatGPT",
+          "model_id": "GPT-6",
+          "prompt_version": "yorisoi-story-v4-guided-original",
+          "batch_slot": "lonely_3",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:29:02.634773+00:00",
+          "generation_attempts": 1,
+          "length_target_met": true,
+          "length_retry_error": null,
+          "warnings": [
+            "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+            "音声未生成。再生時間は未測定です。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "stressed_rabbit_003",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "ストレス",
+        "key": "stressed"
+      },
+      "pet": {
+        "label": "うさぎ",
+        "key": "rabbit"
+      },
+      "language": "ja-JP",
+      "title": "葉のひさしに集まる雨粒",
+      "story_text": "林のはずれを歩いていると、細かな雨が葉を鳴らし始めました。ぼくは食べられる草を探しながら、あちこちへ鼻を向けていたところです。気になる匂いや音が重なり、耳も足も落ち着かないままでした。ぼくは近くのシダの下へ入り、大きな葉の内側で足を止めます。\n\n葉の先には、小さな雨粒がいくつも並んでいました。ひとつが膨らむと、隣の粒とくっついて、ゆっくり先へ進みます。ぼくは首を少し傾け、その動きを見ました。外へ向けていた耳には、近くの葉を打つ柔らかな音が届いています。\n\n大きくなった粒が落ちると、足元の土に丸い点ができました。ぼくはその点へ鼻を近づけ、湿り始めた地面の匂いを確かめます。冷たい粒が次に落ちる場所を避けて、体を半歩だけ動かしました。葉の奥には、まだ乾いた落ち葉が重なっていました。\n\nぼくはその上で足を畳み、葉の先が見える向きに座り直しました。草を探す続きは、今は目の前にありません。雨粒が集まっては落ちる、その小さな出来事がひとつずつ見えてきます。耳はまだときどき外へ動きますが、足はさっきより静かでした。葉が少し傾くと、雨粒の落ちる位置も変わりました。ぼくは耳に水が当たらないか確かめ、それから落ち葉の重なりにもう一度体を預けました。\n\n雨の音が薄くなると、葉の向こうの道が少し明るくなりました。ぼくはすぐには立たず、最後に残った粒を見つめます。粒が土へ落ちたあとも、葉の先には細い光が残っていました。探し物のことが頭から消えたわけではありませんが、乾いた葉の上で休んだ短い時間は、ぼくの体にそっと残っていました。",
+      "content_sha256": "0412e8cb04f756acb80905d525b9ddf34290453f4af89a45113fff3324f77ab5",
+      "character_count": 653,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "chatgpt",
+        "provider": "OpenAI ChatGPT",
+        "model_id": "GPT-6",
+        "prompt_version": "yorisoi-story-v4-guided-original",
+        "generated_at": "2026-11-14T09:29:02.634773Z",
+        "generation_attempts": 1,
+        "length_target_met": true,
+        "length_retry_error": null,
+        "warnings": [
+          "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+          "音声未生成。再生時間は未測定です。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "stressed_rabbit_003",
+        "source_revision": 2,
+        "source_content_sha256": "0412e8cb04f756acb80905d525b9ddf34290453f4af89a45113fff3324f77ab5",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "stressed_rabbit_003",
+        "source_revision": 1,
+        "source_content_sha256": "f8ea2e21426054767fe7c1201dc9a3d9a2ddd2d48580b2691d8be5b2de61effd",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "chatgpt",
+          "provider": "OpenAI ChatGPT",
+          "model_id": "GPT-6",
+          "prompt_version": "yorisoi-story-v4-guided-original",
+          "batch_slot": "stressed_1",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:29:02.634773+00:00",
+          "generation_attempts": 1,
+          "length_target_met": true,
+          "length_retry_error": null,
+          "warnings": [
+            "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+            "音声未生成。再生時間は未測定です。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "stressed_rabbit_004",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "ストレス",
+        "key": "stressed"
+      },
+      "pet": {
+        "label": "うさぎ",
+        "key": "rabbit"
+      },
+      "language": "ja-JP",
+      "title": "小石の間の休み時間",
+      "story_text": "石垣に沿った小道で、ぼくは何度も向きを変えていました。草の匂いを確かめるたびに別の音が気になり、進もうとしては立ち止まります。耳を右へ向けると、今度は左で葉が揺れました。ぼくは鼻先を低くしたまま、小さな足をせわしなく動かしていました。\n\n道の端には、丸い小石がいくつか並んでいます。ぼくは一番低い石のそばで止まり、その隙間をのぞきました。石の向こうには乾いた土のくぼみがあり、細い草が屋根のように重なっています。鼻を近づけると、日なたの道より少し冷たい匂いがしました。\n\nくぼみへ入ろうとしたとき、小さなアリが石の上を横切りました。ぼくは足を下ろさず、その細い動きを見送ります。アリは石の縁で一度止まり、やがて反対側へ消えていきました。ぼくはそれからゆっくり足を置き、石に体を押しつけない場所を選びました。石の向こうからは、さっきまでより小さく葉ずれの音が聞こえます。ぼくは入り口の幅を確かめ、戻る道をふさがないように少しだけ体をずらしました。\n\n足を畳むと、おなかの下に乾いた土が触れました。道を行き来していたときには気づかなかった、小さな草の影が前にあります。風が来るたびに影は揺れ、止むとまた同じところへ戻りました。ぼくの耳も、その動きにつられるように少しずつ静かになっていきます。\n\n道の先には、まだ確かめていない匂いが続いています。ぼくはそちらを一度見てから、くぼみの中であごを下ろしました。外の音は残っていますが、石の間にはぼくの体が収まる場所もあります。アリが戻ってくるかもしれない縁を空けたまま、ぼくは揺れる草の影を、しばらく静かに眺めていました。",
+      "content_sha256": "f142bec0fd6a474f69ccaae7d43f1ba0b6c526ea9b571d897a964d2039b1f0a0",
+      "character_count": 674,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "chatgpt",
+        "provider": "OpenAI ChatGPT",
+        "model_id": "GPT-6",
+        "prompt_version": "yorisoi-story-v4-guided-original",
+        "generated_at": "2026-11-14T09:29:02.634773Z",
+        "generation_attempts": 1,
+        "length_target_met": true,
+        "length_retry_error": null,
+        "warnings": [
+          "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+          "音声未生成。再生時間は未測定です。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "stressed_rabbit_004",
+        "source_revision": 2,
+        "source_content_sha256": "f142bec0fd6a474f69ccaae7d43f1ba0b6c526ea9b571d897a964d2039b1f0a0",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "stressed_rabbit_004",
+        "source_revision": 1,
+        "source_content_sha256": "97f0eda5f52a33f0a27afb59f312e8b29238afc699424d2abd963f37721e9c2a",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "chatgpt",
+          "provider": "OpenAI ChatGPT",
+          "model_id": "GPT-6",
+          "prompt_version": "yorisoi-story-v4-guided-original",
+          "batch_slot": "stressed_2",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:29:02.634773+00:00",
+          "generation_attempts": 1,
+          "length_target_met": true,
+          "length_retry_error": null,
+          "warnings": [
+            "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+            "音声未生成。再生時間は未測定です。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "other_dolphin_003",
+      "revision": 2,
+      "display_order": 1,
+      "emotion": {
+        "label": "その他",
+        "key": "other"
+      },
+      "pet": {
+        "label": "イルカ",
+        "key": "dolphin"
+      },
+      "language": "ja-JP",
+      "title": "波に運ばれた白い羽",
+      "story_text": "朝の入り江で、ぼくは水面の近くをゆっくり泳いでいました。海は薄い青と緑が混ざり、ところどころに白い泡が残っています。ぼくが水面へ上がって空気を吸うと、少し先に小さな羽が浮かんでいました。鳥の姿は見えませんが、羽は波に合わせて静かに揺れています。\n\nぼくは羽に触れないよう、少し離れた場所を進みました。近づいて見える白い部分は、水にぬれて細くなっていました。波が来ると羽の先が一度持ち上がり、また水面へ戻ります。ぼくもその横で速度を落とし、小さな上下の動きを眺めました。\n\n羽はまっすぐ進まず、同じところでゆっくり回りました。ぼくが体の向きを変えると、起きた波が少し遅れて届きます。その波に押され、羽の向きもわずかに変わりました。ぼくはもう少し離れ、自分の動きが届かない場所から見直しました。羽の近くでは、小さな泡がひとつずつ弾けていました。ぼくは泡がなくなったところと、まだ揺れているところを交互に眺め、胸びれで向きを整えました。\n\n水の下へ浅く潜ると、羽は明るい空に重なる小さな影になりました。さっきまで白く見えたものが、ここでは違う形に見えます。ぼくは尾びれを小さく動かし、影の横をそっと通りました。水面の細かな揺れが、背中に柔らかく伝わってきました。\n\n次に浮かび上がったとき、羽は入り江の奥へ少し流れていました。ぼくは空気を吸い、その行き先をしばらく見送ります。うれしいのか不思議なのか、はっきり名前はつきません。ただ、いつもの海であの小さな動きを見つけたことが、ぼくには静かに残っていました。羽から離れたあとも、水の揺れは変わらず体の横を通っていきました。",
+      "content_sha256": "167b8d96847ad7c783ed5789ac2f6f1dc6d5fde53919e94ce9f91f3b3116f1fa",
+      "character_count": 675,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "chatgpt",
+        "provider": "OpenAI ChatGPT",
+        "model_id": "GPT-6",
+        "prompt_version": "yorisoi-story-v4-guided-original",
+        "generated_at": "2026-11-14T09:29:02.634773Z",
+        "generation_attempts": 1,
+        "length_target_met": true,
+        "length_retry_error": null,
+        "warnings": [
+          "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+          "音声未生成。再生時間は未測定です。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "other_dolphin_003",
+        "source_revision": 2,
+        "source_content_sha256": "167b8d96847ad7c783ed5789ac2f6f1dc6d5fde53919e94ce9f91f3b3116f1fa",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "other_dolphin_003",
+        "source_revision": 1,
+        "source_content_sha256": "85879f15532e48dff2d7ad007dd570d7cc640e055bf705f36f4d79d8360a2f1e",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "chatgpt",
+          "provider": "OpenAI ChatGPT",
+          "model_id": "GPT-6",
+          "prompt_version": "yorisoi-story-v4-guided-original",
+          "batch_slot": "other_1",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:29:02.634773+00:00",
+          "generation_attempts": 1,
+          "length_target_met": true,
+          "length_retry_error": null,
+          "warnings": [
+            "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+            "音声未生成。再生時間は未測定です。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "other_dolphin_004",
+      "revision": 2,
+      "display_order": 2,
+      "emotion": {
+        "label": "その他",
+        "key": "other"
+      },
+      "pet": {
+        "label": "イルカ",
+        "key": "dolphin"
+      },
+      "language": "ja-JP",
+      "title": "白い貝と二本の砂の筋",
+      "story_text": "明るい砂地の上で、ぼくは胸びれを小さく動かしていました。海底には緩やかな起伏が続き、遠くに黒い岩が見えます。その手前で、白い貝殻がひとつ光りました。ぼくは砂を大きく巻き上げないよう、少し高いところで動きを緩めました。\n\n貝殻の周りには、細い筋が二本伸びています。一本はすぐそばで曲がり、もう一本は小さな砂の山へ続いていました。ぼくは貝殻に触れず、横へ少し移動して眺めます。見る場所が変わると、筋の間にあった浅いくぼみが、はっきり見えてきました。\n\nやがて緩やかな水の流れが来て、砂の表面を動かしました。くぼみの縁から小さな粒が転がり、長い筋の一部が薄くなります。ぼくはそこで尾びれの動きを小さくし、変わっていく模様を見守りました。白い貝殻は、まだ同じ場所に残っています。流れが弱まると、転がっていた粒は新しい位置で止まりました。ぼくは少し横へ泳ぎ、貝殻のふちにできた短い影と、砂の筋の向きを見比べました。\n\n岩の向こうから小魚が一匹現れ、砂のすぐ上を通りました。その小さな影が貝殻に重なり、すぐに離れていきます。ぼくは追わず、もう一度二本の筋へ目を戻しました。さっきとは違う模様なのに、白い貝殻があるので同じ場所だと分かりました。\n\nぼくはゆっくり水面へ向かい、空気を吸いました。もう一度下をのぞくと、貝殻は小さな白い点になっています。近くで見た砂の細かさも、魚の短い影も、ここからは見えません。それでも、あの場所で立ち止まった時間は残っています。ぼくは次に続く岩の形を眺めながら、穏やかな水の中へ戻っていきました。",
+      "content_sha256": "3ec7d4b8d7f4f1f90e95eee9411df6ce9d805cc22eaa196db345e71c472db0af",
+      "character_count": 650,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "chatgpt",
+        "provider": "OpenAI ChatGPT",
+        "model_id": "GPT-6",
+        "prompt_version": "yorisoi-story-v4-guided-original",
+        "generated_at": "2026-11-14T09:29:02.634773Z",
+        "generation_attempts": 1,
+        "length_target_met": true,
+        "length_retry_error": null,
+        "warnings": [
+          "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+          "音声未生成。再生時間は未測定です。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "other_dolphin_004",
+        "source_revision": 2,
+        "source_content_sha256": "3ec7d4b8d7f4f1f90e95eee9411df6ce9d805cc22eaa196db345e71c472db0af",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "other_dolphin_004",
+        "source_revision": 1,
+        "source_content_sha256": "24588596fe240a399f40851e5ee3dd602a41d4850b266a7051be6eea43b0bcc3",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "chatgpt",
+          "provider": "OpenAI ChatGPT",
+          "model_id": "GPT-6",
+          "prompt_version": "yorisoi-story-v4-guided-original",
+          "batch_slot": "other_2",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:29:02.634773+00:00",
+          "generation_attempts": 1,
+          "length_target_met": true,
+          "length_retry_error": null,
+          "warnings": [
+            "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+            "音声未生成。再生時間は未測定です。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    },
+    {
+      "schema_version": "yorisoi-story-record-v2",
+      "story_id": "other_dolphin_005",
+      "revision": 2,
+      "display_order": 3,
+      "emotion": {
+        "label": "その他",
+        "key": "other"
+      },
+      "pet": {
+        "label": "イルカ",
+        "key": "dolphin"
+      },
+      "language": "ja-JP",
+      "title": "月明かりを運ぶ潮",
+      "story_text": "夕方の湾の外側で、ぼくは水面に映る細い光を見つけました。空にはまだ少し明るさが残り、その上に小さな月が出ています。ぼくが空気を吸って水へ戻ると、光は長い帯のように見えました。尾びれをゆっくり動かしながら、その端を眺めます。\n\n少し離れたところで、仲間の短い声が聞こえました。ぼくも声を返しましたが、すぐにはそちらへ向かいませんでした。今は月の光が水に映るところを、もう少し見ていたかったのです。仲間の背中は遠くで一度浮かび、それから静かに見えなくなりました。\n\n小さな波が来ると、光の帯はいくつにも分かれました。ぼくは胸びれで向きを変え、分かれた光の横をゆっくり通ります。あるところでは白く、別のところでは薄い青に見えました。見ているうちに波が緩み、光はまた長くつながっていきます。ぼくはしばらく同じ深さにとどまり、明るいところと暗いところが入れ替わるのを見ました。光に触れようとはせず、体に届く水の動きだけを静かに確かめました。\n\n潮の動きが少し変わると、ぼくの体も横へ押されました。ぼくは逆らわずに小さな弧を描き、見ていた場所から少し離れます。その向こうで、仲間の気配がもう一度近くなりました。並んで泳ぐほど近くはありませんが、声を返せる距離にいるのが分かりました。\n\n夜の色が深くなるころ、ぼくはもう一度水面へ上がりました。空気を吸って見渡すと、さっきより月がはっきり見えます。ぼくは短く声を出し、水の中へ静かに戻りました。楽しかったとも寂しかったとも言い切れない時間ですが、分かれてはつながる光の形は、まだそばにあるように感じられました。",
+      "content_sha256": "67f05aa7813f1b533611ec5c8ca1e30c69f58189f5f881e05c02a9d418866fa7",
+      "character_count": 665,
+      "target_duration_seconds": {
+        "min": 120,
+        "max": 180
+      },
+      "status": "draft",
+      "human_approved": false,
+      "generation": {
+        "origin": "chatgpt",
+        "provider": "OpenAI ChatGPT",
+        "model_id": "GPT-6",
+        "prompt_version": "yorisoi-story-v4-guided-original",
+        "generated_at": "2026-11-14T09:29:02.634773Z",
+        "generation_attempts": 1,
+        "length_target_met": true,
+        "length_retry_error": null,
+        "warnings": [
+          "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+          "音声未生成。再生時間は未測定です。"
+        ]
+      },
+      "review": {
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "mapping_checked": false,
+        "animal_viewpoint_checked": false,
+        "safety_checked": false,
+        "japanese_and_length_checked": false,
+        "privacy_and_rights_checked": false,
+        "read_aloud_checked": false,
+        "provenance_and_hash_checked": false,
+        "rights_basis": null,
+        "revision_notes": [
+          "AI-assisted revision 2: Japanese consistency and plot diversity; human review pending."
+        ]
+      },
+      "approval": {
+        "approver_id": null,
+        "approved_at": null,
+        "approved_content_sha256": null
+      },
+      "audio_handoff": {
+        "status": "not_generated",
+        "source_story_id": "other_dolphin_005",
+        "source_revision": 2,
+        "source_content_sha256": "67f05aa7813f1b533611ec5c8ca1e30c69f58189f5f881e05c02a9d418866fa7",
+        "pronunciation_notes": [],
+        "asset_path": null,
+        "actual_duration_seconds": null,
+        "audio_sha256": null
+      },
+      "editorial": {
+        "schema_version": "yorisoi-editorial-revision-v1",
+        "source_story_id": "other_dolphin_005",
+        "source_revision": 1,
+        "source_content_sha256": "fbfffe2c4f96787b986d9fb90258b23da9746ccfa9a1dffc91a2dbe2b953d85e",
+        "source_file_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+        "source_generation": {
+          "origin": "chatgpt",
+          "provider": "OpenAI ChatGPT",
+          "model_id": "GPT-6",
+          "prompt_version": "yorisoi-story-v4-guided-original",
+          "batch_slot": "other_3",
+          "batch_outcome": "eligible",
+          "diversity_human_review_required": true,
+          "generated_at": "2026-11-14T09:29:02.634773+00:00",
+          "generation_attempts": 1,
+          "length_target_met": true,
+          "length_retry_error": null,
+          "warnings": [
+            "ChatGPTによる新規草稿です。人による全文・安全性・日本語表現・権利・独自性・読み上げ確認と承認が必要です。",
+            "音声未生成。再生時間は未測定です。"
+          ]
+        },
+        "edited_on": "2026-11-14",
+        "editor": "Codex (AI-assisted editorial revision)",
+        "method": "ai_assisted_editorial_revision",
+        "change_type": "plot_and_language_revision",
+        "human_review_required": true,
+        "notes": [
+          "Current text is an AI-assisted editorial revision, not a new Gemini request or human-approved story.",
+          "Original generator provenance is retained; prior batch eligibility applies only to the source draft."
+        ]
+      }
+    }
+  ],
+  "batch_jobs": {},
+  "content_stage": "ai_edited_unapproved_candidates",
+  "source_archive_sha256": "96f2e2884b25b9e7833a3eabd0e266045d10c58b3b3e19b3df4cc600fe023b6a",
+  "editorial_date": "2026-11-14"
+}
