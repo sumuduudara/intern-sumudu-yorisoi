@@ -1,5 +1,10 @@
 # Home → Firebase Gemini → 感情結果の実接続
 
+2026-11-08追記：Issue #12で通常の分析成功後は仮Story Listへ直接遷移する。
+主副感情の確認・Homeへの戻りを保持し、Issue #11 repositoryへ主感情を渡す。
+下記の独立結果画面への遷移はIssue #9当時の履歴。現在の経路・配信gate・未確認事項は
+[Issue #12仕様](story_room_list_spec.md)を参照。元の結果画面sourceは削除していない。
+
 ## 2026-11-06：App Checkによる実リクエスト失敗とローカル再確認
 
 過去のChrome成功記録は履歴として保持する。今回、既存Firebase options、実SDK、同じmodel/prompt/schemaによる

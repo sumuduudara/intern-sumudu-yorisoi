@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/domain/emotions/emotion_analysis_result.dart';
 import 'package:yorisoi/presentation/screens/home_screen.dart';
+import 'package:yorisoi/presentation/screens/story_list_screen.dart';
 import 'package:yorisoi/presentation/screens/emotion_analysis_result_screen.dart';
 import 'package:yorisoi/presentation/widgets/home/analysis_loading_view.dart';
 import 'package:yorisoi/services/emotion/emotion_analysis_service.dart';
 
 import 'support/fake_emotion_analyzer.dart';
+import 'support/fake_story_repository.dart';
 
 const input = Key('feeling-input');
 const submit = Key('share-feeling');
@@ -28,7 +30,12 @@ Future<void> openHome(WidgetTester tester, EmotionAnalyzer service) async {
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
   await tester.pumpWidget(
-    MaterialApp(home: HomeScreen(emotionAnalyzer: service)),
+    MaterialApp(
+      home: HomeScreen(
+        emotionAnalyzer: service,
+        storyRepository: FakeStoryRepository(),
+      ),
+    ),
   );
   await tester.pumpAndSettle();
 }
@@ -57,7 +64,7 @@ void main() {
     await share(tester, '今日はひとりで寂しいです');
     await tester.pumpAndSettle();
     expect(find.text('寂しい'), findsOneWidget);
-    expect(find.byType(EmotionAnalysisResultScreen), findsOneWidget);
+    expect(find.byType(StoryListScreen), findsOneWidget);
   });
 
   testWidgets('invalid JSON from the actual service never opens results', (
@@ -76,7 +83,7 @@ void main() {
       ),
       findsOneWidget,
     );
-    expect(find.byType(EmotionAnalysisResultScreen), findsNothing);
+    expect(find.byType(StoryListScreen), findsNothing);
     expect(textOf(tester), '今日はひとりで寂しいです');
   });
 
@@ -91,7 +98,7 @@ void main() {
       expect(textOf(tester), '寂しいです');
       pending.complete(lonely);
       await tester.pumpAndSettle();
-      expect(find.byType(EmotionAnalysisResultScreen), findsNothing);
+      expect(find.byType(StoryListScreen), findsNothing);
     },
   );
 
@@ -127,11 +134,11 @@ void main() {
     expect(fake.inputs, hasLength(1));
     pending.complete(lonely);
     await tester.pumpAndSettle();
-    expect(find.byType(EmotionAnalysisResultScreen), findsOneWidget);
+    expect(find.byType(StoryListScreen), findsOneWidget);
     expect(find.text('寂しい'), findsOneWidget);
     expect(find.byKey(const Key('secondary-emotion')), findsNothing);
-    expect(find.text('ペットルームのおすすめは準備中です。'), findsOneWidget);
-    await tester.tap(find.byKey(const Key('emotion-result-back')));
+    expect(find.text('公開済みのお話は現在準備中です。'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('story-list-back')));
     await tester.pumpAndSettle();
     expect(textOf(tester), text);
     expect(tester.widget<TextField>(find.byKey(input)).readOnly, isFalse);
@@ -147,8 +154,8 @@ void main() {
       await openHome(tester, FakeEmotionAnalyzer((_) async => result));
       await share(tester, '寂しくて悲しいです');
       await tester.pumpAndSettle();
-      final screen = tester.widget<EmotionAnalysisResultScreen>(
-        find.byType(EmotionAnalysisResultScreen),
+      final screen = tester.widget<StoryListScreen>(
+        find.byType(StoryListScreen),
       );
       expect(identical(screen.result, result), isTrue);
       expect(find.text('寂しい'), findsOneWidget);
@@ -156,7 +163,7 @@ void main() {
       // Chrome must use the bundled Japanese font, not a network fallback.
       for (final text in tester.widgetList<Text>(
         find.descendant(
-          of: find.byType(EmotionAnalysisResultScreen),
+          of: find.byType(StoryListScreen),
           matching: find.byType(Text),
         ),
       )) {
@@ -194,7 +201,7 @@ void main() {
     expect(fake.inputs, hasLength(1));
     pending.complete(lonely);
     await tester.pumpAndSettle();
-    expect(find.byType(EmotionAnalysisResultScreen), findsOneWidget);
+    expect(find.byType(StoryListScreen), findsOneWidget);
   });
 
   for (final error in EmotionAnalysisError.values) {
@@ -214,7 +221,7 @@ void main() {
         findsOneWidget,
       );
       expect(textOf(tester), '  今日はひとりで寂しいです  ');
-      expect(find.byType(EmotionAnalysisResultScreen), findsNothing);
+      expect(find.byType(StoryListScreen), findsNothing);
       fail = false;
       await tester.tap(find.text('再試行'));
       await tester.pumpAndSettle();
@@ -294,7 +301,7 @@ void main() {
       }
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
-      expect(find.byType(EmotionAnalysisResultScreen), findsNothing);
+      expect(find.byType(StoryListScreen), findsNothing);
     });
   }
 

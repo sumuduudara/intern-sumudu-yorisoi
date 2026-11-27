@@ -8,9 +8,10 @@ import '../../services/auth/firebase_auth_service.dart';
 import '../../services/emotion/emotion_analysis_service.dart';
 import '../../services/emotion/firebase_emotion_model.dart';
 import '../../services/voice/speech_to_text_service.dart';
+import '../../repositories/story_repository.dart';
 import '../controllers/voice_input_controller.dart';
 import 'welcome_screen.dart';
-import 'emotion_analysis_result_screen.dart';
+import 'story_list_screen.dart';
 import '../widgets/home/analysis_loading_view.dart';
 import '../widgets/home/feeling_input_view.dart';
 
@@ -23,6 +24,7 @@ class HomeScreen extends StatefulWidget {
     this.analysisPreviewAction,
     this.voiceRecognition,
     this.emotionAnalyzer,
+    this.storyRepository,
   }) : assert(analysisPreviewAction == null || previewOnly);
 
   final Future<void> Function()? logoutAction;
@@ -30,6 +32,7 @@ class HomeScreen extends StatefulWidget {
   final bool previewOnly;
   final VoiceRecognition? voiceRecognition;
   final EmotionAnalyzer? emotionAnalyzer;
+  final StoryRepository? storyRepository;
 
   /// Only used in explicit previewOnly mode, never in the production flow.
   final Future<void> Function(String text)? analysisPreviewAction;
@@ -132,9 +135,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       setState(() => _isAnalyzing = false);
       await Navigator.of(context).push<void>(
         MaterialPageRoute(
-          builder: (_) => EmotionAnalysisResultScreen(
+          builder: (_) => StoryListScreen(
             result: result,
-            displayName: _displayName,
+            repository: widget.storyRepository,
           ),
         ),
       );
