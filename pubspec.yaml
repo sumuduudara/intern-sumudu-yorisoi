@@ -31,6 +31,7 @@ flutter:
     - assets/images/home/
     - assets/images/auth/
     - assets/images/pets/
+    - assets/images/story_list/
   fonts:
     - family: Zen Maru Gothic
       fonts:

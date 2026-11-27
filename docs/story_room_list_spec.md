@@ -1,6 +1,7 @@
 # Issue #12 — お話・ペットルーム一覧画面仕様
 
-更新日：2026-11-08。正式なStory ListのFigmaデザインが届くまでの**仮UI**。
+更新日：2026-11-10。正式なStory List Figma五画面とStory Cardを反映。
+初期の仮UIをpresentationのみ差し替えた。controller/repository/navigationの契約は維持する。
 本書は利用者が今回指定した要件とIssue #9/#11の実装を基にする。
 GitHub Issue #12本文は本環境のread toolsで取得できず、GitHub側のacceptance criteriaとの独立照合は未完了。
 
@@ -10,15 +11,19 @@ GitHub Issue #12本文は本環境のread toolsで取得できず、GitHub側の
 利用者が聴きたいお話を選ぶ。通常2〜3件を目指すが、0/1件でも架空のお話で補完しない。
 Pet Radioの再生、TTS、物語生成、Firestore/Storageへの書込み、手動pet変更は行わない。
 
-## 2. デザインの区別
+## 2. 正式Figmaと表示上の対応
 
-- 原本Figmaの`04 — Pet Radio`四画面は再生画面。一覧へ流用・改名しない。
-- 仮UIで新規に構成したもの：見出し、感情の要約、story cards、loading/empty/error案内、選択操作、将来playerへの確認画面。
-- 仮UIには常に「仮UI・正式なFigmaデザイン待ち」を表示する。これらの配置は正式承認済みFigmaの再現ではない。
-- 再利用：Homeの背景・logo、Zen Maru Gothic、既存の暖色/pink gradient、白い丸角card、柔らかいshadow。
-- petは原本FigmaのCat/Rabbit/Dog/Dolphin layerを加工せずPNG exportしたもの。絵文字・代替画像は使わず、縦横比を保つ`BoxFit.contain`で表示する。
-- Home/Analysis Loading/Auth/Settingsの既存レイアウトは変更しない。pixel-perfectとは主張しない。
-- 正式デザイン到着後は`StoryListView`を差替え、controller/repository/navigation contractを維持する。
+- 原本のStory List：Cat `109:25`、Rabbit `109:125`、Dog `109:225`、Dolphin `109:325`、Empty `109:425`。共通Story Cardは `109:2`。
+- `04 — Pet Radio`は引き続き再生画面であり、一覧へ流用しない。
+- 原本のbackground、透過pet画像、back/paw/clock/play/bubble-tail、EmptyのMoon tileをそのままローカル保存。背景や動物を描き直さず、Home背景を代用品にしない。
+- `StoryPetDesign`がpetごとのasset、chip色、card tint、挨拶、390×844上のpet位置を持つ。
+- `StoryListView`がloading/empty/error/listを切替える。`StoryChoiceCard`は実Storyのtitle/description/durationと選択callbackを受ける。
+- 背景、原寸枠、speech bubble、card、Empty card/actionsをreference PNGと比較した。原本referenceは[design/story_list](design/story_list/README.md)に保存し、appへはbundleしない。
+- 仮UIラベルは正式presentation統合に伴い削除。狭い幅・文字拡大では固定canvasを縮小せず、文章と操作行を折り返して縦scrollする。
+- 実metadataに英語titleがないため、Figmaの英語サンプルtitleを捏造しない。日本語title/descriptionをそのまま表示し、cardは最低133px、長文では高さを広げる。
+- 主/副感情と診断ではない旨は、原本構成の下に補足として保持。Catの悲しい入力では寂しいと誤表現しない文言へ切替える。
+- 原本Empty frameはCat例だが、他感情でも承認済みのpet割当を維持し、そのpetの背景/画像と共通Empty cardを組み合わせる。
+- Home/Analysis Loading/Auth/Settings、Firebase/App Check、Firestore公開条件は変更しない。pixel-perfectとは主張しない。
 
 ## 3. 入力・対応表
 
@@ -54,9 +59,9 @@ Pet Radioの再生、TTS、物語生成、Firestore/Storageへの書込み、手
 | 状態 | 表示と操作 |
 | --- | --- |
 | 読込中 | progressと「公開済みのお話を探しています…」。story選択は表示しない |
-| 0件・draft | 「公開済みのお話は現在準備中です。」。Homeへ戻る/再確認。fake cardsなし |
+| 0件・draft | 「おはなし準備中」「いま公開されているおはなしはありません。」。Homeへ戻る/再確認。fake cardsなし |
 | 1件 | 実在する1件と不足案内。別感情/未承認storyで補充しない |
-| 2〜3件 | cardに対応pet、title、description、duration、選択button |
+| 2〜3件 | 対応petのpaw/tintを持つcardに実title、description、duration、選択button |
 | network/timeout | 接続案内と手動「再試行」 |
 | permission/configuration等 | 安全な日本語案内と手動retry。raw SDK例外やmetadataを表示しない |
 | navigation失敗 | 一覧に留まり再選択可能。内部例外を表示しない |
@@ -100,9 +105,9 @@ Login→Homeで日本語を入力/音声で確定→Share→実Loading→一覧�
 現時点のdraft libraryでは空案内が正しい。入力へ戻り文章保持を確認する。
 実story cards/選択のbrowser確認は、別途人が承認・audio準備・公開した実metadata/assetが必要。
 その確認のために本実装がlibraryをapprovedにしたり、fake production storiesを追加したりしない。
-正式Figmaとの視覚比較、今回のChrome end-to-end、公開story選択、実audio playback、iOS/Android実機は未確認。
+正式Figma referenceと390×844のwidget render五画面は視覚比較済み。今回のChrome end-to-end、公開story選択、実audio playback、iOS/Android実機は未確認。
 
-### 今回の実行記録
+### 初期仮UIの実行記録（2026-11-08・今回の再実行結果ではない）
 
 - `flutter analyze --no-pub`：No issues。
 - `flutter test --no-pub --concurrency=1 --reporter expanded`：**454 passed / 3 skipped**。
@@ -111,3 +116,27 @@ Login→Homeで日本語を入力/音声で確定→Share→実Loading→一覧�
 - 390×844のwidget renderを`/tmp`へ出力して仮UIの日本語表示・既存背景・元pet画像・card配置を視覚確認。
   test専用metadataを使用したlocal renderであり、Chromeや本番配信story選択の成功ではない。
 - この作業でFirebase Console、App Check enforcement、billing、Gitを変更していない。
+
+
+### 正式Figma統合の検証（2026-11-10）
+
+- `flutter analyze --no-pub`：**No issues found**。
+- `flutter test --no-pub --concurrency=1 --reporter expanded`：**498 passed / 3 skipped**。
+  skipは既存のopt-in live emotion tests。今回live APIを自動呼出ししていない。
+- 新規18 tests：全8感情×公開候補/emptyのasset選択、draft除外、実metadata表示、
+  320px/文字2倍/長文の折返し、reference上のback/bubble位置を検証。
+- 既存のHome→分析→一覧→実ID/revision引継ぎ→Home入力保持、loading/error/retry、
+  二重選択抑止、破棄後完了の無視、voiceの回帰testsもfull suite内で成功。
+- 390×844の五画面をローカルrenderし、元Figma PNGと比較。原本背景・透過pet・icons・moonを使用。
+  fixture表示によるwidget検証であり、本番公開storyのChrome選択/再生成功とは扱わない。
+- 実Firestore libraryは既存のdraftのまま。公開storyのlive選択、音声再生、native端末は今回未検証。
+- Git、Firebase/Auth/App Check設定、billing、PRは操作していない。
+
+
+### 開発専用DRAFT preview（2026-11-14）
+
+未承認原稿のcard/ID/revisionを確認するため、[別entrypointのDRAFT preview](story_list_draft_preview.md)を用意した。
+明示flag付きlocalhost Web debugだけで起動し、利用者が選んだlocal JSONをread-onlyで読む。公式StoryListViewを再利用するが、production repository/controller/routeには接続しない。
+全8感情×3件、未承認のinactive Story projection、audio/duration null、常時DRAFT labelを使用する。選択は原稿全文と実ID/revisionのreviewに限り、playerは起動しない。
+Empty/Errorは明示simulationで、既存Firestore状態を変更しない。本文抜粋を仮descriptionとして表示することと、公開されたStory Listの検証とは区別する。
+原稿JSONはapp assetsへ追加せず、browser archive・Firestore・Auth/App Check・approval fieldsに書き込まない。人の承認と実audioが必要という本番gateはそのまま保持する。

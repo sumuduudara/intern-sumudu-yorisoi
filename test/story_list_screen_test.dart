@@ -65,53 +65,28 @@ void main() {
           await tester.pumpAndSettle();
           Rect bounds(String key) => tester.getRect(find.byKey(Key(key)));
           expect(
-            bounds('story-pet-description').top - bounds('main-emotion').bottom,
-            greaterThanOrEqualTo(11.9),
+            bounds('story-speech-bubble').bottom,
+            lessThanOrEqualTo(bounds('story-pet-description').top - 11.9),
           );
           expect(
-            bounds('story-emotion-disclaimer').top -
-                bounds('secondary-emotion').bottom,
-            greaterThanOrEqualTo(15.9),
+            bounds('story-state-panel').top,
+            greaterThanOrEqualTo(bounds('story-pet-description').bottom + 24),
           );
-          expect(
-            bounds('story-state-panel').top -
-                bounds('story-emotion-panel').bottom,
-            greaterThanOrEqualTo(23.9),
-          );
-          expect(
-            bounds('story-list-empty-detail').top -
-                bounds('story-list-empty').bottom,
-            greaterThanOrEqualTo(11.9),
-          );
-          for (final key in [
-            'story-pet-description',
-            'story-emotion-disclaimer',
-            'story-list-empty',
-            'story-list-empty-detail',
-          ]) {
+          for (final key in ['story-list-empty', 'story-list-empty-detail']) {
             final finder = find.byKey(Key(key));
-            final paragraph = tester.renderObject<RenderParagraph>(finder);
-            expect(paragraph.didExceedMaxLines, isFalse);
+            expect(
+              tester.renderObject<RenderParagraph>(finder).didExceedMaxLines,
+              isFalse,
+            );
             expect(tester.widget<Text>(finder).maxLines, isNull);
-            final panel = key.startsWith('story-list-')
-                ? bounds('story-state-panel')
-                : bounds('story-emotion-panel');
-            expect(bounds(key).left, greaterThanOrEqualTo(panel.left + 19.9));
-            expect(bounds(key).right, lessThanOrEqualTo(panel.right - 19.9));
+            final panel = bounds('story-state-panel');
+            expect(bounds(key).left, greaterThanOrEqualTo(panel.left + 29.9));
+            expect(bounds(key).right, lessThanOrEqualTo(panel.right - 29.9));
           }
-          final panel = tester.widget<Container>(
-            find
-                .descendant(
-                  of: find.byKey(const Key('story-emotion-panel')),
-                  matching: find.byType(Container),
-                )
-                .first,
-          );
-          expect((panel.decoration as BoxDecoration).color, Colors.white);
-          await tester.ensureVisible(find.text('もう一度確認'));
+          await tester.ensureVisible(find.byKey(const Key('story-list-retry')));
           await tester.pumpAndSettle();
           expect(tester.takeException(), isNull);
-          expect(find.byKey(const Key('temporary-story-list')), findsOneWidget);
+          expect(find.byKey(const Key('temporary-story-list')), findsNothing);
         },
       );
     }
@@ -166,21 +141,22 @@ void main() {
       final repo = FakeStoryRepository(read: () => pending.future);
       await openList(tester, repo);
       expect(find.byKey(const Key('story-list-loading')), findsOneWidget);
-      expect(find.text('仮UI・正式なFigmaデザイン待ち'), findsOneWidget);
+      expect(find.byKey(const Key('temporary-story-list')), findsNothing);
       expect(repo.analyses.single, same(happy));
       pending.complete([storyFixture()]);
       await tester.pumpAndSettle();
       expect(find.text('テスト用のお話001'), findsOneWidget);
-      expect(find.text('2分30秒'), findsOneWidget);
-      expect(find.text('現在ご案内できるお話は1件です。'), findsOneWidget);
+      expect(find.text('約2分 · 2:30'), findsOneWidget);
+      expect(find.text('Choose a story · 1'), findsOneWidget);
       expect(
         tester
             .widgetList<Image>(find.byType(Image))
             .where(
               (image) =>
-                  image.image == const AssetImage('assets/images/pets/dog.png'),
+                  image.image ==
+                  const AssetImage('assets/images/story_list/pet_dog.png'),
             ),
-        hasLength(2),
+        hasLength(1),
       );
     },
   );
