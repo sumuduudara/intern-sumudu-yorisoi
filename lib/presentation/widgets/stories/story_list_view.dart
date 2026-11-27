@@ -354,7 +354,7 @@ class _StoryCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             gradient: const LinearGradient(
-              colors: [Color(0xFFD97C84), StoryListView.pink],
+              colors: [Color(0xFFB65360), Color(0xFFA84955)],
             ),
           ),
           child: SizedBox(
