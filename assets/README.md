@@ -44,6 +44,31 @@ The **new temporary** Story List card arrangement is not an approved Figma frame
 Character proportions are preserved with `BoxFit.contain`. No artwork redesign,
 AI substitute, or additional redistribution license is inferred.
 
+## Restored authentication assets
+
+`images/auth/` uses original assets from Figma Login `2:54` and Sign Up `2:2`,
+retrieved on 2026-11-08. Background source files are JPEG despite their temporary
+download URLs ending in `.png`; the local `.jpg` extension reflects the original
+bytes. No background or character image has been redrawn or altered.
+
+| Asset | Original Figma source |
+| --- | --- |
+| bg_signup.jpg | 2:3 — Sign Up background image fill |
+| bg_login.jpg | 2:55 — Login background image fill |
+| pets_group.png | Shared original image fill, 2:13 / 2:66 |
+| heart_signup.svg | 2:8 — original 20 × 20 heart |
+| heart_login.svg | 2:60 — original 23 × 23 heart |
+| icon_user.svg | 2:24 — nickname icon, 18 × 18 |
+| icon_email.svg | 2:31 / 2:76 — email icon, 18 × 18 |
+| icon_lock.svg | 2:38 / 2:83 — password icon, 18 × 18 |
+
+Branding text uses the bundled fonts with Figma sizes/weights/letter spacing,
+plus original SVG hearts. Full logo frame PNG exports included an opaque paper
+rectangle and are deliberately not used as implementation assets. Temporary
+exports were preserved outside the repository in `/tmp/yorisoi_auth_unused_exports`.
+No temporary Figma URL is used at runtime. No additional artwork license is
+inferred from the repository license.
+
 ## Fonts
 
 Bundled, unmodified fonts from the official [Google Fonts repository](https://github.com/google/fonts):

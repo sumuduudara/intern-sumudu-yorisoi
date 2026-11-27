@@ -1,6 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
+/// Account creation succeeded, but its optional profile update did not.
+/// Never include the raw SDK error, email or nickname in exception strings.
+class RegistrationProfileException implements Exception {
+  const RegistrationProfileException({required this.userId});
+  final String? userId;
+  @override
+  String toString() => 'RegistrationProfileException(accountCreated: true)';
+}
+
 class FirebaseAuthService {
   FirebaseAuthService({FirebaseAuth? auth})
     : _auth = auth ?? FirebaseAuth.instance;
@@ -64,10 +73,40 @@ class FirebaseAuthService {
   Future<UserCredential> register({
     required String email,
     required String password,
+    String? nickname,
   }) async {
-    return _auth.createUserWithEmailAndPassword(
+    final credential = await _auth.createUserWithEmailAndPassword(
       email: email.trim(),
       password: password,
     );
+    final name = nickname?.trim() ?? '';
+    if (name.isNotEmpty) {
+      try {
+        final user = credential.user;
+        if (user == null) throw StateError('Missing created user');
+        await user.updateDisplayName(name);
+      } catch (_) {
+        throw RegistrationProfileException(userId: credential.user?.uid);
+      }
+    }
+    return credential;
+  }
+
+  /// Retry only the optional profile write; never create a second account.
+  Future<void> retryRegistrationNickname({
+    required String? expectedUserId,
+    required String nickname,
+  }) async {
+    final user = _auth.currentUser;
+    if (expectedUserId == null || user == null || user.uid != expectedUserId) {
+      throw const RegistrationProfileException(userId: null);
+    }
+    try {
+      final name = nickname.trim();
+      if (name.isEmpty) throw StateError('Use explicit continue-without-name');
+      await user.updateDisplayName(name);
+    } catch (_) {
+      throw RegistrationProfileException(userId: expectedUserId);
+    }
   }
 }
