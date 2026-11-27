@@ -1,9 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../../services/auth/firebase_auth_service.dart';
+import '../../services/emotion/emotion_analysis_service.dart';
+import '../../services/emotion/firebase_emotion_model.dart';
+import '../../services/voice/speech_to_text_service.dart';
+import '../../repositories/story_repository.dart';
+import '../controllers/voice_input_controller.dart';
 import 'welcome_screen.dart';
+import 'story_list_screen.dart';
 import '../widgets/home/analysis_loading_view.dart';
 import '../widgets/home/feeling_input_view.dart';
 
@@ -14,27 +22,62 @@ class HomeScreen extends StatefulWidget {
     this.displayName,
     this.previewOnly = false,
     this.analysisPreviewAction,
-  });
+    this.voiceRecognition,
+    this.emotionAnalyzer,
+    this.storyRepository,
+  }) : assert(analysisPreviewAction == null || previewOnly);
 
   final Future<void> Function()? logoutAction;
   final String? displayName;
   final bool previewOnly;
+  final VoiceRecognition? voiceRecognition;
+  final EmotionAnalyzer? emotionAnalyzer;
+  final StoryRepository? storyRepository;
 
-  /// A controllable local UI preview for widget tests; never an AI result.
+  /// Only used in explicit previewOnly mode, never in the production flow.
   final Future<void> Function(String text)? analysisPreviewAction;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool _isSigningOut = false;
   final _feelingController = TextEditingController();
   final _feelingFocus = FocusNode();
-  bool _isPreviewLoading = false;
+  bool _isAnalyzing = false;
   bool _canRetry = false;
   String? _inputError;
-  int _previewRequest = 0;
+  int _analysisRequest = 0;
+  late final VoiceInputController _voice;
+  late final EmotionAnalyzer _emotionAnalyzer;
+
+  @override
+  void initState() {
+    super.initState();
+    _emotionAnalyzer =
+        widget.emotionAnalyzer ??
+        EmotionAnalysisService(model: FirebaseEmotionModel());
+    _voice = VoiceInputController(
+      textController: _feelingController,
+      recognition: widget.voiceRecognition ?? SpeechToTextService.instance,
+    )..addListener(_voiceChanged);
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  void _voiceChanged() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // "inactive" can be the OS permission dialog, not a background recording.
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached) {
+      unawaited(_voice.cancel());
+    }
+  }
 
   String? get _displayName {
     if (widget.displayName != null) return widget.displayName;
@@ -44,19 +87,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _previewRequest++;
+    _analysisRequest++;
+    WidgetsBinding.instance.removeObserver(this);
+    _voice.removeListener(_voiceChanged);
+    _voice.dispose();
     _feelingController.dispose();
     _feelingFocus.dispose();
     super.dispose();
   }
 
-  void _cancelPreview() {
-    _previewRequest++;
-    setState(() => _isPreviewLoading = false);
+  void _cancelAnalysis() {
+    _analysisRequest++;
+    setState(() {
+      _isAnalyzing = false;
+      if (!widget.previewOnly) {
+        _inputError = '結果の表示を中止しました。送信済みの通信は取り消せません。';
+        _canRetry = false;
+      }
+    });
   }
 
   Future<void> _submitFeeling() async {
-    if (_isPreviewLoading || _isSigningOut) return;
+    if (_isAnalyzing || _isSigningOut || _voice.busy) return;
     final text = _feelingController.text.trim();
     if (text.isEmpty) {
       setState(() {
@@ -67,49 +119,74 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
     _feelingFocus.unfocus();
-    final request = ++_previewRequest;
+    final request = ++_analysisRequest;
     setState(() {
-      _isPreviewLoading = true;
+      _isAnalyzing = true;
       _inputError = null;
       _canRetry = false;
     });
     try {
-      // Local delay only. No Gemini, STT, Firestore, or recommendation request.
-      final action = widget.analysisPreviewAction;
-      if (action == null) {
-        await Future<void>.delayed(const Duration(seconds: 3));
-      } else {
-        await action(text);
+      if (widget.previewOnly) {
+        await _runVisualPreview(text, request);
+        return;
       }
-      if (!mounted || request != _previewRequest) return;
-      setState(() => _isPreviewLoading = false);
-      await showDialog<void>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('UIプレビュー'),
-          content: const Text(
-            '感情分析・おすすめ画面はまだ接続されていません。'
-            '入力内容は送信していません。',
+      final result = await _emotionAnalyzer.analyze(text);
+      if (!mounted || request != _analysisRequest) return;
+      setState(() => _isAnalyzing = false);
+      await Navigator.of(context).push<void>(
+        MaterialPageRoute(
+          builder: (_) => StoryListScreen(
+            result: result,
+            repository: widget.storyRepository,
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('入力に戻る'),
-            ),
-          ],
         ),
       );
-    } catch (_) {
-      if (!mounted || request != _previewRequest) return;
+    } catch (error) {
+      if (!mounted || request != _analysisRequest) return;
       setState(() {
-        _isPreviewLoading = false;
-        _inputError = 'プレビューの表示に失敗しました。もう一度お試しください。';
+        _isAnalyzing = false;
+        _inputError = widget.previewOnly
+            ? 'プレビューの表示に失敗しました。もう一度お試しください。'
+            : (error is EmotionAnalysisException
+                  ? error.japaneseMessage
+                  : const EmotionAnalysisException(
+                      EmotionAnalysisError.apiFailure,
+                    ).japaneseMessage);
         _canRetry = true;
       });
     }
   }
 
-  void _showSettings() {
+  Future<void> _runVisualPreview(String text, int request) async {
+    final action = widget.analysisPreviewAction;
+    if (action == null) {
+      await Future<void>.delayed(const Duration(seconds: 3));
+    } else {
+      await action(text);
+    }
+    if (!mounted || request != _analysisRequest) return;
+    setState(() => _isAnalyzing = false);
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('UIプレビュー'),
+        content: const Text(
+          '感情分析・おすすめ画面はまだ接続されていません。'
+          '入力内容は送信していません。',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('入力に戻る'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showSettings() async {
+    await _voice.cancel();
+    if (!mounted) return;
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
@@ -168,44 +245,66 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          if (_isPreviewLoading)
-            AnalysisLoadingView(
-              message: _feelingController.text.trim(),
-              displayName: _displayName,
-              onCancel: _cancelPreview,
-            )
-          else
-            FeelingInputView(
-              controller: _feelingController,
-              focusNode: _feelingFocus,
-              displayName: _displayName,
-              onSubmit: _isSigningOut ? null : _submitFeeling,
-              onMicrophone: () => ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('音声入力は準備中です。テキストで入力してください。')),
+    return PopScope(
+      canPop: !_isAnalyzing,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          unawaited(_voice.cancel());
+        } else if (_isAnalyzing) {
+          _cancelAnalysis();
+        }
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            if (_isAnalyzing)
+              AnalysisLoadingView(
+                message: _feelingController.text.trim(),
+                displayName: _displayName,
+                onCancel: _cancelAnalysis,
+                previewOnly: widget.previewOnly,
+              )
+            else
+              FeelingInputView(
+                controller: _feelingController,
+                focusNode: _feelingFocus,
+                displayName: _displayName,
+                onSubmit: _isSigningOut || _voice.busy ? null : _submitFeeling,
+                onMicrophone: _isSigningOut || !_voice.canTap
+                    ? null
+                    : () {
+                        _feelingFocus.unfocus();
+                        setState(() {
+                          _inputError = null;
+                          _canRetry = false;
+                        });
+                        unawaited(_voice.toggle());
+                      },
+                voiceHint: _voice.hint,
+                voiceListening: _voice.phase == VoiceInputPhase.listening,
+                voiceBusy: _voice.busy,
+                onSettings: _isSigningOut ? null : _showSettings,
+                onChanged: (_) {
+                  _voice.clearError();
+                  if (_inputError != null) {
+                    setState(() {
+                      _inputError = null;
+                      _canRetry = false;
+                    });
+                  }
+                },
+                error: _voice.error ?? _inputError,
+                canRetry: _canRetry,
               ),
-              onSettings: _isSigningOut ? null : _showSettings,
-              onChanged: (_) {
-                if (_inputError != null) {
-                  setState(() {
-                    _inputError = null;
-                    _canRetry = false;
-                  });
-                }
-              },
-              error: _inputError,
-              canRetry: _canRetry,
-            ),
-          if (_isSigningOut)
-            const Positioned.fill(
-              child: ColoredBox(
-                color: Color(0xCCFBF5EF),
-                child: Center(child: Text('ログアウト中...')),
+            if (_isSigningOut)
+              const Positioned.fill(
+                child: ColoredBox(
+                  color: Color(0xCCFBF5EF),
+                  child: Center(child: Text('ログアウト中...')),
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

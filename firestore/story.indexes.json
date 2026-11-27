@@ -1,0 +1,23 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "stories",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {"fieldPath": "emotion", "order": "ASCENDING"},
+        {"fieldPath": "petType", "order": "ASCENDING"},
+        {"fieldPath": "language", "order": "ASCENDING"},
+        {"fieldPath": "isActive", "order": "ASCENDING"},
+        {"fieldPath": "humanApproved", "order": "ASCENDING"},
+        {"fieldPath": "approvalStatus", "order": "ASCENDING"},
+        {"fieldPath": "audioStatus", "order": "ASCENDING"},
+        {"fieldPath": "displayOrder", "order": "ASCENDING"},
+        {"fieldPath": "__name__", "order": "ASCENDING"}
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {"collectionGroup": "stories", "fieldPath": "storyText", "indexes": []},
+    {"collectionGroup": "stories", "fieldPath": "description", "indexes": []}
+  ]
+}

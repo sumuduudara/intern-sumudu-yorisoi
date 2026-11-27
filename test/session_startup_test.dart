@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yorisoi/app/yorisoi_app.dart';
 import 'package:yorisoi/presentation/screens/home_screen.dart';
-import 'package:yorisoi/presentation/screens/welcome_screen.dart';
+import 'package:yorisoi/presentation/screens/login_screen.dart';
 
 void main() {
   testWidgets('waits for restoration before showing protected home', (
@@ -14,7 +14,7 @@ void main() {
     await tester.pumpWidget(YorisoiApp(restoreSession: () => pending.future));
     expect(find.text('ログイン状態を確認中...'), findsOneWidget);
     expect(find.byType(HomeScreen), findsNothing);
-    expect(find.byType(WelcomeScreen), findsNothing);
+    expect(find.byType(LoginScreen), findsNothing);
     pending.complete(true);
     await tester.pumpAndSettle();
     expect(find.byType(HomeScreen), findsOneWidget);
@@ -24,10 +24,10 @@ void main() {
     );
   });
 
-  testWidgets('missing or invalid saved session shows welcome', (tester) async {
+  testWidgets('missing or invalid saved session shows login', (tester) async {
     await tester.pumpWidget(YorisoiApp(restoreSession: () async => false));
     await tester.pumpAndSettle();
-    expect(find.byType(WelcomeScreen), findsOneWidget);
+    expect(find.byType(LoginScreen), findsOneWidget);
     expect(find.byType(HomeScreen), findsNothing);
   });
 

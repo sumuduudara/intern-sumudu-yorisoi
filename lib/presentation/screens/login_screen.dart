@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../services/auth/firebase_auth_service.dart';
 import 'home_screen.dart';
 import 'registration_screen.dart';
+import '../widgets/auth/auth_design.dart';
 
 typedef LoginAction = Future<void> Function({
   required String email,
@@ -122,111 +123,97 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('ログイン')),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Yorisoi',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    const SizedBox(height: 32),
-                    TextFormField(
-                      key: _emailFieldKey,
-                      controller: _emailController,
-                      enabled: !_isBusy,
-                      decoration: const InputDecoration(
-                        labelText: 'メールアドレス',
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
-                      validator: (value) {
-                        final email = value?.trim() ?? '';
-                        if (email.isEmpty) return 'メールアドレスを入力してください';
-                        if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
-                            .hasMatch(email)) {
-                          return '正しいメールアドレスを入力してください';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: _passwordController,
-                      enabled: !_isBusy,
-                      decoration: const InputDecoration(
-                        labelText: 'パスワード',
-                        border: OutlineInputBorder(),
-                      ),
-                      obscureText: true,
-                      autocorrect: false,
-                      enableSuggestions: false,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'パスワードを入力してください';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed: _isBusy ? null : _login,
-                      child: _isSubmitting
-                          ? const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  width: 18,
-                                  height: 18,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Text('ログイン中...'),
-                              ],
-                            )
-                          : const Text('ログインする'),
-                    ),
-                    const SizedBox(height: 16),
-                    TextButton(
-                      onPressed: _isBusy ? null : _resetPassword,
-                      child: Text(
-                        _isResettingPassword ? '送信中...' : 'パスワードをお忘れですか？',
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: _isBusy
-                          ? null
-                          : () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const RegistrationScreen(),
-                                ),
-                              );
-                            },
-                      child: const Text('アカウントをお持ちでない方はこちら'),
-                    ),
-                  ],
+  Widget build(BuildContext context) => AuthDesignFrame(
+    signUp: false,
+    child: Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const AuthHeading(signUp: false),
+          const SizedBox(height: 14),
+          AuthField(
+            fieldKey: _emailFieldKey,
+            label: 'メールアドレス',
+            english: 'Email',
+            hint: 'you@example.com',
+            icon: 'icon_email',
+            enabled: !_isBusy,
+            controller: _emailController,
+            email: true,
+            autofillHints: const [AutofillHints.email],
+            validator: (value) {
+              final email = value?.trim() ?? '';
+              if (email.isEmpty) return 'メールアドレスを入力してください';
+              if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
+                return '正しいメールアドレスを入力してください';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          AuthField(
+            fieldKey: const Key('auth-password'),
+            label: 'パスワード',
+            english: 'Password',
+            hint: 'パスワード · Password',
+            icon: 'icon_lock',
+            enabled: !_isBusy,
+            controller: _passwordController,
+            obscure: true,
+            autofillHints: const [AutofillHints.password],
+            validator: (value) =>
+                value == null || value.isEmpty ? 'パスワードを入力してください' : null,
+          ),
+          const SizedBox(height: 10),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              key: const Key('auth-password-reset'),
+              onPressed: _isBusy ? null : _resetPassword,
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Text(
+                _isResettingPassword
+                    ? '送信中...'
+                    : 'パスワードをお忘れですか？ · Forgot password?',
+                textAlign: TextAlign.right,
+                style: authText(
+                  12,
+                  color: authPink,
+                  weight: FontWeight.w700,
+                  height: 17 / 12,
                 ),
               ),
             ),
           ),
-        ),
+          const SizedBox(height: 62),
+          AuthPrimaryButton(
+            label: 'ログイン',
+            english: 'Log in',
+            busyLabel: 'ログイン中...',
+            busy: _isSubmitting,
+            onPressed: _isBusy ? null : _login,
+          ),
+          const SizedBox(height: 14),
+          AuthSwitchLink(
+            signUp: false,
+            onPressed: _isBusy
+                ? null
+                : () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const RegistrationScreen(),
+                      ),
+                    );
+                  },
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
